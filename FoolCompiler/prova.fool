@@ -1,0 +1,133 @@
+
+{bool x=(5==(true||false));}
+
+
+/* SERBATOIO ESEMPI
+
+  print(5+4) ;
+
+
+let
+  int y = 5+2;
+  bool f(int n, int m)
+    let
+      int x = m;
+  in x==y;
+in
+  print (
+    if f(y,8)
+      then { false }
+      else { 10 }
+  );
+
+let int x = 3; bool y = true ; in print (x-2) ;
+
+let int foo(int x) 
+if (x==0) then { print(true) } 
+else { print(false) } ;
+in print(foo(0));
+
+let  int fact(int n) 
+    let int foo(int n) n+1 ; in 
+    if (n==0) then { 1 } else { n*foo(n - 1) } ;
+in print(fact(3)) ;
+
+let int fact(int n) if (n==0) { 1 } else { n*fact(n-1) } ;
+in print(fact(3)) ;
+
+let int x = 3; in print (x+2);
+
+let
+  int x = 2;
+in
+  print (x);
+
+
+let
+  int x = 1;
+in
+  print (x);
+
+let
+  int x = 1;
+  bool b = true;
+in
+  print (if (b) then { x+1 } else { x+2 });
+
+let
+  bool f(int n, int  m)
+    let
+      int x = m;
+      int y = 6;
+  in x==y;
+in
+  print (y );
+
+let
+  int x = 1;
+  bool b = false;
+in
+  print (if (b) then { x+1 } else { x+2 });
+
+let
+  int x = 1;
+  bool b = true;
+in
+  print (if (b) then { x+1 } else { x+2 });
+---------------
+let
+  int f( int i, int j) i+j;
+in
+  print (f(3,5));
+----------------
+let
+  int y = 5+2;
+  bool f(int n, int m)
+    let
+      int x = m;
+  in x==y;
+in
+  print (
+    if f(y,8)
+      then { false }
+      else { 10 }
+  );
+
+------------- OLD SYNTAX
+
+let var x:int = 1 ; in print(x+4) ;
+
+-------------
+let 
+  var x:int = 1;
+  var b:bool = false;
+in
+  print (if (b) then { x+1 } else { x+2 }); 
+--------------
+let 
+  var x:int = 1;
+  var b:bool = true;
+in
+  print (if (b) then { x+1 } else { x+2 });
+---------------
+
+let 
+  fun f:int (i:int, j:int) i+j;
+in
+  print (f(3,5));
+*/
+
+/*----------------
+let
+  var y:int = 5+2;
+  fun f:bool (n:int, m:int)
+    let 
+      var x:int = m;
+  in x==y;   
+in  
+  print ( 
+    if f(y,8) 
+      then { false }
+      else { 10 }
+  ); 
+*/
