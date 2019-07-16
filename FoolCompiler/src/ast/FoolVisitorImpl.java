@@ -241,29 +241,30 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 			System.out.println(type_dx.toPrint("------- type_dx = "));
 
 			if (FOOLlib.isSubtype(type_sx,new IntTypeNode()) && FOOLlib.isSubtype(type_dx,new IntTypeNode())) {
-				
-				int left =  Integer.parseInt(ctx.left.getText());
-				int right =  Integer.parseInt(ctx.right.getText());
-
-				boolean finalValue = false;
 
 				switch (ctx.op.getText()) {
 
 				case "==":
-					if(left == right)
-						finalValue=true;
-					break;
-
+					return new EqualNode(node_sx, node_dx);
+				case ">":
+					return new GreaterNode(node_sx, node_dx);
+				case "<=":
+					return new LessEqualNode(node_sx, node_dx);
+				case "<":
+					return new LesserNode(node_sx, node_dx);
+				case ">=":
+					return new GreaterEqualNode(node_sx, node_dx);
+				case "!=":
+					return new NotEqualNode(node_sx, node_dx);
 				default:
-					break;
+					System.out.println("Operazione non riconosciuta");
+					System.exit(0);
+					return null;
 				}
-
-				System.out.println("finalValue = "+finalValue);
-
-				return new BoolNode(finalValue);
-			}else {
-				System.out.println("finalValue FORZATO a false");
-				return new BoolNode(false);
+			} else {
+				System.out.println("Sottotipi non rispettati");
+				System.exit(0);
+				return null;
 			}
 		}
 	}

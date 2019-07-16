@@ -73,17 +73,41 @@ public class ExecuteVM {
                 ip = address;
                 break;
               case SVMParser.BRANCHEQ : //
-                address = code[ip++];
-                v1=pop();
-                v2=pop();
-                if (v2 == v1) ip = address;
-                break;
+                  address = code[ip++];
+                  v1=pop();
+                  v2=pop();
+                  if (v2 == v1) ip = address;
+                  break;
+              case SVMParser.BRANCHNOTEQ : //
+                  address = code[ip++];
+                  v1=pop();
+                  v2=pop();
+                  if (v2 != v1) ip = address;
+                  break;
+              case SVMParser.BRANCHGT : //
+                  address = code[ip++];
+                  v1=pop();
+                  v2=pop();
+                  if (v2 > v1) ip = address;
+                  break;
+              case SVMParser.BRANCHLT : //
+                  address = code[ip++];
+                  v1=pop();
+                  v2=pop();
+                  if (v2 < v1) ip = address;
+                  break;
               case SVMParser.BRANCHLESSEQ :
-                address = code[ip++];
-                v1=pop();
-                v2=pop();
-                if (v2 <= v1) ip = address;
-                break;
+                  address = code[ip++];
+                  v1=pop();
+                  v2=pop();
+                  if (v2 <= v1) ip = address;
+                  break;
+              case SVMParser.BRANCHGREATEREQ :
+                  address = code[ip++];
+                  v1=pop();
+                  v2=pop();
+                  if (v2 >= v1) ip = address;
+                  break;
               case SVMParser.JS : //	
             	address = pop();
                 ra = ip;

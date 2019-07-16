@@ -58,7 +58,7 @@ value  		: INTEGER				#intVal // OK
     
 // LEXER RULES
 
-ROP     : '==' | '>' | '<' | '<=' | '>=' | '!=' ;
+ROP     : '==' | '>' | '<' | '<=' | '>=' | '!=' ; // OK
 
 //Numbers
 fragment DIGIT 	: '0'..'9';    

@@ -64,8 +64,24 @@ public class SVMVisitorImpl extends SVMBaseVisitor<Void> {
 				code[i++] = SVMParser.BRANCHEQ; 
                 labelRef.put(i++,(ctx.l!=null? ctx.l.getText():null));
                 break;
+			case SVMLexer.BRANCHNOTEQ:
+				code[i++] = SVMParser.BRANCHNOTEQ; 
+                labelRef.put(i++,(ctx.l!=null? ctx.l.getText():null));
+                break;
+			case SVMLexer.BRANCHGT:
+				code[i++] = SVMParser.BRANCHGT; 
+                labelRef.put(i++,(ctx.l!=null? ctx.l.getText():null));
+                break;
+			case SVMLexer.BRANCHLT:
+				code[i++] = SVMParser.BRANCHLT; 
+                labelRef.put(i++,(ctx.l!=null? ctx.l.getText():null));
+                break;
 			case SVMLexer.BRANCHLESSEQ:
 				code[i++] = SVMParser.BRANCHLESSEQ; 
+                labelRef.put(i++,(ctx.l!=null? ctx.l.getText():null));
+                break;
+			case SVMLexer.BRANCHGREATEREQ:
+				code[i++] = SVMParser.BRANCHGREATEREQ; 
                 labelRef.put(i++,(ctx.l!=null? ctx.l.getText():null));
                 break;
 			case SVMLexer.JS:
