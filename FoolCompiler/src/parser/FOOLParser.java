@@ -444,6 +444,9 @@ public class FOOLParser extends Parser {
 	}
 
 	public static class IfthenelseContext extends ParserRuleContext {
+		public ExpContext cond;
+		public BlockContext thenBranch;
+		public BlockContext elseBranch;
 		public ExpContext exp() {
 			return getRuleContext(ExpContext.class,0);
 		}
@@ -472,12 +475,12 @@ public class FOOLParser extends Parser {
 			{
 			setState(78); match(T__12);
 			setState(79); match(T__7);
-			setState(80); exp();
+			setState(80); ((IfthenelseContext)_localctx).cond = exp();
 			setState(81); match(T__6);
 			setState(82); match(T__3);
-			setState(83); block();
+			setState(83); ((IfthenelseContext)_localctx).thenBranch = block();
 			setState(84); match(T__9);
-			setState(85); block();
+			setState(85); ((IfthenelseContext)_localctx).elseBranch = block();
 			}
 		}
 		catch (RecognitionException re) {

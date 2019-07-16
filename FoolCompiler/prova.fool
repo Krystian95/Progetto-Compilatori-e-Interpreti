@@ -1,5 +1,5 @@
 
-{bool x = true && false;}
+{if(5==5) then {int x=3; bool y=false;} else {int x=5;}}
 
 /*{bool x = (4+(6/3)) > (5+1);}
 

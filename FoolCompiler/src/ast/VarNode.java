@@ -21,9 +21,7 @@ public class VarNode implements Node {
   
   @Override
   public ArrayList<SemanticError> checkSemantics(Environment env) {
-	  
-	  System.out.println("*******");
-	  
+	  	  
   		//create result list
   		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
   	  
@@ -31,9 +29,7 @@ public class VarNode implements Node {
   		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
   		  		
         STentry entry = new STentry(env.nestingLevel,type, env.offset--); //separo introducendo "entry"
-        
-        System.out.println(entry.toPrint(""));
-        
+                
         if ( hm.put(id,entry) != null )
         		res.add(new SemanticError("Var id "+id+" already declared"));
         

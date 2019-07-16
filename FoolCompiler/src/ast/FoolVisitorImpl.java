@@ -22,10 +22,10 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		for(StatementContext stmtCtx : ctx.statement()) {
 			System.out.println();
 			System.out.println("stmtCtx = "+stmtCtx.getText());
-			System.out.println("visitStatement("+stmtCtx.getText()+")");
+			//System.out.println("visit("+stmtCtx.getText()+")");
 			Node tmp=visit(stmtCtx);
 			statements.add(tmp);
-			System.out.println("ADDED visitStatement("+stmtCtx.getText()+") = "+tmp);
+			System.out.println("ADDED visit("+stmtCtx.getText()+") = "+tmp);
 		}
 
 		//System.out.println("statements = "+statements.toString());
@@ -108,9 +108,6 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 
 	@Override
 	public Node visitAssignment(AssignmentContext ctx) {
-
-
-		System.out.println("visitAssignment called!");
 
 		//visit the exp
 		Node expNode = visit(ctx.exp());
@@ -341,8 +338,8 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 
 	}
 
-	/*@Override
-	public Node visitIfExp(IfExpContext ctx) {
+	@Override
+	public Node visitIfthenelse(IfthenelseContext ctx) {
 
 		//create the resulting node
 		IfNode res;
@@ -353,15 +350,15 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 
 		Node condExp = visit (ctx.cond);
 
-		Node thenExp = visit (ctx.thenBranch);
+		Node thenBlock = visit (ctx.thenBranch);
 
-		Node elseExp = visit (ctx.elseBranch);
+		Node elseBlock = visit (ctx.elseBranch);
 
 		//build the @res properly and return it
-		res = new IfNode(condExp, thenExp, elseExp);
+		res = new IfNode(condExp, thenBlock, elseBlock);
 
 		return res;
-	}*/
+	}
 
 	@Override
 	public Node visitVarExp(VarExpContext ctx) {

@@ -12,16 +12,16 @@ grammar FOOL;
 
 block		: '{' statement* '}';
 
-statement	: assignment ';' #assignmentStatement
-		  	| deletion ';' #deletionStatement
-		  	| print ';' #printStatement
-		  	| functioncall ';' #functioncallStatement
-		  	| ifthenelse #ifthenelseStatement
-		  	| declaration #declarationStatement
-		  	| block #blockStatement
+statement	: assignment ';' #assignmentStatement // OK
+		  	| deletion ';' #deletionStatement // OK
+		  	| print ';' #printStatement // OK
+		  	| functioncall ';' #functioncallStatement // OK
+		  	| ifthenelse #ifthenelseStatement // OK
+		  	| declaration #declarationStatement // OK
+		  	| block #blockStatement // OK
 		  	;
 
-assignment	: ID '=' exp ;
+assignment	: ID '=' exp ; // OK
 
 deletion	: 'delete' ID ;
 
@@ -29,7 +29,7 @@ print		: 'print' exp ; // OK
 
 functioncall: ID '(' (exp (',' exp)* )? ')' ;
 
-ifthenelse 	: 'if' '(' exp ')' 'then' block 'else' block ;   
+ifthenelse 	: 'if' '(' cond=exp ')' 'then' thenBranch=block 'else' elseBranch=block ;
 
 declaration	: type ID '=' exp ';' #varasm // OK
 		  	| ID '(' ( parameter ( ',' parameter)* )? ')' block #fundec
@@ -47,7 +47,7 @@ exp    		:  ('-')? left=term (op=('+' | '-') right=exp)? // OK
 term   		: left=factor (op=('*' | '/') right=term)? ; // OK
    
 factor 		: left=value (op=ROP right=value)? #factorForInteger // OK
-	        | left=value (op=('&&' | '||') right=value)? #factorForBoolean
+	        | left=value (op=('&&' | '||') right=value)? #factorForBoolean // OK
 	        ; 
    
 value  		: INTEGER				#intVal // OK

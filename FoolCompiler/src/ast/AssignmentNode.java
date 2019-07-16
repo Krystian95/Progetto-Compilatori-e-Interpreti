@@ -14,8 +14,6 @@ public class AssignmentNode implements Node {
 	private Node idType;
 
 	public AssignmentNode (String i, Node v) {
-		System.out.println("i = "+i);
-		System.out.println("v = "+v.toPrint(i));
 		id = i;
 		exp = v;
 	}

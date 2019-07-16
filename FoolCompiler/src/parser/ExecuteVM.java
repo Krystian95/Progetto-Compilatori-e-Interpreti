@@ -76,13 +76,12 @@ public class ExecuteVM {
 					ip = address;
 					break;
 				case SVMParser.BRANCHEQ : //
-					System.out.println("TESTA prima: "+ memory[sp]);
+					//System.out.println("TESTA prima: "+ memory[sp]);
 					address = code[ip++];
 					v1=pop();
 					v2=pop();
-					System.out.println("v2 == v1 # "+v2+" == "+v1);
 					if (v2 == v1) ip = address;
-					System.out.println("TESTA dopo: "+ memory[sp]);
+					//System.out.println("TESTA dopo: "+ memory[sp]);
 					break;
 				case SVMParser.BRANCHNOTEQ : //
 					address = code[ip++];
@@ -155,7 +154,7 @@ public class ExecuteVM {
 					return;
 				}
 
-				System.out.println("TESTA: "+ memory[sp]);
+				//System.out.println("TESTA: "+ memory[sp]);
 			} 
 		}
 	} 
