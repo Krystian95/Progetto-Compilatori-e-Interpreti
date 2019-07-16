@@ -226,8 +226,6 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 	@Override
 	public Node visitFactorForInteger(FactorForIntegerContext ctx) {
 
-		System.out.println("-----------");
-
 		if(ctx.right == null){
 			return visit(ctx.left);
 		}else{
@@ -236,9 +234,6 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 
 			Node node_dx = visit(ctx.right);
 			Node type_dx = node_dx.typeCheck();
-
-			System.out.println(type_sx.toPrint("------- type_sx = "));
-			System.out.println(type_dx.toPrint("------- type_dx = "));
 
 			if (FOOLlib.isSubtype(type_sx,new IntTypeNode()) && FOOLlib.isSubtype(type_dx,new IntTypeNode())) {
 
@@ -256,6 +251,39 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 					return new GreaterEqualNode(node_sx, node_dx);
 				case "!=":
 					return new NotEqualNode(node_sx, node_dx);
+				default:
+					System.out.println("Operazione non riconosciuta");
+					System.exit(0);
+					return null;
+				}
+			} else {
+				System.out.println("Sottotipi non rispettati");
+				System.exit(0);
+				return null;
+			}
+		}
+	}
+
+	@Override
+	public Node visitFactorForBoolean(FactorForBooleanContext ctx) {
+
+		if(ctx.right == null){
+			return visit(ctx.left);
+		}else{
+			Node node_sx = visit(ctx.left);
+			Node type_sx = node_sx.typeCheck();
+
+			Node node_dx = visit(ctx.right);
+			Node type_dx = node_dx.typeCheck();
+
+			if (FOOLlib.isSubtype(type_sx,new BoolTypeNode()) && FOOLlib.isSubtype(type_dx,new BoolTypeNode())) {
+
+				switch (ctx.op.getText()) {
+
+				case "&&":
+					return new AndBooleanOperationNode(node_sx, node_dx);
+				case "||":
+					return new OrBooleanOperationNode(node_sx, node_dx);
 				default:
 					System.out.println("Operazione non riconosciuta");
 					System.exit(0);

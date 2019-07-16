@@ -16,7 +16,7 @@ assembly: (instruction)*;
 
 instruction:
     ( PUSH n=NUMBER 
-	  | PUSH l=LABEL 		     
+	  | PUSH l=LABEL
 	  | POP		    
 	  | ADD		    
 	  | SUB		    
