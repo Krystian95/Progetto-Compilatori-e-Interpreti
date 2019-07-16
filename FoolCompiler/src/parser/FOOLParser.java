@@ -809,6 +809,34 @@ public class FOOLParser extends Parser {
 	}
 
 	public static class FactorContext extends ParserRuleContext {
+		public FactorContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_factor; }
+	 
+		public FactorContext() { }
+		public void copyFrom(FactorContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class FactorForBooleanContext extends FactorContext {
+		public ValueContext left;
+		public Token op;
+		public ValueContext right;
+		public List<ValueContext> value() {
+			return getRuleContexts(ValueContext.class);
+		}
+		public ValueContext value(int i) {
+			return getRuleContext(ValueContext.class,i);
+		}
+		public FactorForBooleanContext(FactorContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FOOLVisitor ) return ((FOOLVisitor<? extends T>)visitor).visitFactorForBoolean(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class FactorForIntegerContext extends FactorContext {
 		public ValueContext left;
 		public Token op;
 		public ValueContext right;
@@ -819,13 +847,10 @@ public class FOOLParser extends Parser {
 			return getRuleContext(ValueContext.class,i);
 		}
 		public TerminalNode ROP() { return getToken(FOOLParser.ROP, 0); }
-		public FactorContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_factor; }
+		public FactorForIntegerContext(FactorContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FOOLVisitor ) return ((FOOLVisitor<? extends T>)visitor).visitFactor(this);
+			if ( visitor instanceof FOOLVisitor ) return ((FOOLVisitor<? extends T>)visitor).visitFactorForInteger(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -838,36 +863,38 @@ public class FOOLParser extends Parser {
 			setState(140);
 			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
+				_localctx = new FactorForIntegerContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(130); ((FactorContext)_localctx).left = value();
+				setState(130); ((FactorForIntegerContext)_localctx).left = value();
 				setState(133);
 				_la = _input.LA(1);
 				if (_la==ROP) {
 					{
-					setState(131); ((FactorContext)_localctx).op = match(ROP);
-					setState(132); ((FactorContext)_localctx).right = value();
+					setState(131); ((FactorForIntegerContext)_localctx).op = match(ROP);
+					setState(132); ((FactorForIntegerContext)_localctx).right = value();
 					}
 				}
 
 				}
 				break;
 			case 2:
+				_localctx = new FactorForBooleanContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(135); ((FactorContext)_localctx).left = value();
+				setState(135); ((FactorForBooleanContext)_localctx).left = value();
 				setState(138);
 				_la = _input.LA(1);
 				if (_la==T__19 || _la==T__16) {
 					{
 					setState(136);
-					((FactorContext)_localctx).op = _input.LT(1);
+					((FactorForBooleanContext)_localctx).op = _input.LT(1);
 					_la = _input.LA(1);
 					if ( !(_la==T__19 || _la==T__16) ) {
-						((FactorContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+						((FactorForBooleanContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 					}
 					consume();
-					setState(137); ((FactorContext)_localctx).right = value();
+					setState(137); ((FactorForBooleanContext)_localctx).right = value();
 					}
 				}
 

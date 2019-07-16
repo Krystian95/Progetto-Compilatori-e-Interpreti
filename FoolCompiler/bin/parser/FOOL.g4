@@ -46,8 +46,8 @@ exp    		:  ('-')? left=term (op=('+' | '-') right=exp)? // OK
    
 term   		: left=factor (op=('*' | '/') right=term)? ; // OK
    
-factor 		: left=value (op=ROP right=value)?
-	        | left=value (op=('&&' | '||') right=value)?
+factor 		: left=value (op=ROP right=value)? #factorForInteger
+	        | left=value (op=('&&' | '||') right=value)? #factorForBoolean
 	        ; 
    
 value  		: INTEGER				#intVal // OK

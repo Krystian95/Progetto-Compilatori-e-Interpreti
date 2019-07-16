@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import lib.FOOLlib;
 import parser.*;
 import parser.FOOLParser.*;
 import util.SemanticError;
@@ -222,8 +223,53 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		}
 	}
 
-
 	@Override
+	public Node visitFactorForInteger(FactorForIntegerContext ctx) {
+
+		System.out.println("-----------");
+
+		if(ctx.right == null){
+			return visit(ctx.left);
+		}else{
+			Node node_sx = visit(ctx.left);
+			Node type_sx = node_sx.typeCheck();
+
+			Node node_dx = visit(ctx.right);
+			Node type_dx = node_dx.typeCheck();
+
+			System.out.println(type_sx.toPrint("------- type_sx = "));
+			System.out.println(type_dx.toPrint("------- type_dx = "));
+
+			if (FOOLlib.isSubtype(type_sx,new IntTypeNode()) && FOOLlib.isSubtype(type_dx,new IntTypeNode())) {
+				
+				int left =  Integer.parseInt(ctx.left.getText());
+				int right =  Integer.parseInt(ctx.right.getText());
+
+				boolean finalValue = false;
+
+				switch (ctx.op.getText()) {
+
+				case "==":
+					if(left == right)
+						finalValue=true;
+					break;
+
+				default:
+					break;
+				}
+
+				System.out.println("finalValue = "+finalValue);
+
+				return new BoolNode(finalValue);
+			}else {
+				System.out.println("finalValue FORZATO a false");
+				return new BoolNode(false);
+			}
+		}
+	}
+
+
+	/*@Override
 	public Node visitFactor(FactorContext ctx) {
 		//check whether this is a simple or binary expression
 		//notice here the necessity of having named elements in the grammar
@@ -234,7 +280,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 			//it is a binary expression, you should visit left and right
 			return new EqualNode(visit(ctx.left), visit(ctx.right));
 		}
-	}
+	}*/
 
 
 	@Override
