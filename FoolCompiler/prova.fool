@@ -1,6 +1,6 @@
 
 
-{int x=50; if(x==5) then {int x=30; bool y=false; print (x);} else {int x=5; print x;}}
+{f(int a){int x=55; print x;} f(5);}
 
 
 /*

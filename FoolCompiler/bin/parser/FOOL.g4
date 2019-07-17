@@ -10,7 +10,7 @@ grammar FOOL;
 // PARSER RULES
 
 
-block		: '{' statement* '}';
+block		: '{' statement* '}'; // OK
 
 statement	: assignment ';' #assignmentStatement // OK
 		  	| deletion ';' #deletionStatement // OK
