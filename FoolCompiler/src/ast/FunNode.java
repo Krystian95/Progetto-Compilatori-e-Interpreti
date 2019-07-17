@@ -35,33 +35,44 @@ public class FunNode implements Node {
 
 		if ( hm.put(id,entry) != null )
 			res.add(new SemanticError("Fun id "+id+" already declared"));
-		else{
-			//creare una nuova hashmap per la symTable
-			env.nestingLevel++;
-			HashMap<String,STentry> hmn = new HashMap<String,STentry> ();
-			env.symTable.add(hmn);
+		else{		
 
 			ArrayList<Node> parTypes = new ArrayList<Node>();
-			int paroffset=1;
+			//int paroffset=1;
 
 			//check args
 			for(Node a : parlist){
 				ParNode arg = (ParNode) a;
 				parTypes.add(arg.getType());
-				if ( hmn.put(arg.getId(),new STentry(env.nestingLevel,arg.getType(),paroffset++)) != null  )
-					System.out.println("Parameter id "+arg.getId()+" already declared");
+				/*if ( hmn.put(arg.getId(),new STentry(env.nestingLevel,arg.getType(),paroffset++)) != null  )
+					System.out.println("Parameter id "+arg.getId()+" already declared");*/
 			}
-
-			//set func type
-			entry.addType( new ArrowTypeNode(parTypes/*, type*/) );
+			
+			//creare una nuova hashmap per la symTable
+			System.out.println("nestingLevel="+env.nestingLevel);
+			env.nestingLevel++;
+			System.out.println("nestingLevel="+env.nestingLevel);
+			HashMap<String,STentry> hmn = new HashMap<String,STentry> ();
+			env.symTable.add(hmn);
+			env.offset=-2;
+			
+			env.parOffset=1;
+			
+			for(Node a : parlist){
+				res.addAll(a.checkSemantics(env));
+			}
+			
 
 			//check semantics in the dec list
 			if(declist!= null && declist.size() > 0){
-				env.offset = -2;
+				//env.offset = -2;
 				//if there are children then check semantics for every child and save the results
 				for(Node n : declist)
 					res.addAll(n.checkSemantics(env));
 			}
+
+			//set func type
+			entry.addType( new ArrowTypeNode(parTypes/*, type*/) );
 
 			//check body
 			res.addAll(body.checkSemantics(env));

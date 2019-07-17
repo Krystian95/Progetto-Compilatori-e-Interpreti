@@ -1,7 +1,8 @@
 push 0
 push function0
 lfp
-push 5
+push 0
+push 0
 lfp
 push -2
 lfp
@@ -22,6 +23,7 @@ lw
 print
 halt
 sra
+pop
 pop
 pop
 sfp

@@ -1,6 +1,6 @@
 
 
-{f(int a){int x=55; print x;} f(5);}
+{f(int a, int b){int x=55; print x;} f(0,0);}
 
 
 /*
