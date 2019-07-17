@@ -136,39 +136,6 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		return new VarNode(ctx.ID().getText(), typeNode, expNode);
 	}
 
-	/*@Override
-	public Node visitFun(FunContext ctx) {
-
-		//initialize @res with the visits to the type and its ID
-		FunNode res = new FunNode(ctx.ID().getText(), visit(ctx.type()));
-
-		//add argument declarations
-		//we are getting a shortcut here by constructing directly the ParNode
-		//this could be done differently by visiting instead the VardecContext
-		for(VardecContext vc : ctx.vardec())
-			res.addPar( new ParNode(vc.ID().getText(), visit( vc.type() )) );
-
-		//add body
-		//create a list for the nested declarations
-		ArrayList<Node> innerDec = new ArrayList<Node>();
-
-		//check whether there are actually nested decs
-		if(ctx.let() != null){
-			//if there are visit each dec and add it to the @innerDec list
-			for(DecContext dc : ctx.let().dec())
-				innerDec.add(visit(dc));
-		}
-
-		//get the exp body
-		Node exp = visit(ctx.exp());
-
-		//add the body and the inner declarations to the function
-		res.addDecBody(innerDec, exp);
-
-		return res;		
-
-	}*/
-
 	@Override
 	public Node visitType(TypeContext ctx) {
 		if(ctx.getText().equals("int"))
@@ -226,39 +193,31 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		if(ctx.right == null){
 			return visit(ctx.left);
 		}else{
+
 			Node node_sx = visit(ctx.left);
-			Node type_sx = node_sx.typeCheck();
-
 			Node node_dx = visit(ctx.right);
-			Node type_dx = node_dx.typeCheck();
 
-			if (FOOLlib.isSubtype(type_sx,new IntTypeNode()) && FOOLlib.isSubtype(type_dx,new IntTypeNode())) {
+			switch (ctx.op.getText()) {
 
-				switch (ctx.op.getText()) {
-
-				case "==":
-					return new EqualNode(node_sx, node_dx);
-				case ">":
-					return new GreaterNode(node_sx, node_dx);
-				case "<=":
-					return new LessEqualNode(node_sx, node_dx);
-				case "<":
-					return new LesserNode(node_sx, node_dx);
-				case ">=":
-					return new GreaterEqualNode(node_sx, node_dx);
-				case "!=":
-					return new NotEqualNode(node_sx, node_dx);
-				default:
-					System.out.println("Operazione non riconosciuta");
-					System.exit(0);
-					return null;
-				}
-			} else {
-				System.out.println("Sottotipi non rispettati");
+			case "==":
+				return new EqualNode(node_sx, node_dx);
+			case ">":
+				return new GreaterNode(node_sx, node_dx);
+			case "<=":
+				return new LessEqualNode(node_sx, node_dx);
+			case "<":
+				return new LesserNode(node_sx, node_dx);
+			case ">=":
+				return new GreaterEqualNode(node_sx, node_dx);
+			case "!=":
+				return new NotEqualNode(node_sx, node_dx);
+			default:
+				System.out.println("Operazione integer non riconosciuta");
 				System.exit(0);
 				return null;
 			}
 		}
+
 	}
 
 	@Override
@@ -267,27 +226,18 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		if(ctx.right == null){
 			return visit(ctx.left);
 		}else{
+
 			Node node_sx = visit(ctx.left);
-			Node type_sx = node_sx.typeCheck();
-
 			Node node_dx = visit(ctx.right);
-			Node type_dx = node_dx.typeCheck();
 
-			if (FOOLlib.isSubtype(type_sx,new BoolTypeNode()) && FOOLlib.isSubtype(type_dx,new BoolTypeNode())) {
+			switch (ctx.op.getText()) {
 
-				switch (ctx.op.getText()) {
-
-				case "&&":
-					return new AndBooleanOperationNode(node_sx, node_dx);
-				case "||":
-					return new OrBooleanOperationNode(node_sx, node_dx);
-				default:
-					System.out.println("Operazione non riconosciuta");
-					System.exit(0);
-					return null;
-				}
-			} else {
-				System.out.println("Sottotipi non rispettati");
+			case "&&":
+				return new AndBooleanOperationNode(node_sx, node_dx);
+			case "||":
+				return new OrBooleanOperationNode(node_sx, node_dx);
+			default:
+				System.out.println("Operazione boolean non riconosciuta");
 				System.exit(0);
 				return null;
 			}
@@ -369,6 +319,46 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 	}
 
 	@Override
+	public Node visitFundec(FundecContext ctx) {
+
+		//initialize @res with the visits to the type and its ID
+		FunNode res = new FunNode(ctx.ID().getText());
+
+		//add argument declarations
+		//we are getting a shortcut here by constructing directly the ParNode
+		//this could be done differently by visiting instead the VardecContext
+		for(ParameterContext vc : ctx.parameter()) {
+
+			String modePar="val";
+			if(vc.modePar!=null) {
+				modePar = vc.modePar.getText();
+			}
+
+			res.addPar( new ParNode(modePar, vc.ID().getText(), visit( vc.type() )) );
+		}
+
+		//add body
+		//create a list for the nested declarations
+		/*ArrayList<Node> innerDec = new ArrayList<Node>();
+
+		//check whether there are actually nested decs
+		if(ctx.block() != null){
+			//if there are visit each dec and add it to the @innerDec list
+			for(DecContext dc : ctx.let().dec())
+				innerDec.add(visit(dc));
+		}*/
+
+		//get the exp body
+		Node block = visit(ctx.block());
+
+		//add the body and the inner declarations to the function
+		res.addDecBody(null, block);
+
+		return res;		
+
+	}
+
+	@Override
 	public Node visitFunctioncall(FunctioncallContext ctx) {
 		//this corresponds to a function invocation
 		//declare the result
@@ -385,7 +375,6 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		//JUST IMAGINE THERE ARE 800 stdlib functions...
 		if(ctx.ID().getText().equals("print"))
 			res = new PrintNode(args.get(0));
-
 		else
 			//instantiate the invocation
 			res = new CallNode(ctx.ID().getText(), args);

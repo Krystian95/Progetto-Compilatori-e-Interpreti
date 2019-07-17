@@ -32,10 +32,14 @@ public class IfNode implements Node {
 
 		//check semantics in the condition
 		res.addAll(cond.checkSemantics(env));
+		
+		//env.nestingLevel++;
 
 		//check semantics in the then and in the else exp
 		res.addAll(th.checkSemantics(env));
 		res.addAll(el.checkSemantics(env));
+		
+		//env.symTable.remove(env.nestingLevel--);
 
 		return res;
 	}

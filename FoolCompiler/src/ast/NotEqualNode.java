@@ -35,14 +35,21 @@ public class NotEqualNode implements Node {
 	}
   
   public Node typeCheck() {
-    Node l = left.typeCheck();
-    Node r = right.typeCheck();
-    if (! ( FOOLlib.isSubtype(l,r) || FOOLlib.isSubtype(r,l) ) ) {
-      System.out.println("Incompatible types in not equal");
-      System.exit(0);
-    }
-    return new BoolTypeNode();
-  }  
+		
+		Node l = left.typeCheck();
+		Node r = right.typeCheck();
+
+		if (FOOLlib.isSubtype(l,new IntTypeNode()) && FOOLlib.isSubtype(r,new IntTypeNode())) {
+			if (! ( FOOLlib.isSubtype(l,r) || FOOLlib.isSubtype(r,l) ) ) {
+				System.out.println("Incompatible types in not equal");
+				System.exit(0);
+			}
+		}else {
+			System.out.println("Not integer types in not equal");
+			System.exit(0);
+		}
+		return new BoolTypeNode();
+	}  
   
   public String codeGeneration() {
 	  String l1 = FOOLlib.freshLabel(); 

@@ -14,9 +14,8 @@ public class FunNode implements Node {
   private ArrayList<Node> declist; 
   private Node body;
   
-  public FunNode (String i, Node t) {
+  public FunNode (String i) {
     id=i;
-    type=t;
   }
   
   public void addDecBody (ArrayList<Node> d, Node b) {
@@ -55,10 +54,10 @@ public class FunNode implements Node {
 	      }
 	      
 	      //set func type
-	      entry.addType( new ArrowTypeNode(parTypes, type) );
+	      entry.addType( new ArrowTypeNode(parTypes/*, type*/) );
 	      
 	    //check semantics in the dec list
-	      if(declist.size() > 0){
+	      if(declist!= null && declist.size() > 0){
 	    	  env.offset = -2;
 	    	  //if there are children then check semantics for every child and save the results
 	    	  for(Node n : declist)
@@ -89,7 +88,7 @@ public class FunNode implements Node {
 	  for (Node dec:declist)
 	    declstr+=dec.toPrint(s+"  ");
     return s+"Fun:" + id +"\n"
-		   +type.toPrint(s+"  ")
+		   //+type.toPrint(s+"  ")
 		   +parlstr
 	   	   +declstr
            +body.toPrint(s+"  ") ; 
@@ -100,10 +99,10 @@ public class FunNode implements Node {
 	if (declist!=null) 
 	  for (Node dec:declist)
 		dec.typeCheck();
-    if ( !(FOOLlib.isSubtype(body.typeCheck(),type)) ){
+    /*if ( !(FOOLlib.isSubtype(body.typeCheck(),type)) ){
       System.out.println("Wrong return type for function "+id);
       System.exit(0);
-    }  
+    } */ 
     return null;
   }
   

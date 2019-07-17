@@ -16,11 +16,15 @@ public class IdNode implements Node {
 	}
 
 	public String toPrint(String s) {
-		return s+"Id:" + id + " at nestlev " + nestinglevel +"\n" + entry.toPrint(s+"  ") ;  
+		return s+"Id:" + id + " at nestlev " + nestinglevel
+				+"\n" + entry.toPrint(s+"  ") 
+				;  
 	}
 
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
+		
+		//System.exit(0);
 
 		//create result list
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
@@ -31,16 +35,20 @@ public class IdNode implements Node {
 			tmp=(env.symTable.get(j--)).get(id);
 		if (tmp==null)
 			res.add(new SemanticError("Id "+id+" not declared"));
-
 		else{
 			entry = tmp;
 			nestinglevel = env.nestingLevel;
 		}
+		
+		System.out.println("entry = "+entry);
 
 		return res;
 	}
 
 	public Node typeCheck () {
+		
+		System.out.println("entry = "+entry);
+		
 		if (entry.getType() instanceof ArrowTypeNode) { //
 			System.out.println("Wrong usage of function identifier");
 			System.exit(0);

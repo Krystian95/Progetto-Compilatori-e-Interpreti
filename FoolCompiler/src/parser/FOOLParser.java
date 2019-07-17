@@ -644,6 +644,7 @@ public class FOOLParser extends Parser {
 	}
 
 	public static class ParameterContext extends ParserRuleContext {
+		public Token modePar;
 		public TerminalNode ID() { return getToken(FOOLParser.ID, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
@@ -670,7 +671,7 @@ public class FOOLParser extends Parser {
 			_la = _input.LA(1);
 			if (_la==T__21) {
 				{
-				setState(111); match(T__21);
+				setState(111); ((ParameterContext)_localctx).modePar = match(T__21);
 				}
 			}
 

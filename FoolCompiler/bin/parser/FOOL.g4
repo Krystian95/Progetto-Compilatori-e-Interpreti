@@ -27,19 +27,19 @@ deletion	: 'delete' ID ;
 
 print		: 'print' exp ; // OK
 
-functioncall: ID '(' (exp (',' exp)* )? ')' ;
+functioncall: ID '(' (exp (',' exp)* )? ')' ; // MANCA gestione funzioni di sistema (stdlib, es. "print (...)")
 
-ifthenelse 	: 'if' '(' cond=exp ')' 'then' thenBranch=block 'else' elseBranch=block ;
+ifthenelse 	: 'if' '(' cond=exp ')' 'then' thenBranch=block 'else' elseBranch=block ; // MANCA nesting level
 
 declaration	: type ID '=' exp ';' #varasm // OK
-		  	| ID '(' ( parameter ( ',' parameter)* )? ')' block #fundec
+		  	| ID '(' ( parameter ( ',' parameter)* )? ')' block #fundec // MANCA nesting declarations + var nesting level
 			;
 
 type   		: 'int'  
         	| 'bool'
         	; // OK
 
-parameter  	: ('var')? type ID ;
+parameter  	: (modePar='var')? type ID ; // OK
 
 exp    		:  ('-')? left=term (op=('+' | '-') right=exp)? // OK
 			; 
@@ -65,11 +65,11 @@ fragment DIGIT 	: '0'..'9';
 INTEGER       	: DIGIT+;
 
 //IDs
-fragment CHAR  : 'a'..'z' |'A'..'Z' ;
+fragment CHAR  	: 'a'..'z' |'A'..'Z' ;
 ID              : CHAR (CHAR | DIGIT)* ;
 
 //ESCAPE SEQUENCES
 WS              : (' '|'\t'|'\n'|'\r')-> skip ;
 LINECOMENTS    	: '//' (~('\n'|'\r'))* -> skip ;
 BLOCKCOMENTS    : '/*'( ~('/'|'*')|'/'~'*'|'*'~'/'|BLOCKCOMENTS)* '*/' -> skip ;
-ERR     	: .  -> channel(HIDDEN) ; 
+ERR     		: .  -> channel(HIDDEN) ; 

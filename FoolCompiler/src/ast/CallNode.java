@@ -73,7 +73,8 @@ public String toPrint(String s) {  //
          System.out.println("Wrong type for "+(i+1)+"-th parameter in the invocation of "+id);
          System.exit(0);
        } 
-     return t.getRet();
+     //return t.getRet();
+     return null;
   }
   
   public String codeGeneration() {
