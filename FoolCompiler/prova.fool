@@ -1,9 +1,20 @@
 
 
-{f(int a, int b){int x=55; print x;} f(0,0);}
+{if(5==5) then {int x=77; int a=2; print a;} else {}}
+
+/*
+
+- dichiarazione variabile nel then e stampa nell'else
+- utilizzo parametri di funzione
+
+*/
 
 
 /*
+
+{if(5==5) then {int x=77; print x;} else {}}
+
+{f(int a, int b){int x=55; print x;} f(0,0); int x=59; print x; print x;}
 
 {if(5==5) then {int x=3; bool y=false; print (x);} else {int x=5;}}
 

@@ -40,15 +40,11 @@ public class IdNode implements Node {
 			nestinglevel = env.nestingLevel;
 		}
 		
-		System.out.println("entry = "+entry);
-
 		return res;
 	}
 
 	public Node typeCheck () {
-		
-		System.out.println("entry = "+entry);
-		
+				
 		if (entry.getType() instanceof ArrowTypeNode) { //
 			System.out.println("Wrong usage of function identifier");
 			System.exit(0);

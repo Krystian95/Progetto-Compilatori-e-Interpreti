@@ -1,6 +1,7 @@
 package ast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import util.Environment;
 import util.SemanticError;
@@ -20,6 +21,8 @@ public class PrintNode implements Node {
   @Override
  	public ArrayList<SemanticError> checkSemantics(Environment env) {
 
+	  Utils.printHashMap("STAMPA PRIMA DELLA PRINT:",env.symTable);
+      
  	  return val.checkSemantics(env);
  	}
   

@@ -61,7 +61,6 @@ public class FunNode implements Node {
 			for(Node a : parlist){
 				res.addAll(a.checkSemantics(env));
 			}
-			
 
 			//check semantics in the dec list
 			if(declist!= null && declist.size() > 0){

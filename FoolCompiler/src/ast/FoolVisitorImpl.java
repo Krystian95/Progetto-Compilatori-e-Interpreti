@@ -333,7 +333,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 			if(vc.modePar!=null) {
 				modePar = vc.modePar.getText();
 			}
-
+			
 			res.addPar( new ParNode(modePar, vc.ID().getText(), visit( vc.type() )) );
 		}
 

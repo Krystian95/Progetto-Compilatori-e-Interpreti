@@ -131,7 +131,7 @@ public class ExecuteVM {
 					push(rv);
 					break;
 				case SVMParser.LOADFP : //
-					push(fp);
+					push(fp/*-1*/);
 					break;
 				case SVMParser.STOREFP : //
 					fp=pop();
