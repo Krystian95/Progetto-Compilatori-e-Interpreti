@@ -6,19 +6,18 @@ import lib.FOOLlib;
 import util.Environment;
 import util.SemanticError;
 
-public class BlockNode implements Node {
+public class InitBlockNode implements Node {
 
-	private ArrayList<Node> statements;
+	private Node statement;
 
-	public BlockNode (ArrayList<Node> c) {
-		statements=c;
+	public InitBlockNode (Node c) {
+		statement=c;
 	}
 
 	public String toPrint(String s) {
 		String statementstr="";
-		for (Node statement:statements)
-			statementstr += statement.toPrint(s+"  ");
-		return s+"Block\n" + statementstr; 
+		statementstr += statement.toPrint(s+"  ");
+		return s+"InitBlock\n" + statementstr; 
 	}
 
 	@Override
@@ -31,15 +30,10 @@ public class BlockNode implements Node {
 		HashMap<String,STentry> hm = new HashMap<String,STentry> ();
 		env.symTable.add(hm);
 
-		//check semantics in the dec list
-		if(statements.size() > 0){
-			env.offset = -2;
-			//if there are statementren then check semantics for every statement and save the results
-			for(Node statement : statements) {
-				//System.out.println("statement = "+statement);
-				res.addAll(statement.checkSemantics(env));
-			}
-		}
+		env.offset = -2;
+		//if there are statementren then check semantics for every statement and save the results
+		//System.out.println("statement = "+statement);
+		res.addAll(statement.checkSemantics(env));
 
 		//check semantics in the exp body
 		//res.addAll(exp.checkSemantics(env));
@@ -53,10 +47,8 @@ public class BlockNode implements Node {
 
 	public Node typeCheck () {
 
-		if (statements != null) {
-			for (Node statement:statements) {
-				statement.typeCheck();
-			}
+		if (statement != null) {
+			statement.typeCheck();
 		}
 
 		return null;
@@ -64,9 +56,9 @@ public class BlockNode implements Node {
 
 	public String codeGeneration() {
 		String declCode="";
-		for (Node statement:statements)
-			declCode+=statement.codeGeneration();
-		return declCode+
+		declCode+=statement.codeGeneration();
+		return "push 0\n"+
+		declCode+
 		"halt\n"+
 		FOOLlib.getCode();
 	} 

@@ -164,6 +164,12 @@ public interface FOOLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrint(@NotNull FOOLParser.PrintContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link FOOLParser#initblock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInitblock(@NotNull FOOLParser.InitblockContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code functioncallStatement}
 	 * labeled alternative in {@link FOOLParser#statement}.
 	 * @param ctx the parse tree

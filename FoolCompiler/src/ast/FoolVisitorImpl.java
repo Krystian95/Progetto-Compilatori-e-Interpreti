@@ -13,6 +13,17 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 
 
 	@Override
+	public Node visitInitblock(InitblockContext ctx) {
+
+		Node statement=visit(ctx.block());
+
+		InitBlockNode block = new InitBlockNode(statement);
+
+		return block;
+
+	}
+
+	@Override
 	public Node visitBlock(BlockContext ctx) {
 
 		//list for saving children statements
@@ -333,7 +344,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 			if(vc.modePar!=null) {
 				modePar = vc.modePar.getText();
 			}
-			
+
 			res.addPar( new ParNode(modePar, vc.ID().getText(), visit( vc.type() )) );
 		}
 

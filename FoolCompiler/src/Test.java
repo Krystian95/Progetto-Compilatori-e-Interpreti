@@ -42,7 +42,7 @@ public class Test {
 	        
 	        FoolVisitorImpl visitor = new FoolVisitorImpl();
         	
-	        Node ast = visitor.visit(parser.block()); //generazione AST 
+	        Node ast = visitor.visit(parser.initblock()); //generazione AST 
 
 	        Environment env = new Environment();
 
