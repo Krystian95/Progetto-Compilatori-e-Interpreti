@@ -9,7 +9,7 @@ grammar FOOL;
 
 // PARSER RULES
 
-initblock	: block;
+initblock	: block; // OK
 
 block		: '{' statement* '}'; // OK
 

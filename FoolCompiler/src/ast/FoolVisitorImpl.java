@@ -49,6 +49,17 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 	}
 
 	@Override
+	public Node visitDeletion(DeletionContext ctx) {
+
+		//Node statement=visit(ctx.ID());
+
+		DeletionNode block = new DeletionNode(ctx.ID().toString());
+
+		return block;
+
+	}
+
+	@Override
 	public Node visitAssignmentStatement(AssignmentStatementContext ctx) {
 		return visit(ctx.assignment());
 	}
