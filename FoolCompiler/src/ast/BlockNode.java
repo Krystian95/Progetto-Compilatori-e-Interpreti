@@ -33,7 +33,7 @@ public class BlockNode implements Node {
 
 		//check semantics in the dec list
 		if(statements.size() > 0){
-			env.offset = -2;
+			//env.offset = -2;
 			//if there are statementren then check semantics for every statement and save the results
 			for(Node statement : statements) {
 				//System.out.println("statement = "+statement);
@@ -67,7 +67,7 @@ public class BlockNode implements Node {
 		for (Node statement:statements)
 			declCode+=statement.codeGeneration();
 		return declCode+
-		"halt\n"+
+		//"halt\n"+
 		FOOLlib.getCode();
 	} 
 

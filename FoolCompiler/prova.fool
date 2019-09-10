@@ -1,6 +1,6 @@
 
 
-{int z=0; if(5==5) then {int x=77; int a=2; print x;} else {int p=8;}}
+{int z=888; int u=44; int x=55; if(5==5) then {int x=77; int a=2; int b=6; print x;} else {} print x;}
 
 /*
 
