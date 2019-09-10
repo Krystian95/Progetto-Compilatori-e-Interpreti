@@ -10,6 +10,7 @@ import lib.FOOLlib;
 public class DeletionNode implements Node {
 
 	private String id;
+	private STentry entry;
 
 	public DeletionNode (String i) {
 		id=i;
@@ -35,10 +36,11 @@ public class DeletionNode implements Node {
 
 		if (enry_to_delete == null) {
 			res.add(new SemanticError("Id " + id + " not declared"));
-		}/*else{
-			System.out.println("DELETION of "+id+" found at nestingLevel = "+enry_to_delete.getNestinglevel());
-			env.symTable.get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);
-		}*/
+		}else{
+			entry = enry_to_delete;
+			/*System.out.println("DELETION of "+id+" found at nestingLevel = "+enry_to_delete.getNestinglevel());
+			env.symTable.get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);*/
+		}
 
 		//Utils.printHashMap("AFTER DELETION OF "+id,env.symTable);
 
@@ -55,7 +57,11 @@ public class DeletionNode implements Node {
 	}
 
 	public String codeGeneration() {
-		return "";
+		return "push "+entry.getOffset()+"\n"+ //metto offset sullo stack
+				"lfp\n"+
+				//getAR+ //risalgo la catena statica
+				"add\n"+ 
+				"delete\n";
 	}  
 
 }  

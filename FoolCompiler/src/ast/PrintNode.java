@@ -34,7 +34,8 @@ public class PrintNode implements Node {
 	}  
 
 	public String codeGeneration() {
-		return val.codeGeneration()+"print\n";
+		return val.codeGeneration()+
+				"print\n";
 	}
 
 }  

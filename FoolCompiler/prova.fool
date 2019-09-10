@@ -1,6 +1,6 @@
 
 
-{int a=9; delete a; print a; if(a==5) then {} else {}}
+{int a=9; delete a;}
 
 /*
 

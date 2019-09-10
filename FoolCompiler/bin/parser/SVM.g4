@@ -15,7 +15,9 @@ public int lexicalErrors=0;
 assembly: (instruction)*;
 
 instruction:
-    ( PUSH n=NUMBER 
+    ( 
+    	DELETE
+      | PUSH n=NUMBER 
 	  | PUSH l=LABEL
 	  | POP		    
 	  | ADD		    
@@ -77,6 +79,7 @@ LOADHP	 : 'lhp';		// load heap pointer in the stack
 STOREHP	 : 'shp';		// store top into heap pointer
 PRINT	 : 'print';		// print top of stack
 HALT	 : 'halt';		// stop execution
+DELETE	 : 'delete';	// delete the value of the cell pointed by the top of the stack
 
 COL	 	 : ':';
 LABEL	 : ('a'..'z'|'A'..'Z')('a'..'z' | 'A'..'Z' | '0'..'9')*;

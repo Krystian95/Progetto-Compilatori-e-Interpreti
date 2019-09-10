@@ -1,4 +1,5 @@
 package parser;
+
 public class ExecuteVM {
 
 	public static final int CODESIZE = 10000;
@@ -59,18 +60,18 @@ public class ExecuteVM {
 					push(v2 - v1);
 					break;
 				case SVMParser.STOREW : //
-				address = pop();
-				memory[address] = pop();    
-				break;
+					address = pop();
+					memory[address] = pop();    
+					break;
 				case SVMParser.LOADW : //
-				// check if object address where we take the method label
-				// is null value (-10000)
-				if (memory[sp] == -10000) {
-					System.out.println("\nError: Null pointer exception");
-					return;
-				}  
-				push(memory[pop()]);
-				break;
+					// check if object address where we take the method label
+					// is null value (-10000)
+					if (memory[sp] == -10000) {
+						System.out.println("\nError: Null pointer exception");
+						return;
+					}
+					push(memory[pop()]);
+					break;
 				case SVMParser.BRANCH : 
 					address = code[ip];
 					ip = address;
@@ -147,6 +148,16 @@ public class ExecuteVM {
 					break;
 				case SVMParser.PRINT :
 					System.out.println((sp<MEMSIZE)?memory[sp]:"Empty stack!");
+					break;
+				case SVMParser.DELETE :
+
+					if (memory[sp] == -10000) {
+						System.out.println("\nError: Null pointer exception");
+						return;
+					}
+
+					memory[pop()] = null;
+
 					break;
 				case SVMParser.HALT :
 					//to print the result 

@@ -117,6 +117,9 @@ public class SVMVisitorImpl extends SVMBaseVisitor<Void> {
 			case SVMLexer.PRINT:
 				code[i++] = SVMParser.PRINT;
 				break;
+			case SVMLexer.DELETE:
+				code[i++] = SVMParser.DELETE;
+				break;
 			case SVMLexer.HALT:
 				code[i++] = SVMParser.HALT;
 				break;             

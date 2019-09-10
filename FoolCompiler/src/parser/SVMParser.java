@@ -23,14 +23,14 @@ public class SVMParser extends Parser {
 		PUSH=1, POP=2, ADD=3, SUB=4, MULT=5, DIV=6, STOREW=7, LOADW=8, BRANCH=9, 
 		BRANCHEQ=10, BRANCHNOTEQ=11, BRANCHGT=12, BRANCHLESSEQ=13, BRANCHGREATEREQ=14, 
 		BRANCHLT=15, JS=16, LOADRA=17, STORERA=18, LOADRV=19, STORERV=20, LOADFP=21, 
-		STOREFP=22, COPYFP=23, LOADHP=24, STOREHP=25, PRINT=26, HALT=27, COL=28, 
-		LABEL=29, NUMBER=30, WHITESP=31, ERR=32;
+		STOREFP=22, COPYFP=23, LOADHP=24, STOREHP=25, PRINT=26, HALT=27, DELETE=28, 
+		COL=29, LABEL=30, NUMBER=31, WHITESP=32, ERR=33;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'push'", "'pop'", "'add'", "'sub'", "'mult'", "'div'", "'sw'", 
 		"'lw'", "'b'", "'beq'", "'bneq'", "'bgt'", "'bleq'", "'bgeq'", "'blt'", 
 		"'js'", "'lra'", "'sra'", "'lrv'", "'srv'", "'lfp'", "'sfp'", "'cfp'", 
-		"'lhp'", "'shp'", "'print'", "'halt'", "':'", "LABEL", "NUMBER", "WHITESP", 
-		"ERR"
+		"'lhp'", "'shp'", "'print'", "'halt'", "'delete'", "':'", "LABEL", "NUMBER", 
+		"WHITESP", "ERR"
 	};
 	public static final int
 		RULE_assembly = 0, RULE_instruction = 1;
@@ -85,7 +85,7 @@ public class SVMParser extends Parser {
 			setState(7);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PUSH) | (1L << POP) | (1L << ADD) | (1L << SUB) | (1L << MULT) | (1L << DIV) | (1L << STOREW) | (1L << LOADW) | (1L << BRANCH) | (1L << BRANCHEQ) | (1L << BRANCHNOTEQ) | (1L << BRANCHGT) | (1L << BRANCHLESSEQ) | (1L << BRANCHGREATEREQ) | (1L << BRANCHLT) | (1L << JS) | (1L << LOADRA) | (1L << STORERA) | (1L << LOADRV) | (1L << STORERV) | (1L << LOADFP) | (1L << STOREFP) | (1L << COPYFP) | (1L << LOADHP) | (1L << STOREHP) | (1L << PRINT) | (1L << HALT) | (1L << LABEL))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PUSH) | (1L << POP) | (1L << ADD) | (1L << SUB) | (1L << MULT) | (1L << DIV) | (1L << STOREW) | (1L << LOADW) | (1L << BRANCH) | (1L << BRANCHEQ) | (1L << BRANCHNOTEQ) | (1L << BRANCHGT) | (1L << BRANCHLESSEQ) | (1L << BRANCHGREATEREQ) | (1L << BRANCHLT) | (1L << JS) | (1L << LOADRA) | (1L << STORERA) | (1L << LOADRV) | (1L << STORERV) | (1L << LOADFP) | (1L << STOREFP) | (1L << COPYFP) | (1L << LOADHP) | (1L << STOREHP) | (1L << PRINT) | (1L << HALT) | (1L << DELETE) | (1L << LABEL))) != 0)) {
 				{
 				{
 				setState(4); instruction();
@@ -112,6 +112,7 @@ public class SVMParser extends Parser {
 		public Token n;
 		public Token l;
 		public TerminalNode BRANCH() { return getToken(SVMParser.BRANCH, 0); }
+		public TerminalNode DELETE() { return getToken(SVMParser.DELETE, 0); }
 		public TerminalNode BRANCHLT() { return getToken(SVMParser.BRANCHLT, 0); }
 		public TerminalNode STOREHP() { return getToken(SVMParser.STOREHP, 0); }
 		public TerminalNode LOADRA() { return getToken(SVMParser.LOADRA, 0); }
@@ -158,161 +159,166 @@ public class SVMParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49);
+			setState(50);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				{
-				setState(10); match(PUSH);
-				setState(11); ((InstructionContext)_localctx).n = match(NUMBER);
+				setState(10); match(DELETE);
 				}
 				break;
 			case 2:
 				{
-				setState(12); match(PUSH);
-				setState(13); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(11); match(PUSH);
+				setState(12); ((InstructionContext)_localctx).n = match(NUMBER);
 				}
 				break;
 			case 3:
 				{
-				setState(14); match(POP);
+				setState(13); match(PUSH);
+				setState(14); ((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 4:
 				{
-				setState(15); match(ADD);
+				setState(15); match(POP);
 				}
 				break;
 			case 5:
 				{
-				setState(16); match(SUB);
+				setState(16); match(ADD);
 				}
 				break;
 			case 6:
 				{
-				setState(17); match(MULT);
+				setState(17); match(SUB);
 				}
 				break;
 			case 7:
 				{
-				setState(18); match(DIV);
+				setState(18); match(MULT);
 				}
 				break;
 			case 8:
 				{
-				setState(19); match(STOREW);
+				setState(19); match(DIV);
 				}
 				break;
 			case 9:
 				{
-				setState(20); match(LOADW);
+				setState(20); match(STOREW);
 				}
 				break;
 			case 10:
 				{
-				setState(21); ((InstructionContext)_localctx).l = match(LABEL);
-				setState(22); match(COL);
+				setState(21); match(LOADW);
 				}
 				break;
 			case 11:
 				{
-				setState(23); match(BRANCH);
-				setState(24); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(22); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(23); match(COL);
 				}
 				break;
 			case 12:
 				{
-				setState(25); match(BRANCHEQ);
-				setState(26); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(24); match(BRANCH);
+				setState(25); ((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 13:
 				{
-				setState(27); match(BRANCHNOTEQ);
-				setState(28); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(26); match(BRANCHEQ);
+				setState(27); ((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 14:
 				{
-				setState(29); match(BRANCHGT);
-				setState(30); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(28); match(BRANCHNOTEQ);
+				setState(29); ((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 15:
 				{
-				setState(31); match(BRANCHLT);
-				setState(32); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(30); match(BRANCHGT);
+				setState(31); ((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 16:
 				{
-				setState(33); match(BRANCHLESSEQ);
-				setState(34); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(32); match(BRANCHLT);
+				setState(33); ((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 17:
 				{
-				setState(35); match(BRANCHGREATEREQ);
-				setState(36); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(34); match(BRANCHLESSEQ);
+				setState(35); ((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 18:
 				{
-				setState(37); match(JS);
+				setState(36); match(BRANCHGREATEREQ);
+				setState(37); ((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 19:
 				{
-				setState(38); match(LOADRA);
+				setState(38); match(JS);
 				}
 				break;
 			case 20:
 				{
-				setState(39); match(STORERA);
+				setState(39); match(LOADRA);
 				}
 				break;
 			case 21:
 				{
-				setState(40); match(LOADRV);
+				setState(40); match(STORERA);
 				}
 				break;
 			case 22:
 				{
-				setState(41); match(STORERV);
+				setState(41); match(LOADRV);
 				}
 				break;
 			case 23:
 				{
-				setState(42); match(LOADFP);
+				setState(42); match(STORERV);
 				}
 				break;
 			case 24:
 				{
-				setState(43); match(STOREFP);
+				setState(43); match(LOADFP);
 				}
 				break;
 			case 25:
 				{
-				setState(44); match(COPYFP);
+				setState(44); match(STOREFP);
 				}
 				break;
 			case 26:
 				{
-				setState(45); match(LOADHP);
+				setState(45); match(COPYFP);
 				}
 				break;
 			case 27:
 				{
-				setState(46); match(STOREHP);
+				setState(46); match(LOADHP);
 				}
 				break;
 			case 28:
 				{
-				setState(47); match(PRINT);
+				setState(47); match(STOREHP);
 				}
 				break;
 			case 29:
 				{
-				setState(48); match(HALT);
+				setState(48); match(PRINT);
+				}
+				break;
+			case 30:
+				{
+				setState(49); match(HALT);
 				}
 				break;
 			}
@@ -330,26 +336,26 @@ public class SVMParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\"\66\4\2\t\2\4\3"+
-		"\t\3\3\2\7\2\b\n\2\f\2\16\2\13\13\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3#\67\4\2\t\2\4\3\t"+
+		"\3\3\2\7\2\b\n\2\f\2\16\2\13\13\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\64\n\3\3\3\2"+
-		"\2\4\2\4\2\2P\2\t\3\2\2\2\4\63\3\2\2\2\6\b\5\4\3\2\7\6\3\2\2\2\b\13\3"+
-		"\2\2\2\t\7\3\2\2\2\t\n\3\2\2\2\n\3\3\2\2\2\13\t\3\2\2\2\f\r\7\3\2\2\r"+
-		"\64\7 \2\2\16\17\7\3\2\2\17\64\7\37\2\2\20\64\7\4\2\2\21\64\7\5\2\2\22"+
-		"\64\7\6\2\2\23\64\7\7\2\2\24\64\7\b\2\2\25\64\7\t\2\2\26\64\7\n\2\2\27"+
-		"\30\7\37\2\2\30\64\7\36\2\2\31\32\7\13\2\2\32\64\7\37\2\2\33\34\7\f\2"+
-		"\2\34\64\7\37\2\2\35\36\7\r\2\2\36\64\7\37\2\2\37 \7\16\2\2 \64\7\37\2"+
-		"\2!\"\7\21\2\2\"\64\7\37\2\2#$\7\17\2\2$\64\7\37\2\2%&\7\20\2\2&\64\7"+
-		"\37\2\2\'\64\7\22\2\2(\64\7\23\2\2)\64\7\24\2\2*\64\7\25\2\2+\64\7\26"+
-		"\2\2,\64\7\27\2\2-\64\7\30\2\2.\64\7\31\2\2/\64\7\32\2\2\60\64\7\33\2"+
-		"\2\61\64\7\34\2\2\62\64\7\35\2\2\63\f\3\2\2\2\63\16\3\2\2\2\63\20\3\2"+
-		"\2\2\63\21\3\2\2\2\63\22\3\2\2\2\63\23\3\2\2\2\63\24\3\2\2\2\63\25\3\2"+
-		"\2\2\63\26\3\2\2\2\63\27\3\2\2\2\63\31\3\2\2\2\63\33\3\2\2\2\63\35\3\2"+
-		"\2\2\63\37\3\2\2\2\63!\3\2\2\2\63#\3\2\2\2\63%\3\2\2\2\63\'\3\2\2\2\63"+
-		"(\3\2\2\2\63)\3\2\2\2\63*\3\2\2\2\63+\3\2\2\2\63,\3\2\2\2\63-\3\2\2\2"+
-		"\63.\3\2\2\2\63/\3\2\2\2\63\60\3\2\2\2\63\61\3\2\2\2\63\62\3\2\2\2\64"+
-		"\5\3\2\2\2\4\t\63";
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\65\n\3\3\3"+
+		"\2\2\4\2\4\2\2R\2\t\3\2\2\2\4\64\3\2\2\2\6\b\5\4\3\2\7\6\3\2\2\2\b\13"+
+		"\3\2\2\2\t\7\3\2\2\2\t\n\3\2\2\2\n\3\3\2\2\2\13\t\3\2\2\2\f\65\7\36\2"+
+		"\2\r\16\7\3\2\2\16\65\7!\2\2\17\20\7\3\2\2\20\65\7 \2\2\21\65\7\4\2\2"+
+		"\22\65\7\5\2\2\23\65\7\6\2\2\24\65\7\7\2\2\25\65\7\b\2\2\26\65\7\t\2\2"+
+		"\27\65\7\n\2\2\30\31\7 \2\2\31\65\7\37\2\2\32\33\7\13\2\2\33\65\7 \2\2"+
+		"\34\35\7\f\2\2\35\65\7 \2\2\36\37\7\r\2\2\37\65\7 \2\2 !\7\16\2\2!\65"+
+		"\7 \2\2\"#\7\21\2\2#\65\7 \2\2$%\7\17\2\2%\65\7 \2\2&\'\7\20\2\2\'\65"+
+		"\7 \2\2(\65\7\22\2\2)\65\7\23\2\2*\65\7\24\2\2+\65\7\25\2\2,\65\7\26\2"+
+		"\2-\65\7\27\2\2.\65\7\30\2\2/\65\7\31\2\2\60\65\7\32\2\2\61\65\7\33\2"+
+		"\2\62\65\7\34\2\2\63\65\7\35\2\2\64\f\3\2\2\2\64\r\3\2\2\2\64\17\3\2\2"+
+		"\2\64\21\3\2\2\2\64\22\3\2\2\2\64\23\3\2\2\2\64\24\3\2\2\2\64\25\3\2\2"+
+		"\2\64\26\3\2\2\2\64\27\3\2\2\2\64\30\3\2\2\2\64\32\3\2\2\2\64\34\3\2\2"+
+		"\2\64\36\3\2\2\2\64 \3\2\2\2\64\"\3\2\2\2\64$\3\2\2\2\64&\3\2\2\2\64("+
+		"\3\2\2\2\64)\3\2\2\2\64*\3\2\2\2\64+\3\2\2\2\64,\3\2\2\2\64-\3\2\2\2\64"+
+		".\3\2\2\2\64/\3\2\2\2\64\60\3\2\2\2\64\61\3\2\2\2\64\62\3\2\2\2\64\63"+
+		"\3\2\2\2\65\5\3\2\2\2\4\t\64";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
