@@ -161,7 +161,7 @@ public class ExecuteVM {
 					break;*/
 				case SVMParser.HALT :
 					//to print the result 
-					System.out.println("\nResult: " + memory[sp] + "\n");
+					System.out.println("Running ended.");
 					return;
 				}
 

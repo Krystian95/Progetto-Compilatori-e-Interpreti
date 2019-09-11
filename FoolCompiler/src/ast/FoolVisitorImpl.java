@@ -31,12 +31,12 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 
 		//visit each children
 		for(StatementContext stmtCtx : ctx.statement()) {
-			System.out.println();
-			System.out.println("stmtCtx = "+stmtCtx.getText());
+			//System.out.println();
+			//System.out.println("stmtCtx = "+stmtCtx.getText());
 			//System.out.println("visit("+stmtCtx.getText()+")");
 			Node tmp=visit(stmtCtx);
 			statements.add(tmp);
-			System.out.println("ADDED visit("+stmtCtx.getText()+") = "+tmp);
+			//System.out.println("ADDED visit("+stmtCtx.getText()+") = "+tmp);
 		}
 
 		//System.out.println("statements = "+statements.toString());
@@ -392,14 +392,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		for(ExpContext exp : ctx.exp())
 			args.add(visit(exp));
 
-		//especial check for stdlib func
-		//this is WRONG, THIS SHOULD BE DONE IN A DIFFERENT WAY
-		//JUST IMAGINE THERE ARE 800 stdlib functions...
-		if(ctx.ID().getText().equals("print"))
-			res = new PrintNode(args.get(0));
-		else
-			//instantiate the invocation
-			res = new CallNode(ctx.ID().getText(), args);
+		res = new CallNode(ctx.ID().getText(), args);
 
 		return res;
 	}

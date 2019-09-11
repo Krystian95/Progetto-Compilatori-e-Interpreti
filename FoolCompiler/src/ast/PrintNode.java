@@ -12,7 +12,7 @@ public class PrintNode implements Node {
 
 	public PrintNode (Node v) {
 		val=v;
-		//System.out.println("LA PRINT STA TAMPANDO: "+val.toPrint("val="));
+		//System.out.println("LA PRINT STA STAMPANDO: "+val.toPrint("val="));
 	}
 
 	public String toPrint(String s) {
@@ -22,9 +22,9 @@ public class PrintNode implements Node {
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
 		
-		System.out.println("LA PRINT STA TAMPANDO a nestingLevel = "+env.nestingLevel);
+		//System.out.println("LA PRINT STA STAMPANDO a nestingLevel = "+env.nestingLevel);
 
-		Utils.printHashMap("STAMPA PRIMA DELLA PRINT:",env.symTable);
+		//Utils.printHashMap("STAMPA PRIMA DELLA PRINT:",env.symTable);
 
 		return val.checkSemantics(env);
 	}
