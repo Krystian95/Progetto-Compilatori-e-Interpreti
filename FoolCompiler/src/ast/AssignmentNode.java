@@ -36,6 +36,9 @@ public class AssignmentNode implements Node {
             res.add(new SemanticError("Variable " + id + " not declared"));
         }else {
         	//idOffset = varEntry.getOffset(); //memorizzo l'offset dell'id
+        	/*if(env.symTable.get(env.nestingLevel).containsKey(id)) {
+        		res.add(new SemanticError("Variable " + id + " cannot be assigne to it self"));
+        	}*/
         	idType = varEntry.getType(); //memorizzo il tipo dell'entry
         }
 

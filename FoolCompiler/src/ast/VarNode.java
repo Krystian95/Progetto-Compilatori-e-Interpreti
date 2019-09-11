@@ -12,11 +12,13 @@ public class VarNode implements Node {
 	private String id;
 	private Node type;
 	private Node exp;
+	private String expText;
 
-	public VarNode (String i, Node t, Node v) {
+	public VarNode (String i, Node t, Node v, String vText) {
 		id=i;
 		type=t;
 		exp=v;
+		expText = vText;
 	}
 
 	@Override
@@ -30,11 +32,15 @@ public class VarNode implements Node {
 		//env.offset = -2;
 		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
 
-		STentry entry = new STentry(env.nestingLevel,type, env.offset); //separo introducendo "entry"
+		STentry entry = new STentry(env.nestingLevel, type, env.offset); //separo introducendo "entry"
 
 		if ( hm.containsKey(id) )
-			res.add(new SemanticError("Var id "+id+" already declared"));
+			res.add(new SemanticError("Var id " + id + " already declared"));
 		else {
+			if(expText.contains(id)) {
+				res.add(new SemanticError("Variable " + id + " is not initializated"));
+			}
+
 			env.offset--;
 			hm.put(id, entry);
 		}

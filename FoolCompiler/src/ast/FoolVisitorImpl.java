@@ -155,7 +155,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 
 		//build the varNode
 		//return new VarNode(ctx.vardec().ID().getText(), typeNode, expNode);
-		return new VarNode(ctx.ID().getText(), typeNode, expNode);
+		return new VarNode(ctx.ID().getText(), typeNode, expNode, ctx.exp().getText());
 	}
 
 	@Override

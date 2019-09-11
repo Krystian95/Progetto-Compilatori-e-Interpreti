@@ -31,11 +31,13 @@ public class IdNode implements Node {
 
 		int j=env.nestingLevel;
 		STentry tmp=null;
+		
 		while (j>=0 && tmp==null)
-			tmp=(env.symTable.get(j--)).get(id);
-		if (tmp==null)
-			res.add(new SemanticError("Id "+id+" not declared"));
-		else{
+			tmp = (env.symTable.get(j--)).get(id);
+		
+		if (tmp == null) {
+			res.add(new SemanticError("Id " + id + " not declared"));
+		}else{
 			entry = tmp;
 			nestinglevel = env.nestingLevel;
 		}

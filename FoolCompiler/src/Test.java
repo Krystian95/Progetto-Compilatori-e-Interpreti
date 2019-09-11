@@ -83,8 +83,9 @@ public class Test {
 		        visitorSVM.visit(parserASM.assembly());
 		        System.out.println("You had: "+lexerASM.lexicalErrors+" lexical errors and "+parserASM.getNumberOfSyntaxErrors()+" syntax errors.");
 		        if (lexerASM.lexicalErrors>0 || parserASM.getNumberOfSyntaxErrors()>0) System.exit(1);
-		
+
 		        System.out.println("Starting Virtual Machine...");
+		        System.out.println();
 
 		        /*for(int i=0; i<20;i++) {
 			        System.out.println(visitorSVM.code[i]);

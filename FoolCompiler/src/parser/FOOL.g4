@@ -24,7 +24,7 @@ statement	: assignment ';' #assignmentStatement // OK
 
 assignment	: ID '=' exp ; // OK
 
-deletion	: 'delete' ID ;
+deletion	: 'delete' ID ; // OK
 
 print		: 'print' exp ; // OK
 
