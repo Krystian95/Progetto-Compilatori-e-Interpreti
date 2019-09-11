@@ -30,12 +30,12 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        String fileName = Strings.EMPTY;
+        String fileName = "test.spl";
 
-        if(args.length==0){
+        /*if(args.length==0){
             System.out.println("Input file expected!");
             exit(-1);
-        }
+        }*/
 
         if(args.length==1){
             fileName = args[0];
@@ -120,6 +120,7 @@ public class MainApp {
             ExecuteVM vm = new ExecuteVM(e.code);
             Strings.printCheckingStatus("Executing object file...");
             vm.cpu();
+            Strings.printCheckingStatus(vm.getPrintedResults().toString());
 
 
         } catch (IOException | TypeCheckException | ExecutionException e) {

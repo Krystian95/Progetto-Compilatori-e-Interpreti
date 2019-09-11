@@ -25,7 +25,7 @@ public class AssignmentNode implements Node {
 		
 		STentry varEntry = null;  //entry della variabile nella ST
 		
-		//cerco l'entry dell'id nella ST dal NL più esterno a NL = 0
+		// Cerco l'entry dell'id nella ST dal NL corrente fino a quello più esterno (1)
         int j = env.nestingLevel;
         while (j >= 0) {
             varEntry = (env.symTable.get(j--)).get(id);
@@ -58,7 +58,8 @@ public class AssignmentNode implements Node {
 	public Node typeCheck() {
 		
 		if (! (FOOLlib.isSubtype(exp.typeCheck(),idType)) ){
-			System.out.println("Incompatible value for variable "+id);
+			System.err.println("You had 1 error:");
+			System.err.println("\tIncompatible value for variable " + id);
 			System.exit(0);
 		}
 		

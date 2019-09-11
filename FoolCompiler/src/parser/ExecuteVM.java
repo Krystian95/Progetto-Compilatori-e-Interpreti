@@ -149,7 +149,7 @@ public class ExecuteVM {
 				case SVMParser.PRINT :
 					System.out.println((sp<MEMSIZE)?memory[sp]:"Empty stack!");
 					break;
-				case SVMParser.DELETE :
+				/*case SVMParser.DELETE :
 
 					if (memory[sp] == -10000) {
 						System.out.println("\nError: Null pointer exception");
@@ -158,7 +158,7 @@ public class ExecuteVM {
 
 					memory[pop()] = null;
 
-					break;
+					break;*/
 				case SVMParser.HALT :
 					//to print the result 
 					System.out.println("\nResult: " + memory[sp] + "\n");

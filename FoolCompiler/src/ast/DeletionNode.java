@@ -10,7 +10,6 @@ import lib.FOOLlib;
 public class DeletionNode implements Node {
 
 	private String id;
-	private STentry entry;
 
 	public DeletionNode (String i) {
 		id=i;
@@ -19,7 +18,7 @@ public class DeletionNode implements Node {
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
 
-		//Utils.printHashMap("BEFORE DELETION OF "+id,env.symTable);
+		Utils.printHashMap("BEFORE DELETION OF "+id,env.symTable);
 
 		//create result list
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
@@ -28,21 +27,20 @@ public class DeletionNode implements Node {
 		int j = env.nestingLevel;
 		STentry enry_to_delete = null;
 
-		//System.out.println("DELETION of "+id+" starting at nestingLevel = "+j);
+		System.out.println("DELETION of "+id+" starting at nestingLevel = "+j);
 
 		while (j >= 1 && enry_to_delete == null) {
 			enry_to_delete = (env.symTable.get(j--)).get(id);
 		}
 
 		if (enry_to_delete == null) {
-			res.add(new SemanticError("Id " + id + " not declared"));
+			res.add(new SemanticError("Id " + id + " not declared [DELETE]"));
 		}else{
-			entry = enry_to_delete;
-			/*System.out.println("DELETION of "+id+" found at nestingLevel = "+enry_to_delete.getNestinglevel());
-			env.symTable.get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);*/
+			System.out.println("DELETION of "+id+" found at nestingLevel = "+enry_to_delete.getNestinglevel());
+			env.symTable.get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);
 		}
 
-		//Utils.printHashMap("AFTER DELETION OF "+id,env.symTable);
+		Utils.printHashMap("AFTER DELETION OF "+id,env.symTable);
 
 		return res;
 	}
@@ -57,11 +55,7 @@ public class DeletionNode implements Node {
 	}
 
 	public String codeGeneration() {
-		return "push "+entry.getOffset()+"\n"+ //metto offset sullo stack
-				"lfp\n"+
-				//getAR+ //risalgo la catena statica
-				"add\n"+ 
-				"delete\n";
+		return "";
 	}  
 
 }  

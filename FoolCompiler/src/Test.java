@@ -49,9 +49,9 @@ public class Test {
 	        ArrayList<SemanticError> err = ast.checkSemantics(env);
 	        
 	        if(err.size()>0){
-	        	System.out.println("You had: " +err.size()+" errors:");
+	        	System.err.println("You had " +err.size()+" errors:");
 	        	for(SemanticError e : err)
-	        		System.out.println("\t" + e);
+	        		System.err.println("\t" + e);
 	        }else{
 	
 		        System.out.println("\nVisualizing AST...");

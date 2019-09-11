@@ -1,12 +1,10 @@
 
+{ int x = 1; {{{{ delete x; }}}} int y = y; }
 
-{int a=9; delete a;}
 
 /*
-
 - dichiarazione variabile nel then e stampa nell'else
 - utilizzo parametri di funzione
-
 */
 
 

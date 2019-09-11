@@ -1,7 +1,7 @@
 push 0
-push 9
-push -2
+push 1
+push -3
 lfp
 add
-delete
+lw
 halt
