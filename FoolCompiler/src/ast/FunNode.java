@@ -28,14 +28,13 @@ public class FunNode implements Node {
 
 		//create result list
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
-
 		//env.offset = -2;
 		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
 		STentry entry = new STentry(env.nestingLevel,env.offset--); //separo introducendo "entry"
 
-		if ( hm.put(id,entry) != null )
+		if ( hm.put(id,entry) != null ) {
 			res.add(new SemanticError("Fun id "+id+" already declared"));
-		else{		
+		} else{		
 
 			ArrayList<Node> parTypes = new ArrayList<Node>();
 			//int paroffset=1;
@@ -48,16 +47,16 @@ public class FunNode implements Node {
 					System.out.println("Parameter id "+arg.getId()+" already declared");*/
 			}
 			
+			System.out.println("parlist = " + parlist.toString());
+
 			//creare una nuova hashmap per la symTable
-			System.out.println("nestingLevel="+env.nestingLevel);
 			env.nestingLevel++;
-			System.out.println("nestingLevel="+env.nestingLevel);
 			HashMap<String,STentry> hmn = new HashMap<String,STentry> ();
 			env.symTable.add(hmn);
-			env.offset=-2;
-			
+			//env.offset = -2;
+
 			env.parOffset=1;
-			
+
 			for(Node a : parlist){
 				res.addAll(a.checkSemantics(env));
 			}
@@ -117,10 +116,10 @@ public class FunNode implements Node {
 
 	public String codeGeneration() {
 
-        System.out.println("declist="+declist);
-        System.out.println("parlist="+parlist);
+		System.out.println("declist="+declist);
+		System.out.println("parlist="+parlist);
 
-		/*String declCode="";
+		String declCode="";
 		if (declist!=null) 
 			for (Node dec:declist)
 				declCode+=dec.codeGeneration();
@@ -128,30 +127,50 @@ public class FunNode implements Node {
 		String popDecl="";
 		if (declist!=null) 
 			for (Node dec:declist)
-				popDecl+="pop\n";*/
+				popDecl+="pop\n";
 
 		String popParl="";
 		for (Node dec:parlist)
 			popParl+="pop\n";
 
 		String funl=FOOLlib.freshFunLabel(); 
-		FOOLlib.putCode(funl+":\n"+
+		/*FOOLlib.putCode(
+				//"[-- START FOOLlib.putCode --]\n"+
+				funl+":\n"+
 				"cfp\n"+ 		// setta $fp = $sp				
 				"lra\n"+ 		// inserimento return address
-				//declCode+ 		// inserimento dichiarazioni locali
+				declCode+ 		// inserimento dichiarazioni locali
 				body.codeGeneration()+
-				//"srv\n"+ 		// pop del return value (store top into rv)
-				//popDecl+
+				"srv\n"+ 		// pop del return value (store top into rv)
+				popDecl+
 				"sra\n"+ 		// pop del return address
 				"pop\n"+ 		// pop di AL
 				popParl+
 				"sfp\n"+  		// setto $fp a valore del CL
-				//"lrv\n"+ 		// risultato della funzione sullo stack
+				"lrv\n"+ 		// risultato della funzione sullo stack
 				"lra\n"+
 				"js\n"  // salta a $ra
+				//+"[-- END FOOLlib.putCode --]\n"
+				);*/
+
+		FOOLlib.putCode(
+				funl + ":\n"
+						+ "cfp\n"               //move $fp a $sp
+						//+ "lra\n"               //push $ra
+						+ body.codeGeneration() //push funbody
+						+ popDecl             	//pop delle dichiarazioni in funbody
+						//+ "sra\n"             //$ra <- top
+						//+ "pop\n"             //pop $fp
+						+ popParl               //pop parlist
+						//+ "sfp\n"             //$fp <- top
+						+ "lra\n"               //push $ra
+						+ "js\n"                //jump $ra
 				);
 
-		return "push "+ funl +"\n";
+		return //"[-- START FUN NODE --]\n"+
+				"push "+ funl +"\n"
+				//"+[-- END FUN NODE --]\n"
+				;
 	}
 
 }  

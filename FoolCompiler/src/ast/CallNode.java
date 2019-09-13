@@ -86,7 +86,8 @@ public String toPrint(String s) {  //
 		  for (int i=0; i<nestinglevel-entry.getNestinglevel(); i++) 
 		    	 getAR+="lw\n";
 		  					// formato AR: control_link+parameters+access_link+dich_locali
-		return "lfp\n"+ 				// CL
+		return //"[-- START CALL NODE --]\n"+
+				"lfp\n"+ 				// CL
                parCode+
                "lfp\n"+getAR+ 		// setto AL risalendo la catena statica
                						// ora recupero l'indirizzo a cui saltare e lo metto sullo stack
@@ -94,7 +95,9 @@ public String toPrint(String s) {  //
 		       "lfp\n"+getAR+ 		// risalgo la catena statica
 			   "add\n"+ 
                "lw\n"+ 				// carico sullo stack il valore all'indirizzo ottenuto
-		       "js\n";
+		       "js\n"
+		       //+"[-- END CALL NODE --]\n"
+		       ;
   }
 
     

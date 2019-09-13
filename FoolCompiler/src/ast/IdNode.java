@@ -31,10 +31,10 @@ public class IdNode implements Node {
 
 		int j=env.nestingLevel;
 		STentry tmp=null;
-		
+
 		while (j>=0 && tmp==null)
 			tmp = (env.symTable.get(j--)).get(id);
-		
+
 		if (tmp == null) {
 			res.add(new SemanticError("Id " + id + " not declared"));
 		}else{
@@ -55,16 +55,35 @@ public class IdNode implements Node {
 	}
 
 	public String codeGeneration() {
+
+		String discriminator = "";
+
+		if(entry.getOffset() > 0) {
+			//discriminator = "cfp";
+		}else {
+			if(nestinglevel <= entry.getNestinglevel()) {
+				discriminator = "lfp";
+			}else {
+				discriminator = "lfp";
+			}
+		}
+
 		String getAR="";
-		/*System.out.println("[IdNode] nestinglevel = "+nestinglevel);
-		System.out.println("[IdNode] entry.getNestinglevel() = "+entry.getNestinglevel());*/
-		for (int i=0; i<nestinglevel-entry.getNestinglevel(); i++) 
-			getAR+="lw\n";
+		System.out.println("[IdNode] nestinglevel = "+nestinglevel);
+		System.out.println("[IdNode] entry.getNestinglevel() = "+entry.getNestinglevel());
+		for (int i=0; i<nestinglevel-entry.getNestinglevel(); i++) {
+			System.out.println("i = " + i);
+			getAR+= "lw\n";
+
+		}
+		
 		return "push "+entry.getOffset()+"\n"+ //metto offset sullo stack
+		//discriminator+"\n"+
 		"lfp\n"+
-		//getAR+ //risalgo la catena statica
+		getAR+ //risalgo la catena statica
 		"add\n"+ 
-		"lw\n"; //carico sullo stack il valore all'indirizzo ottenuto
+		"lw\n"
+		; //carico sullo stack il valore all'indirizzo ottenuto
 
 	}
 }  

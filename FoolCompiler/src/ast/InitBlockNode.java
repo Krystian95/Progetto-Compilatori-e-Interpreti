@@ -30,8 +30,8 @@ public class InitBlockNode implements Node {
 		HashMap<String,STentry> hm = new HashMap<String,STentry> ();
 		env.symTable.add(hm);
 
-		env.offset = -2;
-		//if there are statementren then check semantics for every statement and save the results
+		//env.offset = -2;
+		//if there are statements then check semantics for every statement and save the results
 		//System.out.println("statement = "+statement);
 		res.addAll(statement.checkSemantics(env));
 
@@ -57,10 +57,11 @@ public class InitBlockNode implements Node {
 	public String codeGeneration() {
 		String declCode="";
 		declCode+=statement.codeGeneration();
-		return "push 0\n"+
-		declCode+
-		"halt\n"+
-		FOOLlib.getCode();
+		return 
+				"push 0\n"+
+				declCode+
+				"halt\n"+
+				FOOLlib.getCode();
 	} 
 
 

@@ -41,7 +41,7 @@ public class ParNode implements Node {
             res.add(new SemanticError("Parameter id " + id + " already declared"));
         //se il nome è free, inserisco l'entry nella ST e incremento l'offset
         else {
-            hm.put(id, new STentry(env.nestingLevel, type, env.parOffset));
+            hm.put(id, new STentry(env.nestingLevel + 1, type, env.parOffset));
             //if (type instanceof ObjectTypeNode)
             //    env.incrementParOffset();
             env.parOffset++;

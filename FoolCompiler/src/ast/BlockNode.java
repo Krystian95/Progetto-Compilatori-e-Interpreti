@@ -30,16 +30,21 @@ public class BlockNode implements Node {
 		env.nestingLevel++;
 		HashMap<String,STentry> hm = new HashMap<String,STentry> ();
 		env.symTable.add(hm);
+		
+		int offsetGlobal = env.offset;
 
 		//check semantics in the dec list
 		if(statements.size() > 0){
 			//env.offset = -2;
+			env.offset = -1;
 			//if there are statementren then check semantics for every statement and save the results
 			for(Node statement : statements) {
 				//System.out.println("statement = "+statement);
 				res.addAll(statement.checkSemantics(env));
 			}
 		}
+		
+		env.offset = offsetGlobal;
 
 		//check semantics in the exp body
 		//res.addAll(exp.checkSemantics(env));
@@ -63,12 +68,22 @@ public class BlockNode implements Node {
 	}
 
 	public String codeGeneration() {
+		
 		String declCode="";
-		for (Node statement:statements)
+		String pops = "";
+		
+		for (Node statement:statements) {
 			declCode+=statement.codeGeneration();
-		return declCode+
-		//"halt\n"+
-		FOOLlib.getCode();
+			pops += "pop\n";
+		}
+		
+		return 
+				"lfp\n"+
+				"cfp\n"+
+				declCode
+				//"halt\n"+
+				//FOOLlib.getCode()
+				;
 	} 
 
 

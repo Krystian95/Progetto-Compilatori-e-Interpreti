@@ -25,7 +25,7 @@ public class FOOLlib {
   } 
   
   public static void putCode(String c) { 
-    funCode+="\n"+c; //aggiunge una linea vuota di separazione prima di funzione
+    funCode += "\n" + c; //aggiunge una linea vuota di separazione prima di funzione
   } 
   
   public static String getCode() { 

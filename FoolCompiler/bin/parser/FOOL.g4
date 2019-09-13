@@ -28,9 +28,9 @@ deletion	: 'delete' ID ; // OK
 
 print		: 'print' exp ; // OK
 
-functioncall: ID '(' (exp (',' exp)* )? ')' ; // MANCA gestione funzioni di sistema (stdlib, es. "print (...)")
+functioncall: ID '(' (exp (',' exp)* )? ')' ;
 
-ifthenelse 	: 'if' '(' cond=exp ')' 'then' thenBranch=block 'else' elseBranch=block ; // MANCA nesting level
+ifthenelse 	: 'if' '(' cond=exp ')' 'then' thenBranch=block 'else' elseBranch=block ; // OK
 
 declaration	: type ID '=' exp ';' #varasm // OK
 		  	| ID '(' ( parameter ( ',' parameter)* )? ')' block #fundec // MANCA nesting declarations + var nesting level

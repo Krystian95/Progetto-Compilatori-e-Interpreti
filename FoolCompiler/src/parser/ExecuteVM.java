@@ -22,7 +22,7 @@ public class ExecuteVM {
 	public void cpu() {
 		while ( true ) {
 			if(hp+1>=sp) {
-				System.out.println("\nError: Out of memory");
+				System.err.println("\nError: Out of memory");
 				return;
 			}
 			else {
@@ -66,6 +66,8 @@ public class ExecuteVM {
 				case SVMParser.LOADW : //
 					// check if object address where we take the method label
 					// is null value (-10000)
+					//System.out.println("\nfp = "+fp);
+					//System.out.println("sp = "+sp);
 					if (memory[sp] == -10000) {
 						System.out.println("\nError: Null pointer exception");
 						return;
@@ -161,7 +163,7 @@ public class ExecuteVM {
 					break;*/
 				case SVMParser.HALT :
 					//to print the result 
-					System.out.println("Running ended.");
+					System.out.println("\nRunning ended.");
 					return;
 				}
 

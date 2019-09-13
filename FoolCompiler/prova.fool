@@ -1,6 +1,21 @@
 
 {
-	int a =9; delete a;
+	 int x = 1;
+	
+	 f(){ int p=88; print x; }
+	 g(int y){ print y; }
+	 b(){ print 66; }
+	 
+	 int k=666;
+	 int a=26347;
+	 g(k);
+	 int z = 6;
+	 int p = 0;
+	 int t = 5;
+	 int q = 999;
+	 print z;
+	 f();
+	 b();
 }
 
 
@@ -11,6 +26,38 @@
 
 
 /*
+
+{ int a = 55; int b=77; {int c= 3;} {int q= 3;} int e=1; print e; }
+
+{
+	int x = 44;
+
+	f(int a){ int b = 66; print x; }
+
+	f(55);
+}
+
+{
+	 int x = 1;
+	
+	 f(){ int p=88; print x; }
+	 g(int y){ print y; }
+	 b(){ print 66; }
+	 
+	 int k=666;
+	 int a=26347;
+	 g(k);
+	 int z = 6;
+	 int p = 0;
+	 int t = 5;
+	 int q = 999;
+	 print z;
+	 f();
+	 b();
+}
+
+{ int a = 55; int b=77; {print a;} print b; }
+
 
 {int z=888; int u=44; int x=55; if(5==5) then {int x=77; int a=2; int b=6; print x;} else {} print x;}
 
@@ -24,7 +71,7 @@
 
 {int y=0; bool j = y || y;}
 
-{int y=0; if (y == 0) then { print(y); } else { print 5; }}		******* ERRORE *******
+{int y=0; if (y == 0) then { print(y); } else { print 5; }}
 
 {int x = 1; f(int y){ if (y == 0) then { print(x);} else { f(y-1); }  f(54);}
 
