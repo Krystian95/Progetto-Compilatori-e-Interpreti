@@ -54,7 +54,6 @@ public class BlockNode implements Node {
 
 		//return the result
 		
-		System.out.println("Gesu "+countVarDec);
 		return res;
 	}
 
@@ -72,23 +71,20 @@ public class BlockNode implements Node {
 	public String codeGeneration() {
 		String declCode="";
 		String pops = "";
-		System.out.println("è lui "+countVarDec);
 		for (int i=0; i<countVarDec; i++) {
 			pops += "pop\n";
 		}
 		for (Node statement:statements) {
-			System.out.println(statement.toPrint("DIO CANAGLIA"));
 			/*if(statement.toPrint("").contains("Var")) {
 				pops += "pop\n";
 			}*/
 			
 				
 			declCode+=statement.codeGeneration();
-			System.out.println(nestLevel);
 			
 			
 		}
-		System.out.println(pops);
+
 		return "lfp\ncfp\n"+declCode+pops+"lw\nsfp\n"
 		//"halt\n"+
 		//FOOLlib.getCode()

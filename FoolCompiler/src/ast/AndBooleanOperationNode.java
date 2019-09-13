@@ -41,11 +41,11 @@ public class AndBooleanOperationNode implements Node {
 
 		if (FOOLlib.isSubtype(l,new BoolTypeNode()) && FOOLlib.isSubtype(r,new BoolTypeNode())) {
 			if (! ( FOOLlib.isSubtype(l,r) || FOOLlib.isSubtype(r,l) ) ) {
-				System.out.println("Incompatible types in AND boolean operation");
+				System.err.println("Incompatible types in AND boolean operation");
 				System.exit(0);
 			}
 		}else {
-			System.out.println("Not integer types in AND boolean operation");
+			System.err.println("Not integer types in AND boolean operation");
 			System.exit(0);
 		}
 		return new BoolTypeNode();

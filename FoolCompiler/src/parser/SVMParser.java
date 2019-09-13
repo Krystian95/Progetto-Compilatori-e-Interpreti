@@ -1,4 +1,4 @@
-// Generated from SVM.g4 by ANTLR 4.4
+// Generated from SVM.g4 by ANTLR 4.6
 package parser;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class SVMParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.4", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.6", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -25,24 +25,60 @@ public class SVMParser extends Parser {
 		BRANCHLT=15, JS=16, LOADRA=17, STORERA=18, LOADRV=19, STORERV=20, LOADFP=21, 
 		STOREFP=22, COPYFP=23, LOADHP=24, STOREHP=25, PRINT=26, HALT=27, COL=28, 
 		LABEL=29, NUMBER=30, WHITESP=31, ERR=32;
-	public static final String[] tokenNames = {
-		"<INVALID>", "'push'", "'pop'", "'add'", "'sub'", "'mult'", "'div'", "'sw'", 
-		"'lw'", "'b'", "'beq'", "'bneq'", "'bgt'", "'bleq'", "'bgeq'", "'blt'", 
-		"'js'", "'lra'", "'sra'", "'lrv'", "'srv'", "'lfp'", "'sfp'", "'cfp'", 
-		"'lhp'", "'shp'", "'print'", "'halt'", "':'", "LABEL", "NUMBER", "WHITESP", 
-		"ERR"
-	};
 	public static final int
 		RULE_assembly = 0, RULE_instruction = 1;
 	public static final String[] ruleNames = {
 		"assembly", "instruction"
 	};
 
-	@Override
-	public String getGrammarFileName() { return "SVM.g4"; }
+	private static final String[] _LITERAL_NAMES = {
+		null, "'push'", "'pop'", "'add'", "'sub'", "'mult'", "'div'", "'sw'", 
+		"'lw'", "'b'", "'beq'", "'bneq'", "'bgt'", "'bleq'", "'bgeq'", "'blt'", 
+		"'js'", "'lra'", "'sra'", "'lrv'", "'srv'", "'lfp'", "'sfp'", "'cfp'", 
+		"'lhp'", "'shp'", "'print'", "'halt'", "':'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "PUSH", "POP", "ADD", "SUB", "MULT", "DIV", "STOREW", "LOADW", "BRANCH", 
+		"BRANCHEQ", "BRANCHNOTEQ", "BRANCHGT", "BRANCHLESSEQ", "BRANCHGREATEREQ", 
+		"BRANCHLT", "JS", "LOADRA", "STORERA", "LOADRV", "STORERV", "LOADFP", 
+		"STOREFP", "COPYFP", "LOADHP", "STOREHP", "PRINT", "HALT", "COL", "LABEL", 
+		"NUMBER", "WHITESP", "ERR"
+	};
+	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
+
+	/**
+	 * @deprecated Use {@link #VOCABULARY} instead.
+	 */
+	@Deprecated
+	public static final String[] tokenNames;
+	static {
+		tokenNames = new String[_SYMBOLIC_NAMES.length];
+		for (int i = 0; i < tokenNames.length; i++) {
+			tokenNames[i] = VOCABULARY.getLiteralName(i);
+			if (tokenNames[i] == null) {
+				tokenNames[i] = VOCABULARY.getSymbolicName(i);
+			}
+
+			if (tokenNames[i] == null) {
+				tokenNames[i] = "<INVALID>";
+			}
+		}
+	}
 
 	@Override
-	public String[] getTokenNames() { return tokenNames; }
+	@Deprecated
+	public String[] getTokenNames() {
+		return tokenNames;
+	}
+
+	@Override
+
+	public Vocabulary getVocabulary() {
+		return VOCABULARY;
+	}
+
+	@Override
+	public String getGrammarFileName() { return "SVM.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -58,11 +94,11 @@ public class SVMParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class AssemblyContext extends ParserRuleContext {
-		public InstructionContext instruction(int i) {
-			return getRuleContext(InstructionContext.class,i);
-		}
 		public List<InstructionContext> instruction() {
 			return getRuleContexts(InstructionContext.class);
+		}
+		public InstructionContext instruction(int i) {
+			return getRuleContext(InstructionContext.class,i);
 		}
 		public AssemblyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -88,7 +124,8 @@ public class SVMParser extends Parser {
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PUSH) | (1L << POP) | (1L << ADD) | (1L << SUB) | (1L << MULT) | (1L << DIV) | (1L << STOREW) | (1L << LOADW) | (1L << BRANCH) | (1L << BRANCHEQ) | (1L << BRANCHNOTEQ) | (1L << BRANCHGT) | (1L << BRANCHLESSEQ) | (1L << BRANCHGREATEREQ) | (1L << BRANCHLT) | (1L << JS) | (1L << LOADRA) | (1L << STORERA) | (1L << LOADRV) | (1L << STORERV) | (1L << LOADFP) | (1L << STOREFP) | (1L << COPYFP) | (1L << LOADHP) | (1L << STOREHP) | (1L << PRINT) | (1L << HALT) | (1L << LABEL))) != 0)) {
 				{
 				{
-				setState(4); instruction();
+				setState(4);
+				instruction();
 				}
 				}
 				setState(9);
@@ -111,36 +148,36 @@ public class SVMParser extends Parser {
 	public static class InstructionContext extends ParserRuleContext {
 		public Token n;
 		public Token l;
-		public TerminalNode BRANCH() { return getToken(SVMParser.BRANCH, 0); }
-		public TerminalNode BRANCHLT() { return getToken(SVMParser.BRANCHLT, 0); }
-		public TerminalNode STOREHP() { return getToken(SVMParser.STOREHP, 0); }
-		public TerminalNode LOADRA() { return getToken(SVMParser.LOADRA, 0); }
-		public TerminalNode BRANCHLESSEQ() { return getToken(SVMParser.BRANCHLESSEQ, 0); }
-		public TerminalNode LOADRV() { return getToken(SVMParser.LOADRV, 0); }
-		public TerminalNode BRANCHEQ() { return getToken(SVMParser.BRANCHEQ, 0); }
-		public TerminalNode BRANCHNOTEQ() { return getToken(SVMParser.BRANCHNOTEQ, 0); }
-		public TerminalNode ADD() { return getToken(SVMParser.ADD, 0); }
-		public TerminalNode LOADW() { return getToken(SVMParser.LOADW, 0); }
-		public TerminalNode COL() { return getToken(SVMParser.COL, 0); }
-		public TerminalNode STOREFP() { return getToken(SVMParser.STOREFP, 0); }
-		public TerminalNode DIV() { return getToken(SVMParser.DIV, 0); }
-		public TerminalNode BRANCHGT() { return getToken(SVMParser.BRANCHGT, 0); }
-		public TerminalNode PRINT() { return getToken(SVMParser.PRINT, 0); }
-		public TerminalNode MULT() { return getToken(SVMParser.MULT, 0); }
-		public TerminalNode SUB() { return getToken(SVMParser.SUB, 0); }
-		public TerminalNode COPYFP() { return getToken(SVMParser.COPYFP, 0); }
-		public TerminalNode STORERA() { return getToken(SVMParser.STORERA, 0); }
 		public TerminalNode PUSH() { return getToken(SVMParser.PUSH, 0); }
 		public TerminalNode POP() { return getToken(SVMParser.POP, 0); }
-		public TerminalNode LABEL() { return getToken(SVMParser.LABEL, 0); }
-		public TerminalNode STORERV() { return getToken(SVMParser.STORERV, 0); }
+		public TerminalNode ADD() { return getToken(SVMParser.ADD, 0); }
+		public TerminalNode SUB() { return getToken(SVMParser.SUB, 0); }
+		public TerminalNode MULT() { return getToken(SVMParser.MULT, 0); }
+		public TerminalNode DIV() { return getToken(SVMParser.DIV, 0); }
+		public TerminalNode STOREW() { return getToken(SVMParser.STOREW, 0); }
+		public TerminalNode LOADW() { return getToken(SVMParser.LOADW, 0); }
+		public TerminalNode COL() { return getToken(SVMParser.COL, 0); }
+		public TerminalNode BRANCH() { return getToken(SVMParser.BRANCH, 0); }
+		public TerminalNode BRANCHEQ() { return getToken(SVMParser.BRANCHEQ, 0); }
+		public TerminalNode BRANCHNOTEQ() { return getToken(SVMParser.BRANCHNOTEQ, 0); }
+		public TerminalNode BRANCHGT() { return getToken(SVMParser.BRANCHGT, 0); }
+		public TerminalNode BRANCHLT() { return getToken(SVMParser.BRANCHLT, 0); }
+		public TerminalNode BRANCHLESSEQ() { return getToken(SVMParser.BRANCHLESSEQ, 0); }
 		public TerminalNode BRANCHGREATEREQ() { return getToken(SVMParser.BRANCHGREATEREQ, 0); }
 		public TerminalNode JS() { return getToken(SVMParser.JS, 0); }
-		public TerminalNode LOADHP() { return getToken(SVMParser.LOADHP, 0); }
-		public TerminalNode STOREW() { return getToken(SVMParser.STOREW, 0); }
+		public TerminalNode LOADRA() { return getToken(SVMParser.LOADRA, 0); }
+		public TerminalNode STORERA() { return getToken(SVMParser.STORERA, 0); }
+		public TerminalNode LOADRV() { return getToken(SVMParser.LOADRV, 0); }
+		public TerminalNode STORERV() { return getToken(SVMParser.STORERV, 0); }
 		public TerminalNode LOADFP() { return getToken(SVMParser.LOADFP, 0); }
+		public TerminalNode STOREFP() { return getToken(SVMParser.STOREFP, 0); }
+		public TerminalNode COPYFP() { return getToken(SVMParser.COPYFP, 0); }
+		public TerminalNode LOADHP() { return getToken(SVMParser.LOADHP, 0); }
+		public TerminalNode STOREHP() { return getToken(SVMParser.STOREHP, 0); }
+		public TerminalNode PRINT() { return getToken(SVMParser.PRINT, 0); }
 		public TerminalNode HALT() { return getToken(SVMParser.HALT, 0); }
 		public TerminalNode NUMBER() { return getToken(SVMParser.NUMBER, 0); }
+		public TerminalNode LABEL() { return getToken(SVMParser.LABEL, 0); }
 		public InstructionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -159,160 +196,200 @@ public class SVMParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(49);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				{
-				setState(10); match(PUSH);
-				setState(11); ((InstructionContext)_localctx).n = match(NUMBER);
+				setState(10);
+				match(PUSH);
+				setState(11);
+				((InstructionContext)_localctx).n = match(NUMBER);
 				}
 				break;
 			case 2:
 				{
-				setState(12); match(PUSH);
-				setState(13); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(12);
+				match(PUSH);
+				setState(13);
+				((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 3:
 				{
-				setState(14); match(POP);
+				setState(14);
+				match(POP);
 				}
 				break;
 			case 4:
 				{
-				setState(15); match(ADD);
+				setState(15);
+				match(ADD);
 				}
 				break;
 			case 5:
 				{
-				setState(16); match(SUB);
+				setState(16);
+				match(SUB);
 				}
 				break;
 			case 6:
 				{
-				setState(17); match(MULT);
+				setState(17);
+				match(MULT);
 				}
 				break;
 			case 7:
 				{
-				setState(18); match(DIV);
+				setState(18);
+				match(DIV);
 				}
 				break;
 			case 8:
 				{
-				setState(19); match(STOREW);
+				setState(19);
+				match(STOREW);
 				}
 				break;
 			case 9:
 				{
-				setState(20); match(LOADW);
+				setState(20);
+				match(LOADW);
 				}
 				break;
 			case 10:
 				{
-				setState(21); ((InstructionContext)_localctx).l = match(LABEL);
-				setState(22); match(COL);
+				setState(21);
+				((InstructionContext)_localctx).l = match(LABEL);
+				setState(22);
+				match(COL);
 				}
 				break;
 			case 11:
 				{
-				setState(23); match(BRANCH);
-				setState(24); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(23);
+				match(BRANCH);
+				setState(24);
+				((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 12:
 				{
-				setState(25); match(BRANCHEQ);
-				setState(26); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(25);
+				match(BRANCHEQ);
+				setState(26);
+				((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 13:
 				{
-				setState(27); match(BRANCHNOTEQ);
-				setState(28); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(27);
+				match(BRANCHNOTEQ);
+				setState(28);
+				((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 14:
 				{
-				setState(29); match(BRANCHGT);
-				setState(30); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(29);
+				match(BRANCHGT);
+				setState(30);
+				((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 15:
 				{
-				setState(31); match(BRANCHLT);
-				setState(32); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(31);
+				match(BRANCHLT);
+				setState(32);
+				((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 16:
 				{
-				setState(33); match(BRANCHLESSEQ);
-				setState(34); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(33);
+				match(BRANCHLESSEQ);
+				setState(34);
+				((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 17:
 				{
-				setState(35); match(BRANCHGREATEREQ);
-				setState(36); ((InstructionContext)_localctx).l = match(LABEL);
+				setState(35);
+				match(BRANCHGREATEREQ);
+				setState(36);
+				((InstructionContext)_localctx).l = match(LABEL);
 				}
 				break;
 			case 18:
 				{
-				setState(37); match(JS);
+				setState(37);
+				match(JS);
 				}
 				break;
 			case 19:
 				{
-				setState(38); match(LOADRA);
+				setState(38);
+				match(LOADRA);
 				}
 				break;
 			case 20:
 				{
-				setState(39); match(STORERA);
+				setState(39);
+				match(STORERA);
 				}
 				break;
 			case 21:
 				{
-				setState(40); match(LOADRV);
+				setState(40);
+				match(LOADRV);
 				}
 				break;
 			case 22:
 				{
-				setState(41); match(STORERV);
+				setState(41);
+				match(STORERV);
 				}
 				break;
 			case 23:
 				{
-				setState(42); match(LOADFP);
+				setState(42);
+				match(LOADFP);
 				}
 				break;
 			case 24:
 				{
-				setState(43); match(STOREFP);
+				setState(43);
+				match(STOREFP);
 				}
 				break;
 			case 25:
 				{
-				setState(44); match(COPYFP);
+				setState(44);
+				match(COPYFP);
 				}
 				break;
 			case 26:
 				{
-				setState(45); match(LOADHP);
+				setState(45);
+				match(LOADHP);
 				}
 				break;
 			case 27:
 				{
-				setState(46); match(STOREHP);
+				setState(46);
+				match(STOREHP);
 				}
 				break;
 			case 28:
 				{
-				setState(47); match(PRINT);
+				setState(47);
+				match(PRINT);
 				}
 				break;
 			case 29:
 				{
-				setState(48); match(HALT);
+				setState(48);
+				match(HALT);
 				}
 				break;
 			}

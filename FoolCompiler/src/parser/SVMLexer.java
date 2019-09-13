@@ -1,4 +1,4 @@
-// Generated from SVM.g4 by ANTLR 4.4
+// Generated from SVM.g4 by ANTLR 4.6
 package parser;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class SVMLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.4", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.6", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -29,14 +29,6 @@ public class SVMLexer extends Lexer {
 		"DEFAULT_MODE"
 	};
 
-	public static final String[] tokenNames = {
-		"'\\u0000'", "'\\u0001'", "'\\u0002'", "'\\u0003'", "'\\u0004'", "'\\u0005'", 
-		"'\\u0006'", "'\\u0007'", "'\b'", "'\t'", "'\n'", "'\\u000B'", "'\f'", 
-		"'\r'", "'\\u000E'", "'\\u000F'", "'\\u0010'", "'\\u0011'", "'\\u0012'", 
-		"'\\u0013'", "'\\u0014'", "'\\u0015'", "'\\u0016'", "'\\u0017'", "'\\u0018'", 
-		"'\\u0019'", "'\\u001A'", "'\\u001B'", "'\\u001C'", "'\\u001D'", "'\\u001E'", 
-		"'\\u001F'", "' '"
-	};
 	public static final String[] ruleNames = {
 		"PUSH", "POP", "ADD", "SUB", "MULT", "DIV", "STOREW", "LOADW", "BRANCH", 
 		"BRANCHEQ", "BRANCHNOTEQ", "BRANCHGT", "BRANCHLESSEQ", "BRANCHGREATEREQ", 
@@ -44,6 +36,52 @@ public class SVMLexer extends Lexer {
 		"STOREFP", "COPYFP", "LOADHP", "STOREHP", "PRINT", "HALT", "COL", "LABEL", 
 		"NUMBER", "WHITESP", "ERR"
 	};
+
+	private static final String[] _LITERAL_NAMES = {
+		null, "'push'", "'pop'", "'add'", "'sub'", "'mult'", "'div'", "'sw'", 
+		"'lw'", "'b'", "'beq'", "'bneq'", "'bgt'", "'bleq'", "'bgeq'", "'blt'", 
+		"'js'", "'lra'", "'sra'", "'lrv'", "'srv'", "'lfp'", "'sfp'", "'cfp'", 
+		"'lhp'", "'shp'", "'print'", "'halt'", "':'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "PUSH", "POP", "ADD", "SUB", "MULT", "DIV", "STOREW", "LOADW", "BRANCH", 
+		"BRANCHEQ", "BRANCHNOTEQ", "BRANCHGT", "BRANCHLESSEQ", "BRANCHGREATEREQ", 
+		"BRANCHLT", "JS", "LOADRA", "STORERA", "LOADRV", "STORERV", "LOADFP", 
+		"STOREFP", "COPYFP", "LOADHP", "STOREHP", "PRINT", "HALT", "COL", "LABEL", 
+		"NUMBER", "WHITESP", "ERR"
+	};
+	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
+
+	/**
+	 * @deprecated Use {@link #VOCABULARY} instead.
+	 */
+	@Deprecated
+	public static final String[] tokenNames;
+	static {
+		tokenNames = new String[_SYMBOLIC_NAMES.length];
+		for (int i = 0; i < tokenNames.length; i++) {
+			tokenNames[i] = VOCABULARY.getLiteralName(i);
+			if (tokenNames[i] == null) {
+				tokenNames[i] = VOCABULARY.getSymbolicName(i);
+			}
+
+			if (tokenNames[i] == null) {
+				tokenNames[i] = "<INVALID>";
+			}
+		}
+	}
+
+	@Override
+	@Deprecated
+	public String[] getTokenNames() {
+		return tokenNames;
+	}
+
+	@Override
+
+	public Vocabulary getVocabulary() {
+		return VOCABULARY;
+	}
 
 
 	public int lexicalErrors=0;
@@ -56,9 +94,6 @@ public class SVMLexer extends Lexer {
 
 	@Override
 	public String getGrammarFileName() { return "SVM.g4"; }
-
-	@Override
-	public String[] getTokenNames() { return tokenNames; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -75,12 +110,16 @@ public class SVMLexer extends Lexer {
 	@Override
 	public void action(RuleContext _localctx, int ruleIndex, int actionIndex) {
 		switch (ruleIndex) {
-		case 31: ERR_action((RuleContext)_localctx, actionIndex); break;
+		case 31:
+			ERR_action((RuleContext)_localctx, actionIndex);
+			break;
 		}
 	}
 	private void ERR_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 0:  System.err.println("Invalid char: "+ getText()); lexicalErrors++;   break;
+		case 0:
+			 System.err.println("Invalid char: "+ getText()); lexicalErrors++;  
+			break;
 		}
 	}
 

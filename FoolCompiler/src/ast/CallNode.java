@@ -61,17 +61,17 @@ public String toPrint(String s) {  //
 	 ArrowTypeNode t=null;
      if (entry.getType() instanceof ArrowTypeNode) t=(ArrowTypeNode) entry.getType(); 
      else {
-       System.out.println("Invocation of a non-function "+id);
+       System.err.println("Invocation of a non-function "+id);
        System.exit(0);
      }
      ArrayList<Node> p = t.getParList();
      if ( !(p.size() == parlist.size()) ) {
-       System.out.println("Wrong number of parameters in the invocation of "+id);
+       System.err.println("Wrong number of parameters in the invocation of "+id);
        System.exit(0);
      } 
      for (int i=0; i<parlist.size(); i++) 
        if ( !(FOOLlib.isSubtype( (parlist.get(i)).typeCheck(), p.get(i)) ) ) {
-         System.out.println("Wrong type for "+(i+1)+"-th parameter in the invocation of "+id);
+         System.err.println("Wrong type for "+(i+1)+"-th parameter in the invocation of "+id);
          System.exit(0);
        } 
      //return t.getRet();

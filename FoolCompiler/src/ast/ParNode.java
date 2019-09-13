@@ -31,7 +31,7 @@ public class ParNode implements Node {
 		
         ArrayList<SemanticError> res = new ArrayList<SemanticError>();
         
-		System.out.println("[ParNode]nestingLevel="+env.nestingLevel);
+		//System.out.println("[ParNode]nestingLevel="+env.nestingLevel);
 
         //mi salvo la ST dell'ultimo NL
         HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);

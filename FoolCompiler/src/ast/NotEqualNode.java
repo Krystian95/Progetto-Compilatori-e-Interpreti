@@ -41,11 +41,11 @@ public class NotEqualNode implements Node {
 
 		if (FOOLlib.isSubtype(l,new IntTypeNode()) && FOOLlib.isSubtype(r,new IntTypeNode())) {
 			if (! ( FOOLlib.isSubtype(l,r) || FOOLlib.isSubtype(r,l) ) ) {
-				System.out.println("Incompatible types in not equal");
+				System.err.println("Incompatible types in not equal");
 				System.exit(0);
 			}
 		}else {
-			System.out.println("Not integer types in not equal");
+			System.err.println("Not integer types in not equal");
 			System.exit(0);
 		}
 		return new BoolTypeNode();

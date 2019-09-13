@@ -50,9 +50,7 @@ public class FunNode implements Node {
 			}
 			
 			//creare una nuova hashmap per la symTable
-			System.out.println("nestingLevel="+env.nestingLevel);
 			env.nestingLevel++;
-			System.out.println("nestingLevel="+env.nestingLevel);
 			HashMap<String,STentry> hmn = new HashMap<String,STentry> ();
 			env.symTable.add(hmn);
 			//env.offset=-2;
@@ -118,8 +116,8 @@ public class FunNode implements Node {
 
 	public String codeGeneration() {
 
-        System.out.println("declist="+declist);
-        System.out.println("parlist="+parlist);
+        //System.out.println("declist="+declist);
+        //System.out.println("parlist="+parlist);
 
 		String declCode="";
 		if (declist!=null) 

@@ -1,5 +1,5 @@
-antlr4.antlrRegisteredTools=4.4@/var/folders/s5/gcmc89_974scnfcvnm_f2plc0000gq/T/antlr-4.4-complete.jar\:4.6@/Users/laneve/Documents/dev/Java sources/Fool2Compiler/antlr-4.6-complete.jar\:4.4@C\:\\Users\\serra\\Desktop\\Universit\u00E0\\Magistrale\\Compilatori ed Interpreti\\ANTLR\\antlr-4.4-complete.jar
-antlr4.antlrToolPath=C\:\\Users\\serra\\Desktop\\Universit\u00E0\\Magistrale\\Compilatori ed Interpreti\\ANTLR\\antlr-4.4-complete.jar
+antlr4.antlrRegisteredTools=4.4@/var/folders/s5/gcmc89_974scnfcvnm_f2plc0000gq/T/antlr-4.4-complete.jar\:4.6@/Applications/MAMP/htdocs/Progetto-Compilatori-e-Interpreti/FoolCompiler/antlr-4.6-complete.jar
+antlr4.antlrToolPath=/Applications/MAMP/htdocs/Progetto-Compilatori-e-Interpreti/FoolCompiler/antlr-4.6-complete.jar
 antlr4.encoding=UTF-8
 antlr4.listener=false
 antlr4.visitor=true

@@ -35,7 +35,7 @@ public class Test {
 
 		//SIMPLISTIC BUT WRONG CHECK OF THE LEXER ERRORS
 		if(lexer.lexicalErrors > 0){
-			System.out.println("The program was not in the right format. Exiting the compilation process now");
+			System.err.println("The program was not in the right format. Exiting the compilation process now");
 		}else{
 
 			FOOLParser parser = new FOOLParser(tokens);

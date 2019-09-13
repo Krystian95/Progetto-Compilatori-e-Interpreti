@@ -27,16 +27,16 @@ public class DeletionNode implements Node {
 		int j = env.nestingLevel;
 		STentry enry_to_delete = null;
 
-		System.out.println("DELETION of "+id+" starting at nestingLevel = "+j);
+		//System.out.println("DELETION of "+id+" starting at nestingLevel = "+j);
 
 		while (j >= 1 && enry_to_delete == null) {
 			enry_to_delete = (env.symTable.get(j--)).get(id);
 		}
 
 		if (enry_to_delete == null) {
-			res.add(new SemanticError("Id " + id + " not declared [DELETE]"));
+			res.add(new SemanticError("Id " + id + " not declared"));
 		}else{
-			System.out.println("DELETION of "+id+" found at nestingLevel = "+enry_to_delete.getNestinglevel());
+			//System.out.println("DELETION of "+id+" found at nestingLevel = "+enry_to_delete.getNestinglevel());
 			env.symTable.get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);
 		}
 

@@ -234,7 +234,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 			case "!=":
 				return new NotEqualNode(node_sx, node_dx);
 			default:
-				System.out.println("Operazione integer non riconosciuta");
+				System.err.println("Operazione integer non riconosciuta");
 				System.exit(0);
 				return null;
 			}
@@ -259,7 +259,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 			case "||":
 				return new OrBooleanOperationNode(node_sx, node_dx);
 			default:
-				System.out.println("Operazione boolean non riconosciuta");
+				System.err.println("Operazione boolean non riconosciuta");
 				System.exit(0);
 				return null;
 			}

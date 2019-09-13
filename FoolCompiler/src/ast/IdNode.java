@@ -48,7 +48,7 @@ public class IdNode implements Node {
 	public Node typeCheck () {
 
 		if (entry.getType() instanceof ArrowTypeNode) { //
-			System.out.println("Wrong usage of function identifier");
+			System.err.println("Wrong usage of function identifier");
 			System.exit(0);
 		}	 
 		return entry.getType();
@@ -56,8 +56,8 @@ public class IdNode implements Node {
 
 	public String codeGeneration() {
 		String getAR="";
-		System.out.println("[IdNode] nestinglevel = "+nestinglevel);
-		System.out.println("[IdNode] entry.getNestinglevel() = "+entry.getNestinglevel());
+		//System.out.println("[IdNode] nestinglevel = "+nestinglevel);
+		//System.out.println("[IdNode] entry.getNestinglevel() = "+entry.getNestinglevel());
 		for (int i=0; i<nestinglevel-entry.getNestinglevel(); i++) 
 			getAR+="lw\n";
 		return "push "+entry.getOffset()+"\n"+ //metto offset sullo stack

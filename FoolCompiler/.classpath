@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/serra/Desktop/Università/Magistrale/Compilatori ed Interpreti/FoolCompiler/antlr-4.4-complete.jar"/>
+	<classpathentry kind="lib" path="antlr-4.6-complete.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
