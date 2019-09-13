@@ -1,7 +1,8 @@
 package parser;
 
-public class ExecuteVM {
 
+public class ExecuteVM {
+	boolean test=false;
 	public static final int CODESIZE = 10000;
 	public static final int MEMSIZE = 10000;
 
@@ -11,7 +12,7 @@ public class ExecuteVM {
 	private int ip = 0;
 	private int sp = MEMSIZE;
 	private int hp = 0;       
-	private int fp = MEMSIZE; 
+	private int fp = MEMSIZE-1; 
 	private int ra;           
 	private int rv;
 
@@ -66,13 +67,12 @@ public class ExecuteVM {
 				case SVMParser.LOADW : //
 					// check if object address where we take the method label
 					// is null value (-10000)
-					//System.out.println("\nfp = "+fp);
-					//System.out.println("sp = "+sp);
 					if (memory[sp] == -10000) {
 						System.out.println("\nError: Null pointer exception");
 						return;
 					}
-					push(memory[pop()]);
+					if(memory[sp]<10000)
+						push(memory[pop()]);
 					break;
 				case SVMParser.BRANCH : 
 					address = code[ip];

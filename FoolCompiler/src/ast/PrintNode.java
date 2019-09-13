@@ -22,9 +22,9 @@ public class PrintNode implements Node {
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
 		
-		System.out.println("LA PRINT STA STAMPANDO a nestingLevel = "+env.nestingLevel);
+		//System.out.println("LA PRINT STA STAMPANDO a nestingLevel = "+env.nestingLevel);
 
-		Utils.printHashMap("STAMPA PRIMA DELLA PRINT:",env.symTable);
+		//Utils.printHashMap("STAMPA PRIMA DELLA PRINT:",env.symTable);
 
 		return val.checkSemantics(env);
 	}
@@ -35,7 +35,8 @@ public class PrintNode implements Node {
 
 	public String codeGeneration() {
 		return val.codeGeneration()+
-				"print\n";
+				"print\n"
+				+ "pop\n";
 	}
 
 }  

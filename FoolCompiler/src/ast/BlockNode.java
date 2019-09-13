@@ -9,6 +9,8 @@ import util.SemanticError;
 public class BlockNode implements Node {
 
 	private ArrayList<Node> statements;
+	private int nestLevel;
+	private int countVarDec;
 
 	public BlockNode (ArrayList<Node> c) {
 		statements=c;
@@ -26,16 +28,15 @@ public class BlockNode implements Node {
 
 		//declare resulting list
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
-
+		
 		env.nestingLevel++;
+		nestLevel=env.nestingLevel;
+				
 		HashMap<String,STentry> hm = new HashMap<String,STentry> ();
 		env.symTable.add(hm);
-		
 		int offsetGlobal = env.offset;
-
 		//check semantics in the dec list
 		if(statements.size() > 0){
-			//env.offset = -2;
 			env.offset = -1;
 			//if there are statementren then check semantics for every statement and save the results
 			for(Node statement : statements) {
@@ -43,16 +44,17 @@ public class BlockNode implements Node {
 				res.addAll(statement.checkSemantics(env));
 			}
 		}
-		
-		env.offset = offsetGlobal;
+		env.offset = offsetGlobal ;
 
 		//check semantics in the exp body
 		//res.addAll(exp.checkSemantics(env));
-
+		countVarDec=Utils.countVarDec("", env.symTable, nestLevel);
 		//clean the scope, we are leaving a let scope
 		env.symTable.remove(env.nestingLevel--);
 
 		//return the result
+		
+		System.out.println("Gesu "+countVarDec);
 		return res;
 	}
 
@@ -68,22 +70,29 @@ public class BlockNode implements Node {
 	}
 
 	public String codeGeneration() {
-		
 		String declCode="";
 		String pops = "";
-		
-		for (Node statement:statements) {
-			declCode+=statement.codeGeneration();
+		System.out.println("è lui "+countVarDec);
+		for (int i=0; i<countVarDec; i++) {
 			pops += "pop\n";
 		}
-		
-		return 
-				"lfp\n"+
-				"cfp\n"+
-				declCode
-				//"halt\n"+
-				//FOOLlib.getCode()
-				;
+		for (Node statement:statements) {
+			System.out.println(statement.toPrint("DIO CANAGLIA"));
+			/*if(statement.toPrint("").contains("Var")) {
+				pops += "pop\n";
+			}*/
+			
+				
+			declCode+=statement.codeGeneration();
+			System.out.println(nestLevel);
+			
+			
+		}
+		System.out.println(pops);
+		return "lfp\ncfp\n"+declCode+pops+"lw\nsfp\n"
+		//"halt\n"+
+		//FOOLlib.getCode()
+		;
 	} 
 
 

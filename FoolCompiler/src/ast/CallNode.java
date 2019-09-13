@@ -53,6 +53,7 @@ public String toPrint(String s) {  //
 			 for(Node arg : parlist)
 				 res.addAll(arg.checkSemantics(env));
 		 }
+		 Utils.printHashMap("Dopo la FunCall",env.symTable);
 		 return res;
 	}
   

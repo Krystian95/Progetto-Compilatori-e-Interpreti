@@ -28,13 +28,15 @@ public class FunNode implements Node {
 
 		//create result list
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
+		
+		
 		//env.offset = -2;
 		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
 		STentry entry = new STentry(env.nestingLevel,env.offset--); //separo introducendo "entry"
 
-		if ( hm.put(id,entry) != null ) {
+		if ( hm.put(id,entry) != null )
 			res.add(new SemanticError("Fun id "+id+" already declared"));
-		} else{		
+		else{		
 
 			ArrayList<Node> parTypes = new ArrayList<Node>();
 			//int paroffset=1;
@@ -47,16 +49,16 @@ public class FunNode implements Node {
 					System.out.println("Parameter id "+arg.getId()+" already declared");*/
 			}
 			
-			System.out.println("parlist = " + parlist.toString());
-
 			//creare una nuova hashmap per la symTable
+			System.out.println("nestingLevel="+env.nestingLevel);
 			env.nestingLevel++;
+			System.out.println("nestingLevel="+env.nestingLevel);
 			HashMap<String,STentry> hmn = new HashMap<String,STentry> ();
 			env.symTable.add(hmn);
-			//env.offset = -2;
-
+			//env.offset=-2;
+			
 			env.parOffset=1;
-
+			
 			for(Node a : parlist){
 				res.addAll(a.checkSemantics(env));
 			}
@@ -116,8 +118,8 @@ public class FunNode implements Node {
 
 	public String codeGeneration() {
 
-		System.out.println("declist="+declist);
-		System.out.println("parlist="+parlist);
+        System.out.println("declist="+declist);
+        System.out.println("parlist="+parlist);
 
 		String declCode="";
 		if (declist!=null) 
@@ -152,20 +154,20 @@ public class FunNode implements Node {
 				"js\n"  // salta a $ra
 				//+"[-- END FOOLlib.putCode --]\n"
 				);*/
-
+		
 		FOOLlib.putCode(
-				funl + ":\n"
-						+ "cfp\n"               //move $fp a $sp
-						//+ "lra\n"               //push $ra
-						+ body.codeGeneration() //push funbody
-						+ popDecl             	//pop delle dichiarazioni in funbody
-						//+ "sra\n"             //$ra <- top
-						//+ "pop\n"             //pop $fp
-						+ popParl               //pop parlist
-						//+ "sfp\n"             //$fp <- top
-						+ "lra\n"               //push $ra
-						+ "js\n"                //jump $ra
-				);
+                funl + ":\n"
+                    + "cfp\n"               //move $fp a $sp
+                    + "lra\n"               //push $ra
+                    + body.codeGeneration() //push funbody
+                    + popDecl             	//pop delle dichiarazioni in funbody
+                    + "sra\n"             //$ra <- top
+                    + "pop\n"             //pop $fp
+                    + popParl               //pop parlist
+                    + "sfp\n"             //$fp <- top
+                    + "lra\n"               //push $ra
+                    + "js\n"                //jump $ra
+            );
 
 		return //"[-- START FUN NODE --]\n"+
 				"push "+ funl +"\n"
