@@ -68,7 +68,7 @@ public class ExecuteVM {
 					// check if object address where we take the method label
 					// is null value (-10000)
 					if (memory[sp] == -10000) {
-						System.out.println("\nError: Null pointer exception");
+						System.err.println("\nError: Null pointer exception");
 						return;
 					}
 					if(memory[sp]<10000)
