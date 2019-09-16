@@ -31,10 +31,10 @@ public class IdNode implements Node {
 
 		int j=env.nestingLevel;
 		STentry tmp=null;
-		
+
 		while (j>=0 && tmp==null)
 			tmp = (env.symTable.get(j--)).get(id);
-		
+
 		if (tmp == null) {
 			res.add(new SemanticError("Id " + id + " not declared"));
 		}else{
@@ -60,11 +60,13 @@ public class IdNode implements Node {
 		//System.out.println("[IdNode] entry.getNestinglevel() = "+entry.getNestinglevel());
 		for (int i=0; i<nestinglevel-entry.getNestinglevel(); i++) 
 			getAR+="lw\n";
-		return "push "+entry.getOffset()+"\n"+ //metto offset sullo stack
-		"lfp\n"+
-		getAR+ //risalgo la catena statica
-		"add\n"+ 
-		"lw\n"; //carico sullo stack il valore all'indirizzo ottenuto
+
+		return 
+				"push "+entry.getOffset()+"\n"+ //metto offset sullo stack
+				"lfp\n"+
+				getAR+ //risalgo la catena statica
+				"add\n"+ 
+				"lw\n"; //carico sullo stack il valore all'indirizzo ottenuto
 
 	}
 }  

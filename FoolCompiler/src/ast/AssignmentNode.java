@@ -12,6 +12,8 @@ public class AssignmentNode implements Node {
 	private String id;
 	private Node exp;
 	private Node idType;
+	STentry varEntry;
+	private int nestinglevel;
 
 	public AssignmentNode (String i, Node v) {
 		id = i;
@@ -23,7 +25,8 @@ public class AssignmentNode implements Node {
 
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 		
-		STentry varEntry = null;  //entry della variabile nella ST
+		varEntry = null;  //entry della variabile nella ST
+		nestinglevel = env.nestingLevel;
 		
 		// Cerco l'entry dell'id nella ST dal NL corrente fino a quello più esterno (1)
         int j = env.nestingLevel;
@@ -70,7 +73,21 @@ public class AssignmentNode implements Node {
 	}
 
 	public String codeGeneration() {
-		return exp.codeGeneration();
+		
+		String getAR="";
+		
+		System.out.println("[AssignmentNode] nestinglevel = "+nestinglevel);
+		System.out.println("[AssignmentNode] entry.getNestinglevel() = "+varEntry.getNestinglevel());
+		
+		for (int i=0; i<nestinglevel-varEntry.getNestinglevel(); i++) 
+			getAR += "lw\n";
+		
+		return exp.codeGeneration()
+                + "lfp\n"
+                + getAR
+                + "push " + varEntry.getOffset() + "\n"
+                + "add\n"
+                + "sw\n" ;
 	}  
 
 }  

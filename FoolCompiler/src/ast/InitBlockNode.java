@@ -56,10 +56,12 @@ public class InitBlockNode implements Node {
 
 	public String codeGeneration() {
 		String declCode="";
-		declCode+=statement.codeGeneration();
-		return declCode+
-		"halt\n"+
-		FOOLlib.getCode();
+		declCode += statement.codeGeneration();
+		return 
+				//"push 0\n"+
+				declCode+
+				"halt\n"+
+				FOOLlib.getCode();
 	} 
 
 

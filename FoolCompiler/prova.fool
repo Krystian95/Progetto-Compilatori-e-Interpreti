@@ -1,3 +1,13 @@
+
+{int y = 9; {{int z = 3 ; y = z + y;}} print y;}
+
+
+/*
+
+{int y = 9; int z = 3 ; y = z + y; print y;}
+
+{ int k=8; f(int k){print k;} g(int k){ int u=9; print u; f(u+k); } g(k); }
+
 {
     f(int x, int y){
         int z = x ;
@@ -13,12 +23,6 @@
         f(x,y) ;
     }
 }
-
-
-
-/*
-{ int k=8; f(int k){print k;} g(int k){ int u=9; print u; f(u+k); } g(k); }
-
 
 {
 	int x = 1;

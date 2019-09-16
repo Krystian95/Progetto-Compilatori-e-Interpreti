@@ -28,10 +28,10 @@ public class BlockNode implements Node {
 
 		//declare resulting list
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
-		
+
 		env.nestingLevel++;
 		nestLevel=env.nestingLevel;
-				
+
 		HashMap<String,STentry> hm = new HashMap<String,STentry> ();
 		env.symTable.add(hm);
 		int offsetGlobal = env.offset;
@@ -53,7 +53,7 @@ public class BlockNode implements Node {
 		env.symTable.remove(env.nestingLevel--);
 
 		//return the result
-		
+
 		return res;
 	}
 
@@ -78,17 +78,15 @@ public class BlockNode implements Node {
 			/*if(statement.toPrint("").contains("Var")) {
 				pops += "pop\n";
 			}*/
-			
-				
+
+
 			declCode+=statement.codeGeneration();
-			
-			
 		}
 
 		return "lfp\ncfp\n"+declCode+pops+"lw\nsfp\n"
-		//"halt\n"+
-		//FOOLlib.getCode()
-		;
+				//"halt\n"+
+				//FOOLlib.getCode()
+				;
 	} 
 
 
