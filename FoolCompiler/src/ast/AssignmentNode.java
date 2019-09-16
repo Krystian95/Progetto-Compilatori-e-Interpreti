@@ -76,8 +76,8 @@ public class AssignmentNode implements Node {
 		
 		String getAR="";
 		
-		System.out.println("[AssignmentNode] nestinglevel = "+nestinglevel);
-		System.out.println("[AssignmentNode] entry.getNestinglevel() = "+varEntry.getNestinglevel());
+		//System.out.println("[AssignmentNode] nestinglevel = "+nestinglevel);
+		//System.out.println("[AssignmentNode] entry.getNestinglevel() = "+varEntry.getNestinglevel());
 		
 		for (int i=0; i<nestinglevel-varEntry.getNestinglevel(); i++) 
 			getAR += "lw\n";

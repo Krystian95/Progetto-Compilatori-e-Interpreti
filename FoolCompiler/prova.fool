@@ -1,5 +1,15 @@
 
-{int y = 9; {{int z = 3 ; y = z + y;}} print y;}
+{
+    //////////////////// EXAMPLE 13 ////////////////////
+    int x = 3;
+    f( var int a ){
+        a = x+1;
+        delete a;
+        x = 3;
+    }
+    int y = 3;
+    f(x); // errore, provo ad accedere ad una variabile eliminata
+}
 
 
 /*
@@ -59,7 +69,7 @@
 
  *** PROBLEMA PARAMETRI 'VAR' *** { f(var int x, var int y){ delete x; delete y; } int x = 3 ; f(x,x) ; }
 
- *** PROBLEMA RICORSIONE *** {int x = 1; f(int y){ if (y == 0) then { print(x);} else { f(y-1); }  f(54);}
+ { int x = 1; f(int y){ print y; if (y == 0) then { print(x);} else { f(y-1); }}  f(54); }
  
 { int x = 4 ; delete x ; int x = 5 ; }
 

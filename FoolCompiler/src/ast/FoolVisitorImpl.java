@@ -134,7 +134,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		//visit the exp
 		Node expNode = visit(ctx.exp());
 		
-		System.err.println("[visitAssignment] " +ctx.ID().getText()+" << "+ctx.exp().getText());
+		//System.err.println("[visitAssignment] " +ctx.ID().getText()+" << "+ctx.exp().getText());
 
 		//build the varNode
 		return new AssignmentNode(ctx.ID().getText(), expNode);

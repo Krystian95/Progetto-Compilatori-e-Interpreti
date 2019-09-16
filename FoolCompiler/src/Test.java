@@ -43,7 +43,7 @@ public class Test {
 			FoolVisitorImpl visitor = new FoolVisitorImpl();
 
 			System.out.println();
-			
+
 			ArrayList<SemanticError> err = null;
 			Node ast = null;
 
@@ -88,11 +88,15 @@ public class Test {
 				CommonTokenStream tokensASM = new CommonTokenStream(lexerASM);
 				SVMParser parserASM = new SVMParser(tokensASM);
 
-				//parserASM.assembly();
 				SVMVisitorImpl visitorSVM = new SVMVisitorImpl();
 				visitorSVM.visit(parserASM.assembly());
-				System.out.println("You had: "+lexerASM.lexicalErrors+" lexical errors and "+parserASM.getNumberOfSyntaxErrors()+" syntax errors.");
-				if (lexerASM.lexicalErrors>0 || parserASM.getNumberOfSyntaxErrors()>0) System.exit(1);
+				
+				if (lexerASM.lexicalErrors>0 || parserASM.getNumberOfSyntaxErrors()>0) {
+					System.err.println("You had: "+lexerASM.lexicalErrors+" lexical errors and "+parserASM.getNumberOfSyntaxErrors()+" syntax errors.");
+					System.exit(1);
+				} else {
+					System.out.println("You had: "+lexerASM.lexicalErrors+" lexical errors and "+parserASM.getNumberOfSyntaxErrors()+" syntax errors.");
+				}
 
 				System.out.println("Starting Virtual Machine...");
 				System.out.println();

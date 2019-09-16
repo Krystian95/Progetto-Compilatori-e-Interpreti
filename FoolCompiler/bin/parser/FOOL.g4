@@ -28,12 +28,12 @@ deletion	: 'delete' ID ; // OK
 
 print		: 'print' exp ; // OK
 
-functioncall: ID '(' (exp (',' exp)* )? ')' ;
+functioncall: ID '(' (exp (',' exp)* )? ')' ; // OK
 
 ifthenelse 	: 'if' '(' cond=exp ')' 'then' thenBranch=block 'else' elseBranch=block ; // OK
 
 declaration	: type ID '=' exp ';' #varasm // OK
-		  	| ID '(' ( parameter ( ',' parameter)* )? ')' block #fundec // MANCA nesting declarations + var nesting level
+		  	| ID '(' ( parameter ( ',' parameter)* )? ')' block #fundec // OK
 			;
 
 type   		: 'int'  
