@@ -58,7 +58,11 @@ public class InitBlockNode implements Node {
 		String declCode="";
 		declCode += statement.codeGeneration();
 		return 
-				//"push 0\n"+
+				// aggiunto
+				/*"push 0\n"+
+				"cfp\n"+
+				"pop\n"+*/
+				// std
 				declCode+
 				"halt\n"+
 				FOOLlib.getCode();

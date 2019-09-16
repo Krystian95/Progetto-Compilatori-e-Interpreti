@@ -1,18 +1,14 @@
 
-{
-    //////////////////// EXAMPLE 13 ////////////////////
-    int x = 3;
-    f( var int a ){
-        a = x+1;
-        delete a;
-        x = 3;
-    }
-    int y = 3;
-    f(x); // errore, provo ad accedere ad una variabile eliminata
-}
+{ int k=8; f(bool k){print k;} g(int k){ int u=9; print u; f(8); } g(k); }
 
 
 /*
+
+{ int a = 2; f(bool x){} f(a); }
+
+{ bool a = true; f(int x){} f(a); }
+
+
 
 {int y = 9; int z = 3 ; y = z + y; print y;}
 
