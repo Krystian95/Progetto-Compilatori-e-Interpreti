@@ -27,6 +27,22 @@ public class Utils {
 		}*/
 	}
 	
+	public static Map.Entry<String, STentry> getHashMapItemByIndex (HashMap<String, STentry> hm, int index){
+		
+		int counter = 0;
+		
+		for(Map.Entry<String, STentry> item : hm.entrySet()) {
+
+			if(index == counter) {
+				return item;
+			}
+
+			counter++;
+		}
+		
+		return null;
+	}
+	
 	public static int countVarDec(String text, ArrayList<HashMap<String,STentry>> hm, int nestLev) {
 		int cont=0;
 		for (HashMap<String,STentry> temp : hm) {

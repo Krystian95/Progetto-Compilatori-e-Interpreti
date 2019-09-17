@@ -35,7 +35,7 @@ public class AssignmentNode implements Node {
             if (varEntry != null) break;
         }
         
-        if(varEntry == null) {
+        if(varEntry == null || varEntry.isDeleted()) {
             res.add(new SemanticError("Variable " + id + " not declared"));
         }else {
         	//idOffset = varEntry.getOffset(); //memorizzo l'offset dell'id

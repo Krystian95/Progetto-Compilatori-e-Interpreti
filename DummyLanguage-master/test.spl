@@ -1,16 +1,12 @@
 
 { 
-    int x=90;
-    
-    {
-     int y=10; 
-     print y; 
-     
-     { 
-      print x;
-     } 
-     
-     print y;
-    
-    }
-}
+
+
+    f(var int x, var int y){ delete x; delete y; } 
+
+      int x = 3 ; 
+      int k = 3 ; 
+      f(x,k);
+      f(x,x);
+
+ }

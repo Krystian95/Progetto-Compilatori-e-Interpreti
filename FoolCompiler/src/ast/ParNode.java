@@ -11,6 +11,7 @@ public class ParNode implements Node {
 	private String id;
 	private Node type;
 	private String mode;
+	private STentry entry;
 
 	public ParNode (String v, String i, Node t) {
 		mode=v;
@@ -24,6 +25,10 @@ public class ParNode implements Node {
 
 	public Node getType(){
 		return type;
+	}
+	
+	public STentry getEntry() {
+		return this.entry;
 	}
 
 	@Override
@@ -41,7 +46,8 @@ public class ParNode implements Node {
             res.add(new SemanticError("Parameter id " + id + " already declared"));
         //se il nome è free, inserisco l'entry nella ST e incremento l'offset
         else {
-            hm.put(id, new STentry(env.nestingLevel, type, env.parOffset));
+        	this.entry = new STentry(env.nestingLevel, type, env.parOffset);
+            hm.put(id, this.entry);
             //if (type instanceof ObjectTypeNode)
             //    env.incrementParOffset();
             env.parOffset++;
@@ -51,9 +57,10 @@ public class ParNode implements Node {
     }
 
 	public String toPrint(String s) {
-		return s+"Par:" + id +"\n"
-				+s+mode.toString()+"\n"
-				+type.toPrint(s+"  ") ;
+		return 
+				s + "Par: " + id +"\n" +
+				s + "Mode: " + mode.toString() + "\n" +
+				s + "Type: " + type.toPrint("");
 	}
 
 	//non utilizzato

@@ -12,7 +12,7 @@ public class DeletionNode implements Node {
 	private String id;
 
 	public DeletionNode (String i) {
-		id=i;
+		id = i;
 	}
 
 	@Override
@@ -25,6 +25,7 @@ public class DeletionNode implements Node {
 
 
 		int j = env.nestingLevel;
+
 		STentry enry_to_delete = null;
 
 		while (j >= 1 && enry_to_delete == null) {
@@ -36,6 +37,12 @@ public class DeletionNode implements Node {
 		}else{
 			//System.out.println("DELETION of "+id+" found at nestingLevel = "+enry_to_delete.getNestinglevel());
 			env.symTable.get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);
+			if(env.isInsideFunction) {
+				HashMap<String,STentry> toBeDeleted = new HashMap<String, STentry>();
+				toBeDeleted.put(id, enry_to_delete);
+				env.entryToBeDeletedByFunCall.add(toBeDeleted);
+				//System.err.println(env.entryToBeDeletedByFunCall.toString());
+			}
 			enry_to_delete.setDeleted(true);
 			env.symTable.get(enry_to_delete.getNestinglevel()).put(id, enry_to_delete);
 		}
@@ -46,7 +53,7 @@ public class DeletionNode implements Node {
 	}
 
 	public String toPrint(String s) {
-		return s+"Deletion:" + id+"\n";
+		return s+"Deletion: " + id+"\n";
 	}
 
 	//valore di ritorno non utilizzato

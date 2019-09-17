@@ -14,6 +14,14 @@ public class IdNode implements Node {
 	public IdNode (String i) {
 		id=i;
 	}
+	
+	public String getId () {
+		return this.id;
+	}
+	
+	public STentry getEntry() {
+		return this.entry;
+	}
 
 	public String toPrint(String s) {
 		return s+"Id:" + id + " at nestlev " + nestinglevel

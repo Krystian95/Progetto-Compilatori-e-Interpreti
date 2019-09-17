@@ -1,6 +1,7 @@
 package ast;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import lib.FOOLlib;
 import util.Environment;
@@ -31,12 +32,23 @@ public class FunNode implements Node {
 
 
 		//env.offset = -2;
-		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
-		STentry entry = new STentry(env.nestingLevel,env.offset--); //separo introducendo "entry"
+		HashMap<String, STentry> hm = env.symTable.get(env.nestingLevel);
+		
+		STentry entry = new STentry(env.nestingLevel, env.offset--); //separo introducendo "entry"
+		LinkedHashMap<String, STentry> parlistTmp = new LinkedHashMap<String, STentry>();
+		
+		int j = env.nestingLevel;
+		STentry tmp = null; 
 
-		if ( hm.put(id,entry) != null )
-			res.add(new SemanticError("Fun id "+id+" already declared"));
-		else{		
+		while (j>=0 && tmp == null) {
+			tmp = (env.symTable.get(j--)).get(id);
+		}
+
+		if (tmp != null && !tmp.isDeleted()) {
+			res.add(new SemanticError("Fun id " + id + " already declared"));
+		} else{
+			
+			hm.put(id, entry);
 
 			ArrayList<Node> parTypes = new ArrayList<Node>();
 			//int paroffset=1;
@@ -59,7 +71,13 @@ public class FunNode implements Node {
 
 			for(Node a : parlist){
 				res.addAll(a.checkSemantics(env));
+				ParNode arg = (ParNode) a;
+				System.err.println("[FunNode] iteration put: " + arg.getId());
+				parlistTmp.put(arg.getId(), arg.getEntry());
 			}
+			
+			entry.setParlist(parlistTmp);
+			System.err.println("[FunNode] entry parList: " + entry.getParlist());
 
 			//check semantics in the dec list
 			if(declist!= null && declist.size() > 0){
@@ -71,9 +89,10 @@ public class FunNode implements Node {
 
 			//set func type
 			entry.addType( new ArrowTypeNode(parTypes/*, type*/) );
-
-			//check body
+			
+			env.isInsideFunction = true;
 			res.addAll(body.checkSemantics(env));
+			env.isInsideFunction = false;
 
 			//close scope
 			env.symTable.remove(env.nestingLevel--);
@@ -88,13 +107,17 @@ public class FunNode implements Node {
 	}  
 
 	public String toPrint(String s) {
+		
 		String parlstr="";
+		
 		for (Node par:parlist)
 			parlstr+=par.toPrint(s+"  ");
 		String declstr="";
+		
 		if (declist!=null) 
 			for (Node dec:declist)
 				declstr+=dec.toPrint(s+"  ");
+		
 		return s+"Fun:" + id +"\n"
 				//+type.toPrint(s+"  ")
 				+parlstr

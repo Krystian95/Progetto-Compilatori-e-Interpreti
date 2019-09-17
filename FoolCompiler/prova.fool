@@ -1,5 +1,14 @@
 
-{ int k=8; f(int a){ delete a; print a; } f(k); }
+{ 
+
+ 	 f(var int x, int y){if (y== 0) then { delete x;} else {x=x+y ; }} 
+
+    f(var int x, var int y){ int z = x ; delete x ; y = y+z ;}
+
+      int x = 3 ; 
+      f(x,x);
+
+ }
 
 
 /*
