@@ -3,35 +3,40 @@ cfp
 pop
 lfp
 cfp
-push 90
+push 8
+push function0
 lfp
-cfp
-push 10
 push -1
 lfp
 add
 lw
-print
-pop
 lfp
-cfp
-push -1
-lfp
-lw
-lw
-add
-lw
-print
-pop
-sfp
-push -1
+push -2
 lfp
 add
 lw
-print
+js
 pop
-pop
-sfp
 pop
 sfp
 halt
+
+function0:
+cfp
+lra
+lfp
+cfp
+push 1
+lfp
+lw
+add
+lw
+print
+pop
+sfp
+sra
+pop
+pop
+sfp
+lra
+js

@@ -39,8 +39,8 @@ public class OrBooleanOperationNode implements Node {
 		Node l = left.typeCheck();
 		Node r = right.typeCheck();
 
-		if (FOOLlib.isSubtype(l,new BoolTypeNode()) && FOOLlib.isSubtype(r,new BoolTypeNode())) {
-			if (! ( FOOLlib.isSubtype(l,r) || FOOLlib.isSubtype(r,l) ) ) {
+		if (FOOLlib.isEqualtype(l,new BoolTypeNode()) && FOOLlib.isEqualtype(r,new BoolTypeNode())) {
+			if (! ( FOOLlib.isEqualtype(l,r) || FOOLlib.isEqualtype(r,l) ) ) {
 				System.err.println("Incompatible types in OR boolean operation");
 				System.exit(0);
 			}

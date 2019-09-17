@@ -25,11 +25,12 @@ public class STentry {
 
 	public int getNestinglevel () {return nl;}
 
-	public String toPrint(String s) { //
-		return s+"STentry: nestlev " + Integer.toString(nl) +"\n"+
-		s+"STentry: type\n" + 
-		type.toPrint(s+"  ") + 
-		s+"STentry: offset " + Integer.toString(offset) + "\n";
+	public String toPrint(String s) {
+		return 
+				s + "STentry: nestlev " + Integer.toString(nl) + "\n"+
+				s + "STentry: deleted " + (Boolean.toString(deleted)).toUpperCase() +"\n"+
+				s + "STentry: type" + type.toPrint( s + "") +
+				s + "STentry: offset " + Integer.toString(offset) + "\n";
 	}
 
 	public boolean isDeleted() {

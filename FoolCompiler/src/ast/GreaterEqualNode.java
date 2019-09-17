@@ -39,8 +39,8 @@ public class GreaterEqualNode implements Node {
 		Node l = left.typeCheck();
 		Node r = right.typeCheck();
 
-		if (FOOLlib.isSubtype(l,new IntTypeNode()) && FOOLlib.isSubtype(r,new IntTypeNode())) {
-			if (! ( FOOLlib.isSubtype(l,r) || FOOLlib.isSubtype(r,l) ) ) {
+		if (FOOLlib.isEqualtype(l,new IntTypeNode()) && FOOLlib.isEqualtype(r,new IntTypeNode())) {
+			if (! ( FOOLlib.isEqualtype(l,r) || FOOLlib.isEqualtype(r,l) ) ) {
 				System.err.println("Incompatible types in greater equal");
 				System.exit(0);
 			}

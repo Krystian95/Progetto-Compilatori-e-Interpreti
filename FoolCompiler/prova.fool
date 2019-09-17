@@ -1,19 +1,5 @@
 
-{ 
-    int x=90;
-    
-    {
-     int y=10; 
-     print y; 
-     
-     { 
-      print x;
-     } 
-     
-     print y;
-    
-    }
-}
+{ int k=8; f(int a){ delete a; print a; } f(k); }
 
 
 /*

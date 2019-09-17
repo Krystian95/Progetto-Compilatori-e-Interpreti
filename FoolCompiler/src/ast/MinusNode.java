@@ -35,8 +35,8 @@ public class MinusNode implements Node {
 	  }
 	  
 	  public Node typeCheck() {
-	    if (! ( FOOLlib.isSubtype(left.typeCheck(),new IntTypeNode()) &&
-	            FOOLlib.isSubtype(right.typeCheck(),new IntTypeNode()) ) ) {
+	    if (! ( FOOLlib.isEqualtype(left.typeCheck(),new IntTypeNode()) &&
+	            FOOLlib.isEqualtype(right.typeCheck(),new IntTypeNode()) ) ) {
 	      System.err.println("Non integers in sub");
 	      System.exit(0);
 	    }

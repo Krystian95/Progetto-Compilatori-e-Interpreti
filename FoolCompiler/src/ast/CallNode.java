@@ -78,7 +78,7 @@ public class CallNode implements Node {
 		}
 
 		for (int i=0; i<parlist.size(); i++) {
-			if ( !(FOOLlib.isSubtype((parlist.get(i)).typeCheck(), p.get(i)))) {
+			if ( !(FOOLlib.isEqualtype((parlist.get(i)).typeCheck(), p.get(i)))) {
 				System.err.println("Wrong type for " + (i+1) + "-th parameter in the invocation of " + id);
 				System.exit(0);
 			} 

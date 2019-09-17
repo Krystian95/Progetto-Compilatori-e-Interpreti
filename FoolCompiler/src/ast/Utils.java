@@ -14,7 +14,7 @@ public class Utils {
 		System.out.println("HashMap = ");
 		for (HashMap<String,STentry> temp : hm) {
 			for (Map.Entry<String, STentry> entry : temp.entrySet()) {
-				System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue().toPrint("\t\t"));
+				System.out.println("Key: " + entry.getKey() + " Value:\n" + entry.getValue().toPrint("\t\t"));
 			}
 		}
 		

@@ -60,7 +60,7 @@ public class VarNode implements Node {
 
 	//valore di ritorno non utilizzato
 	public Node typeCheck () {
-		if (! (FOOLlib.isSubtype(exp.typeCheck(),type)) ){      
+		if (! (FOOLlib.isEqualtype(exp.typeCheck(),type)) ){      
 			System.err.println("You had 1 error:");
 			System.err.println("\tIncompatible value for variable " + id);
 			System.exit(0);

@@ -63,7 +63,7 @@ public class AssignmentNode implements Node {
 	//valore di ritorno non utilizzato
 	public Node typeCheck() {
 		
-		if (! (FOOLlib.isSubtype(exp.typeCheck(),idType)) ){
+		if (! (FOOLlib.isEqualtype(exp.typeCheck(),idType)) ){
 			System.err.println("You had 1 error:");
 			System.err.println("\tIncompatible value for variable " + id);
 			System.exit(0);
