@@ -12,7 +12,7 @@ public class ExecuteVM {
 	private int ip = 0;
 	private int sp = MEMSIZE;
 	private int hp = 0;       
-	private int fp = MEMSIZE-1;
+	private int fp = MEMSIZE/*-1*/;
 	private int ra;           
 	private int rv;
 

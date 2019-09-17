@@ -83,10 +83,12 @@ public class BlockNode implements Node {
 			declCode+=statement.codeGeneration();
 		}
 
-		return "lfp\ncfp\n"+declCode+pops+"lw\nsfp\n"
-				//"halt\n"+
-				//FOOLlib.getCode()
-				;
+		return 
+				"lfp\n"+
+				"cfp\n"+
+				declCode+
+				pops+
+				"sfp\n";
 	} 
 
 

@@ -59,9 +59,9 @@ public class InitBlockNode implements Node {
 		declCode += statement.codeGeneration();
 		return 
 				// aggiunto
-				/*"push 0\n"+
+				"push 0\n"+
 				"cfp\n"+
-				"pop\n"+*/
+				"pop\n"+
 				// std
 				declCode+
 				"halt\n"+
