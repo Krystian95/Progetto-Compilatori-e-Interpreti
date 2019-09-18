@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import util.Environment;
 import util.SemanticError;
@@ -42,7 +43,7 @@ public class CallNode implements Node {
 
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
-		LinkedHashMap<String, STentry> parlistCalled = new LinkedHashMap<String, STentry>();
+		LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlistCalled = new LinkedHashMap<Integer, LinkedHashMap<String, STentry>>();
 
 		int j = env.nestingLevel;
 		STentry functionCalled = null; 
@@ -57,40 +58,100 @@ public class CallNode implements Node {
 			this.entry = functionCalled;
 			this.nestinglevel = env.nestingLevel;
 
+			int counter=0;
+
+			System.err.println("[CallNode] *********");
+
 			for(Node arg : parlist) {
 				res.addAll(arg.checkSemantics(env));
-				IdNode a = (IdNode) arg;
-				System.err.println(a.toPrint(""));
-				parlistCalled.put(a.getId(), a.getEntry());
+
+				LinkedHashMap<String, STentry> parlistCalledInner = new LinkedHashMap<String, STentry>();
+				try {
+					IdNode a = (IdNode) arg;
+					System.err.println(a.toPrint(""));
+					parlistCalledInner.put(a.getId(), a.getEntry());
+				}
+				catch(Exception e) {
+					parlistCalledInner.put("*", null);
+				}
+				parlistCalled.put(counter, parlistCalledInner);
+				counter++;
 			}
 
 			System.err.println("[CallNode] entry parList: " + functionCalled.getParlist().toString());
 			System.err.println("[CallNode] called parList: " + parlistCalled.toString());
 
+			/*
+			 * CheckSemanticsParVar
+			 */
+			boolean checkVarNode = true;
+			
 			if(functionCalled.getParlist().size() > 0) {
-				int counterParPosition = 0;
+				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getParlist().entrySet()) {
+					for(Map.Entry<String, STentry> itemInner : item.getValue().entrySet()) {
 
-				for(Map.Entry<String, STentry> item : functionCalled.getParlist().entrySet()) {
+						STentry entryParDec = itemInner.getValue();
 
-					//System.err.println("DELETED BY FunCall " + item.getKey());
 
-					STentry entryParDec = item.getValue();
+						//System.err.println("CHECK index: " + item.getKey());
 
-					if(entryParDec.isDeleted()) {
-						
-						System.err.println("DELETING index: " + counterParPosition);
+						LinkedHashMap<String, STentry> parCalled = parlistCalled.get(item.getKey());
 
-						Map.Entry<String, STentry> parCalled =	Utils.getHashMapItemByIndex(parlistCalled, counterParPosition);
+						for(Map.Entry<String, STentry> itemToCheck : parCalled.entrySet()) {
 
-						String idEntryToDelete = parCalled.getKey();
-						STentry entryToDelete = parCalled.getValue();
+							//System.err.println("itemToCheck: " + itemToCheck);
 
-						env.symTable.get(entryToDelete.getNestinglevel()).remove(idEntryToDelete, entryToDelete);
-						entryToDelete.setDeleted(true);
-						env.symTable.get(entryToDelete.getNestinglevel()).put(idEntryToDelete, entryToDelete);
+							String idEntryToCheck = itemToCheck.getKey();
+							STentry entryToCheck = itemToCheck.getValue();
+							
+							//System.err.println("idEntryToCheck: " + idEntryToCheck);
+							System.err.println("\nvar: " + entryParDec.getMode().equals("var") );
+							System.err.println("entryToCheck: " + idEntryToCheck.toString().equals("*"));
+							
+							if(entryParDec.getMode().equals("var") && idEntryToCheck.toString().equals("*")) {
+								res.add(new SemanticError("Parameter var " + itemInner.getKey() + " called with non ID"));
+								checkVarNode = false;
+							}
+						}
+
 					}
+				}
+			}
 
-					counterParPosition++;
+			/*
+			 * CheckSemanticsDeletions
+			 */
+			if(checkVarNode && functionCalled.getParlist().size() > 0) {
+				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getParlist().entrySet()) {
+					for(Map.Entry<String, STentry> itemInner : item.getValue().entrySet()) {
+
+						//System.err.println(itemInner.toString());
+
+						STentry entryParDec = itemInner.getValue();
+
+						if(entryParDec.isDeletedByFunCall()) {
+
+							//System.err.println("DELETING index: " + item.getKey());
+
+							LinkedHashMap<String, STentry> parCalled = parlistCalled.get(item.getKey());
+
+							for(Map.Entry<String, STentry> itemToDelete : parCalled.entrySet()) {
+
+								//System.err.println(itemToDelete);
+
+								String idEntryToDelete = itemToDelete.getKey();
+								STentry entryToDelete = itemToDelete.getValue();
+								
+								if(entryToDelete.isDeleted()) {
+									res.add(new SemanticError("Id " + itemToDelete.getKey() + " not declared"));
+								}
+
+								env.symTable.get(entryToDelete.getNestinglevel()).remove(idEntryToDelete, entryToDelete);
+								entryToDelete.setDeleted(true);
+								env.symTable.get(entryToDelete.getNestinglevel()).put(idEntryToDelete, entryToDelete);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -98,6 +159,10 @@ public class CallNode implements Node {
 		//Utils.printHashMap("Dopo la FunCall", env.symTable);
 
 		return res;
+	}
+
+	private void checkSemanticsDeletions() {
+
 	}
 
 	public Node typeCheck () {

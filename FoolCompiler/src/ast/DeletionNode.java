@@ -36,13 +36,13 @@ public class DeletionNode implements Node {
 			res.add(new SemanticError("Id " + id + " not declared"));
 		}else{
 			//System.out.println("DELETION of "+id+" found at nestingLevel = "+enry_to_delete.getNestinglevel());
+			
 			env.symTable.get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);
-			if(env.isInsideFunction) {
-				HashMap<String,STentry> toBeDeleted = new HashMap<String, STentry>();
-				toBeDeleted.put(id, enry_to_delete);
-				env.entryToBeDeletedByFunCall.add(toBeDeleted);
-				//System.err.println(env.entryToBeDeletedByFunCall.toString());
+			
+			if(env.isInsideFunction && enry_to_delete.getMode().equals("var")) {
+				enry_to_delete.setDeletedByFunCall(true);
 			}
+			
 			enry_to_delete.setDeleted(true);
 			env.symTable.get(enry_to_delete.getNestinglevel()).put(id, enry_to_delete);
 		}

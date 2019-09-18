@@ -35,7 +35,7 @@ public class FunNode implements Node {
 		HashMap<String, STentry> hm = env.symTable.get(env.nestingLevel);
 		
 		STentry entry = new STentry(env.nestingLevel, env.offset--); //separo introducendo "entry"
-		LinkedHashMap<String, STentry> parlistTmp = new LinkedHashMap<String, STentry>();
+		LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlistTmp = new LinkedHashMap<Integer, LinkedHashMap<String, STentry>>();
 		
 		int j = env.nestingLevel;
 		STentry tmp = null; 
@@ -69,11 +69,16 @@ public class FunNode implements Node {
 
 			env.parOffset=1;
 
+			int counter=0;
+			
 			for(Node a : parlist){
 				res.addAll(a.checkSemantics(env));
 				ParNode arg = (ParNode) a;
 				System.err.println("[FunNode] iteration put: " + arg.getId());
-				parlistTmp.put(arg.getId(), arg.getEntry());
+				LinkedHashMap<String, STentry> parlistTmpInner = new LinkedHashMap<String, STentry>();
+				parlistTmpInner.put(arg.getId(), arg.getEntry());
+				parlistTmp.put(counter, parlistTmpInner);
+				counter++;
 			}
 			
 			entry.setParlist(parlistTmp);

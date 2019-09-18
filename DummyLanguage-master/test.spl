@@ -1,12 +1,6 @@
 
 { 
-
-
-    f(var int x, var int y){ delete x; delete y; } 
-
-      int x = 3 ; 
-      int k = 3 ; 
-      f(x,k);
-      f(x,x);
-
+	g(var int x, int y){ delete x; delete y;} 
+	
+	f(var int z){ g(z,z); }
  }

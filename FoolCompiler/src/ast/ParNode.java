@@ -47,6 +47,7 @@ public class ParNode implements Node {
         //se il nome è free, inserisco l'entry nella ST e incremento l'offset
         else {
         	this.entry = new STentry(env.nestingLevel, type, env.parOffset);
+        	entry.setMode(this.mode);
             hm.put(id, this.entry);
             //if (type instanceof ObjectTypeNode)
             //    env.incrementParOffset();

@@ -1,14 +1,16 @@
 package ast;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class STentry {
 
 	private int nl;
 	private Node type;
 	private int offset;
+	private String mode;
 	private boolean deleted = false;
-	private HashMap<String, STentry> parlist = new HashMap<String, STentry>();
+	private boolean deletedByFunCall = false;
+	private LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlist = new LinkedHashMap<Integer, LinkedHashMap<String, STentry>>();
 
 	public STentry (int n, int os)
 	{nl=n;
@@ -46,11 +48,27 @@ public class STentry {
 		this.deleted = deleted;
 	}
 
-	public HashMap<String, STentry> getParlist() {
+	public LinkedHashMap<Integer, LinkedHashMap<String, STentry>> getParlist() {
 		return parlist;
 	}
 
-	public void setParlist(HashMap<String, STentry> parlist) {
+	public void setParlist(LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlist) {
 		this.parlist = parlist;
+	}
+
+	public boolean isDeletedByFunCall() {
+		return deletedByFunCall;
+	}
+
+	public void setDeletedByFunCall(boolean deletedByFunCall) {
+		this.deletedByFunCall = deletedByFunCall;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 }  

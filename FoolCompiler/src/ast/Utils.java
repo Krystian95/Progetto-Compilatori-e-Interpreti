@@ -2,7 +2,9 @@ package ast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Utils {
 
@@ -25,22 +27,6 @@ public class Utils {
 				System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue().toPrint(""));
 			}
 		}*/
-	}
-	
-	public static Map.Entry<String, STentry> getHashMapItemByIndex (HashMap<String, STentry> hm, int index){
-		
-		int counter = 0;
-		
-		for(Map.Entry<String, STentry> item : hm.entrySet()) {
-
-			if(index == counter) {
-				return item;
-			}
-
-			counter++;
-		}
-		
-		return null;
 	}
 	
 	public static int countVarDec(String text, ArrayList<HashMap<String,STentry>> hm, int nestLev) {

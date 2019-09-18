@@ -1,17 +1,23 @@
 
+
 { 
-
- 	 f(var int x, int y){if (y== 0) then { delete x;} else {x=x+y ; }} 
-
-    f(var int x, var int y){ int z = x ; delete x ; y = y+z ;}
-
-      int x = 3 ; 
-      f(x,x);
-
+	g(var int x, int y){ delete x; delete y;} 
+	
+	f(var int z){ g(z,z); }
  }
 
 
 /*
+
+{ 
+
+ 	 f(var int a, int b){ delete a; } 
+
+      int x = 3 ; 
+      f(x,x);
+      print x;
+
+ }
 
 { int k=8; f(int k){ delete k; print k;} f(k); }
 
