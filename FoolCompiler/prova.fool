@@ -1,9 +1,17 @@
 
 
 { 
-	g(var int x, int y){ delete x; delete y;} 
+
+	int x=3;
 	
-	f(var int z){ g(z,z); }
+	f(var int a, int b){ a=333; delete b; a=111; } 
+	
+	int y=5;
+	
+	f(x,y);
+	
+	print x;
+	print y;
  }
 
 

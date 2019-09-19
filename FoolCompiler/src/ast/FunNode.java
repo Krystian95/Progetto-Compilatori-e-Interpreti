@@ -74,15 +74,15 @@ public class FunNode implements Node {
 			for(Node a : parlist){
 				res.addAll(a.checkSemantics(env));
 				ParNode arg = (ParNode) a;
-				System.err.println("[FunNode] iteration put: " + arg.getId());
+				//System.err.println("[FunNode] iteration put: " + arg.getId());
 				LinkedHashMap<String, STentry> parlistTmpInner = new LinkedHashMap<String, STentry>();
 				parlistTmpInner.put(arg.getId(), arg.getEntry());
 				parlistTmp.put(counter, parlistTmpInner);
 				counter++;
 			}
 			
-			entry.setParlist(parlistTmp);
-			System.err.println("[FunNode] entry parList: " + entry.getParlist());
+			entry.setDecParList(parlistTmp);
+			//System.err.println("[FunNode] dec parList: " + entry.getParlist());
 
 			//check semantics in the dec list
 			if(declist!= null && declist.size() > 0){

@@ -10,7 +10,8 @@ public class STentry {
 	private String mode;
 	private boolean deleted = false;
 	private boolean deletedByFunCall = false;
-	private LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlist = new LinkedHashMap<Integer, LinkedHashMap<String, STentry>>();
+	private LinkedHashMap<Integer, LinkedHashMap<String, STentry>> decParList = null;
+	private STentry mappedEntry = null;
 
 	public STentry (int n, int os)
 	{nl=n;
@@ -48,12 +49,12 @@ public class STentry {
 		this.deleted = deleted;
 	}
 
-	public LinkedHashMap<Integer, LinkedHashMap<String, STentry>> getParlist() {
-		return parlist;
+	public LinkedHashMap<Integer, LinkedHashMap<String, STentry>> getDecParlist() {
+		return decParList;
 	}
 
-	public void setParlist(LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlist) {
-		this.parlist = parlist;
+	public void setDecParList(LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlist) {
+		this.decParList = parlist;
 	}
 
 	public boolean isDeletedByFunCall() {
@@ -70,5 +71,13 @@ public class STentry {
 
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	public STentry getMappedEntry() {
+		return mappedEntry;
+	}
+
+	public void setMappedEntry(STentry mappedEntry) {
+		this.mappedEntry = mappedEntry;
 	}
 }  

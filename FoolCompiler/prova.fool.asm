@@ -3,8 +3,37 @@ cfp
 pop
 lfp
 cfp
+push 3
 push function0
-push function1
+push 5
+lfp
+push -3
+lfp
+add
+lw
+push -1
+lfp
+add
+lw
+lfp
+push -2
+lfp
+add
+lw
+js
+push -1
+lfp
+add
+lw
+print
+pop
+push -3
+lfp
+add
+lw
+print
+pop
+pop
 pop
 pop
 sfp
@@ -15,43 +44,47 @@ cfp
 lra
 lfp
 cfp
-sfp
-sra
-pop
-pop
-pop
-sfp
-lra
-js
+push 333
+lfp
+lw
+push 1
+add
+sw
 
-function1:
-cfp
-lra
-lfp
-cfp
-lfp
 push 1
 lfp
 lw
 add
 lw
-push 1
-lfp
-lw
-add
-lw
+
 lfp
 lw
 lw
 push -1
+add
+sw
+push 111
 lfp
 lw
+push 1
+add
+sw
+
+push 1
+lfp
 lw
 add
 lw
-js
+
+lfp
+lw
+lw
+push -1
+add
+sw
 sfp
 sra
+pop
 pop
 pop
 sfp

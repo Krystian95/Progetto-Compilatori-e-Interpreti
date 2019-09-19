@@ -60,15 +60,13 @@ public class CallNode implements Node {
 
 			int counter=0;
 
-			System.err.println("[CallNode] *********");
-
 			for(Node arg : parlist) {
 				res.addAll(arg.checkSemantics(env));
 
 				LinkedHashMap<String, STentry> parlistCalledInner = new LinkedHashMap<String, STentry>();
 				try {
 					IdNode a = (IdNode) arg;
-					System.err.println(a.toPrint(""));
+					//System.err.println(a.toPrint(""));
 					parlistCalledInner.put(a.getId(), a.getEntry());
 				}
 				catch(Exception e) {
@@ -78,36 +76,29 @@ public class CallNode implements Node {
 				counter++;
 			}
 
-			System.err.println("[CallNode] entry parList: " + functionCalled.getParlist().toString());
-			System.err.println("[CallNode] called parList: " + parlistCalled.toString());
+			/*env.functionDecParList = functionCalled.getDecParlist();
+			env.functionCallParList = parlistCalled;*/
+
+			System.err.println("[CallNode] dec parList: " + functionCalled.getDecParlist().toString());
+			System.err.println("[CallNode] call parList: " + parlistCalled.toString());
 
 			/*
 			 * CheckSemanticsParVar
 			 */
 			boolean checkVarNode = true;
-			
-			if(functionCalled.getParlist().size() > 0) {
-				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getParlist().entrySet()) {
+
+			if(functionCalled.getDecParlist().size() > 0) {
+				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getDecParlist().entrySet()) {
 					for(Map.Entry<String, STentry> itemInner : item.getValue().entrySet()) {
-
+						
 						STentry entryParDec = itemInner.getValue();
-
-
-						//System.err.println("CHECK index: " + item.getKey());
 
 						LinkedHashMap<String, STentry> parCalled = parlistCalled.get(item.getKey());
 
 						for(Map.Entry<String, STentry> itemToCheck : parCalled.entrySet()) {
 
-							//System.err.println("itemToCheck: " + itemToCheck);
-
 							String idEntryToCheck = itemToCheck.getKey();
-							STentry entryToCheck = itemToCheck.getValue();
-							
-							//System.err.println("idEntryToCheck: " + idEntryToCheck);
-							System.err.println("\nvar: " + entryParDec.getMode().equals("var") );
-							System.err.println("entryToCheck: " + idEntryToCheck.toString().equals("*"));
-							
+
 							if(entryParDec.getMode().equals("var") && idEntryToCheck.toString().equals("*")) {
 								res.add(new SemanticError("Parameter var " + itemInner.getKey() + " called with non ID"));
 								checkVarNode = false;
@@ -121,44 +112,61 @@ public class CallNode implements Node {
 			/*
 			 * CheckSemanticsDeletions
 			 */
-			if(checkVarNode && functionCalled.getParlist().size() > 0) {
-				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getParlist().entrySet()) {
+			if(checkVarNode && functionCalled.getDecParlist().size() > 0) {
+				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getDecParlist().entrySet()) {
 					for(Map.Entry<String, STentry> itemInner : item.getValue().entrySet()) {
 
-						//System.err.println(itemInner.toString());
-
+						String idParDec = itemInner.getKey();
 						STentry entryParDec = itemInner.getValue();
 
-						if(entryParDec.isDeletedByFunCall()) {
+						LinkedHashMap<String, STentry> parCalled = parlistCalled.get(item.getKey());
 
-							//System.err.println("DELETING index: " + item.getKey());
+						for(Map.Entry<String, STentry> itemToDelete : parCalled.entrySet()) {
 
-							LinkedHashMap<String, STentry> parCalled = parlistCalled.get(item.getKey());
+							String idEntry = itemToDelete.getKey();
+							STentry entry = itemToDelete.getValue();
 
-							for(Map.Entry<String, STentry> itemToDelete : parCalled.entrySet()) {
+							System.err.println("\n\npar pos: " + item.getKey());
 
-								//System.err.println(itemToDelete);
+							System.err.println("\nidParDec (dec): " + idParDec);
+							System.err.println("entryParDec (dec): " + entryParDec);
 
-								String idEntryToDelete = itemToDelete.getKey();
-								STentry entryToDelete = itemToDelete.getValue();
-								
-								if(entryToDelete.isDeleted()) {
+							System.err.println("\nidEntry (call): " + idEntry);
+							System.err.println("entry (call): " + entry);
+
+							/*
+							 * Deletion
+							 */
+							if(entryParDec.isDeletedByFunCall()) {
+								if(entry.isDeleted()) {
 									res.add(new SemanticError("Id " + itemToDelete.getKey() + " not declared"));
 								}
 
-								env.symTable.get(entryToDelete.getNestinglevel()).remove(idEntryToDelete, entryToDelete);
-								entryToDelete.setDeleted(true);
-								env.symTable.get(entryToDelete.getNestinglevel()).put(idEntryToDelete, entryToDelete);
+								env.symTable.get(entry.getNestinglevel()).remove(idEntry, entry);
+								entry.setDeleted(true);
+								env.symTable.get(entry.getNestinglevel()).put(idEntry, entry);
+							}
+
+							/*
+							 * Mapping
+							 */
+							if(entryParDec.getMode().equals("var")) {
+								env.symTable.get(entry.getNestinglevel()).remove(idParDec, entryParDec);
+								entryParDec.setMappedEntry(entry);
+								env.symTable.get(entry.getNestinglevel()).put(idParDec, entryParDec);
 							}
 						}
 					}
+
 				}
 			}
 		}
 
-		//Utils.printHashMap("Dopo la FunCall", env.symTable);
-
 		return res;
+	}
+
+	private void checkSemanticsParVarType() {
+
 	}
 
 	private void checkSemanticsDeletions() {
@@ -194,6 +202,9 @@ public class CallNode implements Node {
 	}
 
 	public String codeGeneration() {
+
+		System.err.println("[CallNode - CodeGen]");
+
 		String parCode="";
 		for (int i=parlist.size()-1; i>=0; i--)
 			parCode+=parlist.get(i).codeGeneration();
