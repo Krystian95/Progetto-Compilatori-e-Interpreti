@@ -23,7 +23,7 @@ public class ExecuteVM {
 	public void cpu() {
 		while ( true ) {
 			if(hp+1>=sp) {
-				System.err.println("\nError: Out of memory");
+				System.err.println("\nError: Out of memory (possible infinity loop)");
 				return;
 			}
 			else {

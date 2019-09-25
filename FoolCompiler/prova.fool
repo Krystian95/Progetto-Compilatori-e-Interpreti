@@ -1,16 +1,19 @@
 
 
 { 
+	int m = 9;
 
-	int x=3;
+	f(var int m, int n){
+
+		if (m>n) { print(m+n) ;}
 	
-	f( var int b,  var int a){ b=333; } 
+		else { int x = 1 ; }
 	
-	int y=5;
+	}
 	
-	{{ int h=3; f(x,y); int k=7; delete h; }}
+	f(m,5) ;
 	
-	print x;
+	// cosa succede se la invoco con f(4,5)?
 	
 
  }

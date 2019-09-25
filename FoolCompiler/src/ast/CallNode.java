@@ -85,8 +85,6 @@ public class CallNode implements Node {
 			/*
 			 * CheckSemanticsParVar
 			 */
-			boolean checkVarNode = true;
-
 			if(functionCalled.getDecParlist().size() > 0) {
 				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getDecParlist().entrySet()) {
 					for(Map.Entry<String, STentry> itemInner : item.getValue().entrySet()) {
@@ -100,8 +98,9 @@ public class CallNode implements Node {
 							String idEntryToCheck = itemToCheck.getKey();
 
 							if(entryParDec.getMode().equals("var") && idEntryToCheck.toString().equals("*")) {
-								res.add(new SemanticError("Parameter var " + itemInner.getKey() + " called with non ID"));
-								checkVarNode = false;
+								System.err.println("You had 1 error:");
+								System.err.println("\tParameter var " + itemInner.getKey() + " called with non ID");
+								System.exit(0);
 							}
 						}
 
@@ -112,7 +111,7 @@ public class CallNode implements Node {
 			/*
 			 * CheckSemanticsDeletions
 			 */
-			if(checkVarNode && functionCalled.getDecParlist().size() > 0) {
+			if(functionCalled.getDecParlist().size() > 0) {
 				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getDecParlist().entrySet()) {
 					for(Map.Entry<String, STentry> itemInner : item.getValue().entrySet()) {
 

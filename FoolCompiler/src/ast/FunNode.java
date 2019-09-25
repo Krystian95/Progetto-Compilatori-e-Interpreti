@@ -94,7 +94,7 @@ public class FunNode implements Node {
 			}
 
 			entry.setDecParList(parlistTmp);
-			System.err.println("[FunNode] dec parList: " + entry.getDecParlist());
+			//System.err.println("[FunNode] dec parList: " + entry.getDecParlist());
 
 			//check semantics in the dec list
 			if(declist!= null && declist.size() > 0){
