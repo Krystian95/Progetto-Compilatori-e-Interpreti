@@ -47,7 +47,7 @@ public class VarNode implements Node {
 
 		res.addAll(exp.checkSemantics(env));
 
-		Utils.printHashMap("DOPO LA DICHIARAZIONE",env.symTable);
+		//Utils.printHashMap("DOPO LA DICHIARAZIONE",env.symTable);
 
 		return res;
 	}

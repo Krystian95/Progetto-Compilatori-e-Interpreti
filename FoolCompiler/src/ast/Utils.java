@@ -61,8 +61,7 @@ public class Utils {
 		int cont=0;
 		for (HashMap<String,STentry> temp : hm) {
 			for (Map.Entry<String, STentry> entry : temp.entrySet()) {
-				//System.out.println(entry.getKey()+" | "+entry.getValue().getNestinglevel()+" | "+nestLev);
-				if(entry.getValue().getNestinglevel()==nestLev)
+				if(entry.getValue().getNestinglevel()==nestLev && entry.getValue().getMappedEntry()==null)
 					cont++;
 			}
 		}

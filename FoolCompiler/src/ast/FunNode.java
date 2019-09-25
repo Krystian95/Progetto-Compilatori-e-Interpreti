@@ -33,10 +33,10 @@ public class FunNode implements Node {
 
 		//env.offset = -2;
 		HashMap<String, STentry> hm = env.symTable.get(env.nestingLevel);
-		
+
 		STentry entry = new STentry(env.nestingLevel, env.offset--); //separo introducendo "entry"
 		LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlistTmp = new LinkedHashMap<Integer, LinkedHashMap<String, STentry>>();
-		
+
 		int j = env.nestingLevel;
 		STentry tmp = null; 
 
@@ -47,18 +47,22 @@ public class FunNode implements Node {
 		if (tmp != null && !tmp.isDeleted()) {
 			res.add(new SemanticError("Fun id " + id + " already declared"));
 		} else{
-			
+
 			hm.put(id, entry);
 
 			ArrayList<Node> parTypes = new ArrayList<Node>();
 			//int paroffset=1;
 
+			env.parOffset=1;
+
 			//check args
 			for(Node a : parlist){
 				ParNode arg = (ParNode) a;
 				parTypes.add(arg.getType());
-				/*if ( hmn.put(arg.getId(),new STentry(env.nestingLevel,arg.getType(),paroffset++)) != null  )
-					System.out.println("Parameter id "+arg.getId()+" already declared");*/
+				/*if ( hm.containsKey(arg.getId()) ) {
+					res.add(new SemanticError("Parameter id " + id + " already declared"));
+					return res;
+				}*/
 			}
 
 			//creare una nuova hashmap per la symTable
@@ -67,22 +71,30 @@ public class FunNode implements Node {
 			env.symTable.add(hmn);
 			//env.offset=-2;
 
-			env.parOffset=1;
-
 			int counter=0;
-			
+
 			for(Node a : parlist){
 				res.addAll(a.checkSemantics(env));
 				ParNode arg = (ParNode) a;
+
+				for(int iterator=0; iterator<parlistTmp.size(); iterator++) {					
+					if(parlistTmp.get(iterator).containsKey(arg.getId())) {
+						System.err.println("You had 1 error:");
+						System.err.println("\tParameter id " + arg.getId() + " already declared");
+						System.exit(0);
+						return res;
+					}
+				}
+
 				//System.err.println("[FunNode] iteration put: " + arg.getId());
 				LinkedHashMap<String, STentry> parlistTmpInner = new LinkedHashMap<String, STentry>();
 				parlistTmpInner.put(arg.getId(), arg.getEntry());
 				parlistTmp.put(counter, parlistTmpInner);
 				counter++;
 			}
-			
+
 			entry.setDecParList(parlistTmp);
-			//System.err.println("[FunNode] dec parList: " + entry.getParlist());
+			System.err.println("[FunNode] dec parList: " + entry.getDecParlist());
 
 			//check semantics in the dec list
 			if(declist!= null && declist.size() > 0){
@@ -94,7 +106,7 @@ public class FunNode implements Node {
 
 			//set func type
 			entry.addType( new ArrowTypeNode(parTypes/*, type*/) );
-			
+
 			env.isInsideFunction = true;
 			res.addAll(body.checkSemantics(env));
 			env.isInsideFunction = false;
@@ -112,17 +124,17 @@ public class FunNode implements Node {
 	}  
 
 	public String toPrint(String s) {
-		
+
 		String parlstr="";
-		
+
 		for (Node par:parlist)
 			parlstr+=par.toPrint(s+"  ");
 		String declstr="";
-		
+
 		if (declist!=null) 
 			for (Node dec:declist)
 				declstr+=dec.toPrint(s+"  ");
-		
+
 		return s+"Fun:" + id +"\n"
 				//+type.toPrint(s+"  ")
 				+parlstr
@@ -132,7 +144,7 @@ public class FunNode implements Node {
 
 	//valore di ritorno non utilizzato
 	public Node typeCheck () {
-		
+
 		if (declist!=null) {
 			for (Node dec:declist) {
 				dec.typeCheck();
@@ -140,7 +152,7 @@ public class FunNode implements Node {
 		}else if(body != null) {
 			body.typeCheck();
 		}
-		
+
 		return null;
 	}
 

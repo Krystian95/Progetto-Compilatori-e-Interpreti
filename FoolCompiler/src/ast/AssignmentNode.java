@@ -96,7 +96,9 @@ public class AssignmentNode implements Node {
 		if(varEntry.getMode().equals("var")) {
 			
 			System.err.println("[AssignmentNode - CodeGen] varEntry.getMappedEntry().getOffset(): " + varEntry.getMappedEntry().getOffset());
-
+			String getARMappedEntry="";
+			for (int i=0; i<nestinglevel-varEntry.getMappedEntry().getNestinglevel(); i++) 
+				getARMappedEntry += "lw\n";
 			//Come Print 
 			code	+= "\n"
 					+ "push " + varEntry.getOffset() + "\n"
@@ -104,14 +106,9 @@ public class AssignmentNode implements Node {
 					+ getAR
 					+ "add\n"
 					+ "lw\n"
-					// Come assegnamento con push offset Var?
 					+ "\n"
 					+ "lfp\n"
-					/*
-					 * E' POSSIBILE CHE LA getAR DEBBA ESSERE DIFFERENTE?
-					 * Per es. differenza nesting level corrente fino alla variabile vera?
-					 */
-					+ getAR
+					+ getARMappedEntry
 					+ "lw\n"
 					+ "push " + varEntry.getMappedEntry().getOffset() + "\n"
 					+ "add\n"

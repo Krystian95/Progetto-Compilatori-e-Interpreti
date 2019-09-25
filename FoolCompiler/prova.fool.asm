@@ -21,18 +21,6 @@ lfp
 add
 lw
 js
-push -1
-lfp
-add
-lw
-print
-pop
-push -3
-lfp
-add
-lw
-print
-pop
 pop
 pop
 pop
@@ -45,25 +33,6 @@ lra
 lfp
 cfp
 push 333
-lfp
-lw
-push 1
-add
-sw
-
-push 1
-lfp
-lw
-add
-lw
-
-lfp
-lw
-lw
-push -1
-add
-sw
-push 111
 lfp
 lw
 push 1

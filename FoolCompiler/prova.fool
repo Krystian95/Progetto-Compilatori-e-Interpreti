@@ -4,14 +4,13 @@
 
 	int x=3;
 	
-	f(var int a, int b){ a=333; delete b; a=111; } 
+	f( var int a,  var int a){ a=333; } 
 	
 	int y=5;
 	
 	f(x,y);
 	
-	print x;
-	print y;
+
  }
 
 
