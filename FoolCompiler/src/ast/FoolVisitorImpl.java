@@ -94,40 +94,6 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		return visit(ctx.block());
 	}
 
-
-	/*@Override
-	public Node visitLetInExp(LetInExpContext ctx) {
-
-		//resulting node of the right type
-		ProgLetInNode res;
-
-		//list of declarations in @res
-		ArrayList<Node> declarations = new ArrayList<Node>();
-
-		//visit all nodes corresponding to declarations inside the let context and store them in @declarations
-		//notice that the ctx.let().dec() method returns a list, this is because of the use of * or + in the grammar
-		//antlr detects this is a group and therefore returns a list
-		for(DecContext dc : ctx.let().dec()){
-			declarations.add( visit(dc) );
-		}
-
-		//visit exp context
-		Node exp = visit( ctx.exp() );
-
-		//build @res accordingly with the result of the visits to its content
-		res = new ProgLetInNode(declarations,  exp);
-
-		return res;
-	}*/
-
-	/*@Override
-	public Node visitSingleExp(SingleExpContext ctx) {
-
-		//simply return the result of the visit to the inner exp
-		return new ProgNode(visit(ctx.exp()));
-
-	}*/
-
 	@Override
 	public Node visitAssignment(AssignmentContext ctx) {
 
@@ -144,15 +110,10 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 	@Override
 	public Node visitVarasm(VarasmContext ctx) {
 
-		//declare the result node
-		//VarNode result;
-
 		//visit the type
-		//Node typeNode = visit(ctx.vardec().type());
 		Node typeNode = visit(ctx.type());
 
 		//visit the exp
-		//Node expNode = visit(ctx.exp());
 		Node expNode = visit(ctx.exp());
 
 		//build the varNode

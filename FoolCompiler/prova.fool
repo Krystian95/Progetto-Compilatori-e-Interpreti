@@ -4,11 +4,13 @@
 
 	int x=3;
 	
-	f( var int a,  var int a){ a=333; } 
+	f( var int b,  var int a){ b=333; } 
 	
 	int y=5;
 	
-	f(x,y);
+	{{ int h=3; f(x,y); int k=7; delete h; }}
+	
+	print x;
 	
 
  }
