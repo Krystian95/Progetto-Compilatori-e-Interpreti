@@ -79,13 +79,13 @@ public class CallNode implements Node {
 			/*env.functionDecParList = functionCalled.getDecParlist();
 			env.functionCallParList = parlistCalled;*/
 
-			System.err.println("[CallNode] dec parList: " + functionCalled.getDecParlist().toString());
-			System.err.println("[CallNode] call parList: " + parlistCalled.toString());
+			//System.err.println("[CallNode] dec parList: " + functionCalled.getDecParlist().toString());
+			//System.err.println("[CallNode] call parList: " + parlistCalled.toString());
 
 			/*
 			 * CheckSemanticsParVar
 			 */
-			if(functionCalled.getDecParlist().size() > 0) {
+			if(functionCalled.getDecParlist() != null && functionCalled.getDecParlist().size() > 0) {
 				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getDecParlist().entrySet()) {
 					for(Map.Entry<String, STentry> itemInner : item.getValue().entrySet()) {
 						
@@ -111,7 +111,7 @@ public class CallNode implements Node {
 			/*
 			 * CheckSemanticsDeletions
 			 */
-			if(functionCalled.getDecParlist().size() > 0) {
+			if(functionCalled.getDecParlist() != null && functionCalled.getDecParlist().size() > 0) {
 				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getDecParlist().entrySet()) {
 					for(Map.Entry<String, STentry> itemInner : item.getValue().entrySet()) {
 

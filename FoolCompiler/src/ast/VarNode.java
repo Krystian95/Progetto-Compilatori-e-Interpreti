@@ -33,8 +33,16 @@ public class VarNode implements Node {
 		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
 
 		STentry entry = new STentry(env.nestingLevel, type, env.offset); //separo introducendo "entry"
+		
+		int j = env.nestingLevel;
 
-		if ( hm.containsKey(id) )
+		STentry enry_to_declare = null;
+
+		while (j >= 1 && enry_to_declare == null) {
+			enry_to_declare = (env.symTable.get(j--)).get(id);
+		}
+
+		if ( hm.containsKey(id) && !enry_to_declare.isDeleted() )
 			res.add(new SemanticError("Var id " + id + " already declared"));
 		else {
 			if(expText.contains(id)) {
@@ -47,7 +55,7 @@ public class VarNode implements Node {
 
 		res.addAll(exp.checkSemantics(env));
 
-		//Utils.printHashMap("DOPO LA DICHIARAZIONE",env.symTable);
+		Utils.printHashMap("AFTER DECLARATION OF " + id, env.symTable);
 
 		return res;
 	}

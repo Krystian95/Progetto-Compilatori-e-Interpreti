@@ -52,16 +52,16 @@ public class Test {
 			ArrayList<SemanticError> err = null;
 			Node ast = null;
 
-			try {
+			//try {
 				System.out.println();
 				ast = visitor.visit(parser.initblock()); //generazione AST
 				Environment env = new Environment();
 				err = ast.checkSemantics(env);
-			}
+			/*}
 			catch(Exception e) { // ParseCancellationException
 				System.err.println("\nSyntax error. Running aborted.");
 				System.exit(0);
-			}
+			}*/
 
 			if(err.size()>0){
 				System.err.println("You had " +err.size()+" errors:");
