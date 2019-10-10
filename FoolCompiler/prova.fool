@@ -1,25 +1,13 @@
 
-
-{ 
-	int m = 9;
-
-	f(var int m, int n){
-
-		if (m>n) { print(m+n) ;}
-	
-		else { int x = 1 ; }
-	
-	}
-	
-	f(m,5) ;
-	
-	// cosa succede se la invoco con f(4,5)?
-	
-
- }
+{
+    //////////////////// EXAMPLE 1 ////////////////////
+    int z = 5
+}
 
 
 /*
+
+{ int k=8; int a=7; print k; f(var int x){ x = 55 + x; } print a; print k; }
 
 { 
 

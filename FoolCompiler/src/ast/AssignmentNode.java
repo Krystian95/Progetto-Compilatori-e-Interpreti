@@ -45,9 +45,9 @@ public class AssignmentNode implements Node {
 
 		res.addAll(exp.checkSemantics(env));
 
-		System.err.println("[AssigmentNode]");
+		/*System.err.println("[AssigmentNode]");
 		System.err.println("[AssigmentNode] env.isInsideFunction: " + env.isInsideFunction);
-		System.err.println("[AssigmentNode] varEntry.getMode(): " + varEntry.getMode());
+		System.err.println("[AssigmentNode] varEntry.getMode(): " + varEntry.getMode());*/
 
 		//mi salvo la ST da NL 0 a NL corrente
 		/*int k = 0;
@@ -93,7 +93,7 @@ public class AssignmentNode implements Node {
 				+ "add\n"
 				+ "sw\n";
 
-		if(varEntry.getMode().equals("var")) {
+		if(varEntry.getMappedEntry() != null && varEntry.getMode().equals("var")) {
 			
 			System.err.println("[AssignmentNode - CodeGen] varEntry.getMappedEntry().getOffset(): " + varEntry.getMappedEntry().getOffset());
 			String getARMappedEntry="";
@@ -113,7 +113,6 @@ public class AssignmentNode implements Node {
 					+ "push " + varEntry.getMappedEntry().getOffset() + "\n"
 					+ "add\n"
 					+ "sw\n";
-
 		}
 
 		return code;

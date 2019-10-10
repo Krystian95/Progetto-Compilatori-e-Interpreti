@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import ast.FoolVisitorImpl;
+import ast.Node;
+import ast.SVMVisitorImpl;
 import parser.ExecuteVM;
 import parser.FOOLLexer;
 import parser.FOOLParser;
@@ -13,9 +16,8 @@ import parser.SVMLexer;
 import parser.SVMParser;
 import util.Environment;
 import util.SemanticError;
-import ast.FoolVisitorImpl;
-import ast.Node;
-import ast.SVMVisitorImpl;
+import util.AppLexicalError.ThrowingLexicalError;
+import util.AppLexicalError;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
@@ -39,6 +41,9 @@ public class Test {
 		}else{
 
 			FOOLParser parser = new FOOLParser(tokens);
+			
+			parser.removeErrorListeners();
+			parser.addErrorListener(ThrowingLexicalError.INSTANCE);
 
 			FoolVisitorImpl visitor = new FoolVisitorImpl();
 
@@ -53,7 +58,7 @@ public class Test {
 				Environment env = new Environment();
 				err = ast.checkSemantics(env);
 			}
-			catch(Exception e) {
+			catch(Exception e) { // ParseCancellationException
 				System.err.println("\nSyntax error. Running aborted.");
 				System.exit(0);
 			}
