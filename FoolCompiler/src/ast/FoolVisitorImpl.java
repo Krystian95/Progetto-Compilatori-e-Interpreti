@@ -99,7 +99,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 
 		//visit the exp
 		Node expNode = visit(ctx.exp());
-		
+
 		//System.err.println("[visitAssignment] " +ctx.ID().getText()+" << "+ctx.exp().getText());
 
 		//build the varNode
@@ -142,7 +142,18 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 	public Node visitExp(ExpContext ctx) {
 
 		//this could be enhanced
-
+		if(ctx.minus!=null) {
+			IntNode zero = new IntNode(0);
+			if(ctx.right == null){
+				//it is a simple expression
+				return new MinusNode(zero, visit( ctx.left ));
+			}else{
+				//it is a binary expression, you should visit left and right
+				if(ctx.op.getText().equals("+"))
+					return new PlusNode(new MinusNode(zero, visit(ctx.left)), visit(ctx.right));
+				else return new MinusNode(new MinusNode(zero, visit(ctx.left)), visit(ctx.right));
+			}
+		}   
 		//check whether this is a simple or binary expression
 		//notice here the necessity of having named elements in the grammar
 		if(ctx.right == null){

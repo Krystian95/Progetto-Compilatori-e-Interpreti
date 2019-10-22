@@ -820,6 +820,7 @@ public class FOOLParser extends Parser {
 	}
 
 	public static class ExpContext extends ParserRuleContext {
+		public Token minus;
 		public TermContext left;
 		public Token op;
 		public ExpContext right;
@@ -853,7 +854,7 @@ public class FOOLParser extends Parser {
 			if (_la==T__15) {
 				{
 				setState(121);
-				match(T__15);
+				((ExpContext)_localctx).minus = match(T__15);
 				}
 			}
 

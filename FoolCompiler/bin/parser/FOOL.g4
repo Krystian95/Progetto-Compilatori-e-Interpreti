@@ -42,7 +42,7 @@ type   		: 'int'
 
 parameter  	: (modePar='var')? type ID ; // OK
 
-exp    		:  ('-')? left=term (op=('+' | '-') right=exp)? // OK
+exp    		:  (minus='-')? left=term (op=('+' | '-') right=exp)? // OK
 			; 
    
 term   		: left=factor (op=('*' | '/') right=term)? ; // OK
