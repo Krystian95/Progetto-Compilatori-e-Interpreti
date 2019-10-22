@@ -3,19 +3,10 @@ cfp
 pop
 lfp
 cfp
-push 2
-lfp
-cfp
-push 2
-push 1
-pop
-sfp
-push -1
-lfp
-add
-lw
+push 5
+push 0
+div
 print
-pop
 pop
 sfp
 halt

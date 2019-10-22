@@ -17,13 +17,11 @@
 { int k=8; int a=7; print k; f(var int x){ x = 55 + x; } print a; print k; }
 
 { 
-
  	 f(var int a, int b){ delete a; } 
-
-      int x = 3 ; 
-      f(x,x);
-      print x;
-
+ 	 
+     int x = 3 ; 
+     f(x,x);
+     print x;
  }
 
 { int k=8; f(int k){ delete k; print k;} f(k); }

@@ -53,7 +53,13 @@ public class ExecuteVM {
 				case SVMParser.DIV :
 					v1=pop();
 					v2=pop();
-					push(v2 / v1);
+					if(v1==0) {
+						System.err.println("ERRORE: Division by Zero");
+						System.exit(0);
+					}
+					else{
+						push(v2 / v1);
+					}
 					break;
 				case SVMParser.SUB :
 					v1=pop();
@@ -151,7 +157,7 @@ public class ExecuteVM {
 				case SVMParser.PRINT :
 					System.out.println((sp<MEMSIZE)?memory[sp]:"Empty stack!");
 					break;
-				/*case SVMParser.DELETE :
+					/*case SVMParser.DELETE :
 
 					if (memory[sp] == -10000) {
 						System.out.println("\nError: Null pointer exception");

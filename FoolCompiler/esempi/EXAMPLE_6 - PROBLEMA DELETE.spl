@@ -7,4 +7,5 @@
         int x = 1;
         delete x;
     }
+    print x;
 }
