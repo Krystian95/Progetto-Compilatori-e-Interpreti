@@ -54,15 +54,12 @@ public class OrBooleanOperationNode implements Node {
 	public String codeGeneration() {
 
 		String l_true = FOOLlib.freshLabel();
-		String l_false = FOOLlib.freshLabel();
 		String lExit = FOOLlib.freshLabel();
 
 		return 
 				"push 1\n"+ 
 				left.codeGeneration()+
 				"beq "+ l_true +"\n"+
-				//"push 1\n"+
-				l_false + ":\n"+
 				right.codeGeneration()+
 				"b "+lExit+"\n"+
 				l_true + ":\n"+

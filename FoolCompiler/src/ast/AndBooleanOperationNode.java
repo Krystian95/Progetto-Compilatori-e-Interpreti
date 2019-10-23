@@ -54,15 +54,17 @@ public class AndBooleanOperationNode implements Node {
 	public String codeGeneration() {
 
 		String lExit = FOOLlib.freshLabel();
+		String lFalse = FOOLlib.freshLabel();
 
 		return 
 				"push 0\n"+ 
 				left.codeGeneration()+
-				"beq "+ lExit +"\n"+
-				//"push 1\n"+
+				"beq "+ lFalse +"\n"+
 				right.codeGeneration()+
-				lExit + ":\n";
-
+				"b "+lExit+"\n"+
+				lFalse + ":\n"+
+				"push 0\n"+
+				lExit+":";
 	}
 
 }  
