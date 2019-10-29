@@ -58,15 +58,19 @@ public class Utils {
 	}*/
 
 	public static int countVarDec(String text, ArrayList<HashMap<String,STentry>> hm, int nestLev) {
-		int cont=0;
+		
+		int maxOffset = 0;
+		
 		for (HashMap<String,STentry> temp : hm) {
 			for (Map.Entry<String, STentry> entry : temp.entrySet()) {
 				if(entry.getValue().getNestinglevel()==nestLev && entry.getValue().getMappedEntry()==null)
-					cont++;
+					if(Math.abs(entry.getValue().getOffset()) > maxOffset) {
+						maxOffset = Math.abs(entry.getValue().getOffset());
+					}
 			}
 		}
 
-		return cont;
+		return maxOffset;
 	}
 
 }

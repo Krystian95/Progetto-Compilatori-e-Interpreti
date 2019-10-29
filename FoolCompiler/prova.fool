@@ -1,11 +1,13 @@
 
 {
     //////////////////// EXAMPLE 6 ////////////////////
-    int x = 2;
+    int x = 8;
     {
-        int x = 2;
+        int x = 20;
+        print x;
         delete x;
-        int x = 1;
+        int x = 10;
+        print x;
         delete x;
     }
     print x;
