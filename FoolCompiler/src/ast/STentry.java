@@ -13,24 +13,26 @@ public class STentry {
 	private LinkedHashMap<Integer, LinkedHashMap<String, STentry>> decParList = null;
 	private STentry mappedEntry = null;
 
-	public STentry (int n, int os)
-	{nl=n;
-	offset=os;} 
+	public STentry (int n, int os){
+		nl = n;
+		offset = os;
+	} 
 
-	public STentry (int n, Node t, int os)
-	{nl=n;
-	type=t;
-	offset=os;}
+	public STentry (int n, Node t, int os){
+		nl = n;
+		type = t;
+		offset = os;
+	}
 
-	public void addType (Node t)
-	{type=t;}
+	public void addType (Node t){
+		type = t;
+	}
 
-	public Node getType ()
-	{return type;}
+	public Node getType () { return type; }
 
-	public int getOffset () {return offset;}
+	public int getOffset () { return offset; }
 
-	public int getNestinglevel () {return nl;}
+	public int getNestinglevel () { return nl; }
 
 	public String toPrint(String s) {
 

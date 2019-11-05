@@ -12,17 +12,19 @@ public class AndBooleanOperationNode implements Node {
 	private Node right;
 
 	public AndBooleanOperationNode (Node l, Node r) {
-		left=l;
-		right=r;
+		left = l;
+		right = r;
 	}
 
 	public String toPrint(String s) {
-		return s+"AndBooleanOperation\n" + left.toPrint(s+"  ")   
-		+ right.toPrint(s+"  ") ; 
+		return s + "AndBooleanOperation\n" 
+				+ left.toPrint(s + "  ")   
+				+ right.toPrint(s + "  ") ; 
 	}
 
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
+
 		//create the result
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
@@ -39,15 +41,16 @@ public class AndBooleanOperationNode implements Node {
 		Node l = left.typeCheck();
 		Node r = right.typeCheck();
 
-		if (FOOLlib.isEqualtype(l,new BoolTypeNode()) && FOOLlib.isEqualtype(r,new BoolTypeNode())) {
-			if (! ( FOOLlib.isEqualtype(l,r) || FOOLlib.isEqualtype(r,l) ) ) {
+		if (FOOLlib.isEqualtype(l, new BoolTypeNode()) && FOOLlib.isEqualtype(r, new BoolTypeNode())) {
+			if (!(FOOLlib.isEqualtype(l, r) || FOOLlib.isEqualtype(r, l))) {
 				System.err.println("Incompatible types in AND boolean operation");
 				System.exit(0);
 			}
-		}else {
+		} else {
 			System.err.println("Not integer types in AND boolean operation");
 			System.exit(0);
 		}
+
 		return new BoolTypeNode();
 	} 
 
@@ -57,14 +60,14 @@ public class AndBooleanOperationNode implements Node {
 		String lFalse = FOOLlib.freshLabel();
 
 		return 
-				"push 0\n"+ 
-				left.codeGeneration()+
-				"beq "+ lFalse +"\n"+
-				right.codeGeneration()+
-				"b "+lExit+"\n"+
-				lFalse + ":\n"+
-				"push 0\n"+
-				lExit+":";
+				"push 0\n" + 
+				left.codeGeneration() + 
+				"beq " + lFalse + "\n" +
+				right.codeGeneration() +
+				"b " + lExit + "\n" + 
+				lFalse + ":\n" +
+				"push 0\n" +
+				lExit + ":";
 	}
 
 }  

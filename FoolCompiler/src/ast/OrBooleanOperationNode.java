@@ -12,22 +12,22 @@ public class OrBooleanOperationNode implements Node {
 	private Node right;
 
 	public OrBooleanOperationNode (Node l, Node r) {
-		left=l;
-		right=r;
+		left = l;
+		right = r;
 	}
 
 	public String toPrint(String s) {
-		return s+"OrBooleanOperation\n" + left.toPrint(s+"  ")   
-		+ right.toPrint(s+"  ") ; 
+		return s + "OrBooleanOperation\n"
+				+ left.toPrint(s + "  ")   
+				+ right.toPrint(s + "  ") ; 
 	}
 
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
-		//create the result
+
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
 		//check semantics in the left and in the right exp
-
 		res.addAll(left.checkSemantics(env));
 		res.addAll(right.checkSemantics(env));
 
@@ -39,15 +39,16 @@ public class OrBooleanOperationNode implements Node {
 		Node l = left.typeCheck();
 		Node r = right.typeCheck();
 
-		if (FOOLlib.isEqualtype(l,new BoolTypeNode()) && FOOLlib.isEqualtype(r,new BoolTypeNode())) {
-			if (! ( FOOLlib.isEqualtype(l,r) || FOOLlib.isEqualtype(r,l) ) ) {
+		if (FOOLlib.isEqualtype(l, new BoolTypeNode()) && FOOLlib.isEqualtype(r, new BoolTypeNode())) {
+			if (!(FOOLlib.isEqualtype(l, r) || FOOLlib.isEqualtype(r, l))) {
 				System.err.println("Incompatible types in OR boolean operation");
 				System.exit(0);
 			}
-		}else {
+		} else {
 			System.err.println("Not integer types in OR boolean operation");
 			System.exit(0);
 		}
+
 		return new BoolTypeNode();
 	} 
 
@@ -57,13 +58,13 @@ public class OrBooleanOperationNode implements Node {
 		String lExit = FOOLlib.freshLabel();
 
 		return 
-				"push 1\n"+ 
-				left.codeGeneration()+
-				"beq "+ l_true +"\n"+
-				right.codeGeneration()+
-				"b "+lExit+"\n"+
-				l_true + ":\n"+
-				"push 1\n"+
+				"push 1\n" + 
+				left.codeGeneration() +
+				"beq " + l_true + "\n" +
+				right.codeGeneration() +
+				"b " + lExit + "\n" +
+				l_true + ":\n" +
+				"push 1\n" +
 				lExit + ":\n";
 
 	}

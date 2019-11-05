@@ -1,11 +1,9 @@
 package ast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import util.Environment;
 import util.SemanticError;
-import lib.FOOLlib;
 
 public class DeletionNode implements Node {
 
@@ -18,11 +16,7 @@ public class DeletionNode implements Node {
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
 
-		Utils.printHashMap("BEFORE DELETION OF "+id,env.symTable);
-
-		//create result list
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
-
 
 		int j = env.nestingLevel;
 
@@ -34,9 +28,7 @@ public class DeletionNode implements Node {
 
 		if (enry_to_delete == null || enry_to_delete.isDeleted()) {
 			res.add(new SemanticError("Id " + id + " not declared"));
-		}else{
-			System.out.println("DELETION of "+id+" found at nestingLevel = "+enry_to_delete.getNestinglevel());
-
+		} else {
 			env.symTable.get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);
 
 			if(env.isInsideFunction && enry_to_delete.getMode() != null && enry_to_delete.getMode().equals("var")) {
@@ -47,16 +39,13 @@ public class DeletionNode implements Node {
 			env.symTable.get(enry_to_delete.getNestinglevel()).put(id, enry_to_delete);
 		}
 
-		Utils.printHashMap("AFTER DELETION OF "+id,env.symTable);
-
 		return res;
 	}
 
 	public String toPrint(String s) {
-		return s+"Deletion: " + id+"\n";
+		return s + "Deletion: " + id +"\n";
 	}
 
-	//valore di ritorno non utilizzato
 	public Node typeCheck () {
 		return null;
 	}

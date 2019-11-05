@@ -2,7 +2,8 @@ package parser;
 
 
 public class ExecuteVM {
-	boolean test=false;
+
+	boolean test = false;
 	public static final int CODESIZE = 10000;
 	public static final int MEMSIZE = 10000;
 
@@ -12,7 +13,7 @@ public class ExecuteVM {
 	private int ip = 0;
 	private int sp = MEMSIZE;
 	private int hp = 0;       
-	private int fp = MEMSIZE/*-1*/;
+	private int fp = MEMSIZE;
 	private int ra;           
 	private int rv;
 
@@ -21,58 +22,61 @@ public class ExecuteVM {
 	}
 
 	public void cpu() {
+
 		while ( true ) {
-			if(hp+1>=sp) {
+			if(hp + 1 >= sp) {
 				System.err.println("\nError: Out of memory (possible infinity loop)");
 				return;
-			}
-			else {
+			} else {
 				int bytecode = code[ip++]; // fetch
-				int v1,v2;
+				int v1, v2;
 				int address;
 
-				//System.out.println("TESTA: "+ memory[sp]);
+				switch (bytecode) {
 
-				switch ( bytecode ) {
 				case SVMParser.PUSH:
-					push( code[ip++] );
+					push(code[ip++]);
 					break;
+
 				case SVMParser.POP:
 					pop();
 					break;
-				case SVMParser.ADD :
-					v1=pop();
-					v2=pop();
+
+				case SVMParser.ADD:
+					v1 = pop();
+					v2 = pop();
 					push(v2 + v1);
 					break;
-				case SVMParser.MULT :
-					v1=pop();
-					v2=pop();
+
+				case SVMParser.MULT:
+					v1 = pop();
+					v2 = pop();
 					push(v2 * v1);
 					break;
-				case SVMParser.DIV :
-					v1=pop();
-					v2=pop();
-					if(v1==0) {
+
+				case SVMParser.DIV:
+					v1 = pop();
+					v2 = pop();
+					if(v1 == 0) {
 						System.err.println("ERRORE: Division by Zero");
 						System.exit(0);
-					}
-					else{
+					} else {
 						push(v2 / v1);
 					}
 					break;
-				case SVMParser.SUB :
-					v1=pop();
-					v2=pop();
+
+				case SVMParser.SUB:
+					v1 = pop();
+					v2 = pop();
 					push(v2 - v1);
 					break;
-				case SVMParser.STOREW : //
+
+				case SVMParser.STOREW:
 					address = pop();
 					memory[address] = pop();    
 					break;
-				case SVMParser.LOADW : //
-					// check if object address where we take the method label
-					// is null value (-10000)
+
+				case SVMParser.LOADW:
 					if (memory[sp] == -10000) {
 						System.err.println("\nError: Null pointer exception");
 						return;
@@ -80,100 +84,104 @@ public class ExecuteVM {
 					if(memory[sp]<10000)
 						push(memory[pop()]);
 					break;
-				case SVMParser.BRANCH : 
+
+				case SVMParser.BRANCH: 
 					address = code[ip];
 					ip = address;
 					break;
-				case SVMParser.BRANCHEQ : //
-					//System.out.println("TESTA prima: "+ memory[sp]);
+
+				case SVMParser.BRANCHEQ:
 					address = code[ip++];
-					v1=pop();
-					v2=pop();
+					v1 = pop();
+					v2 = pop();
 					if (v2 == v1) ip = address;
-					//System.out.println("TESTA dopo: "+ memory[sp]);
 					break;
-				case SVMParser.BRANCHNOTEQ : //
+
+				case SVMParser.BRANCHNOTEQ:
 					address = code[ip++];
-					v1=pop();
-					v2=pop();
+					v1 = pop();
+					v2 = pop();
 					if (v2 != v1) ip = address;
 					break;
-				case SVMParser.BRANCHGT : //
+
+				case SVMParser.BRANCHGT:
 					address = code[ip++];
-					v1=pop();
-					v2=pop();
+					v1 = pop();
+					v2 = pop();
 					if (v2 > v1) ip = address;
 					break;
-				case SVMParser.BRANCHLT : //
+
+				case SVMParser.BRANCHLT:
 					address = code[ip++];
-					v1=pop();
-					v2=pop();
+					v1 = pop();
+					v2 = pop();
 					if (v2 < v1) ip = address;
 					break;
-				case SVMParser.BRANCHLESSEQ :
+
+				case SVMParser.BRANCHLESSEQ:
 					address = code[ip++];
-					v1=pop();
-					v2=pop();
+					v1 = pop();
+					v2 = pop();
 					if (v2 <= v1) ip = address;
 					break;
-				case SVMParser.BRANCHGREATEREQ :
+
+				case SVMParser.BRANCHGREATEREQ:
 					address = code[ip++];
-					v1=pop();
-					v2=pop();
+					v1 = pop();
+					v2 = pop();
 					if (v2 >= v1) ip = address;
 					break;
-				case SVMParser.JS : //	
+
+				case SVMParser.JS:	
 					address = pop();
 					ra = ip;
 					ip = address;
 					break;
-				case SVMParser.STORERA : //
-					ra=pop();
+
+				case SVMParser.STORERA:
+					ra = pop();
 					break;
-				case SVMParser.LOADRA : //
+
+				case SVMParser.LOADRA:
 					push(ra);
 					break;
-				case SVMParser.STORERV : //
-					rv=pop();
+
+				case SVMParser.STORERV:
+					rv = pop();
 					break;
-				case SVMParser.LOADRV : //
+
+				case SVMParser.LOADRV:
 					push(rv);
 					break;
-				case SVMParser.LOADFP : //
-					push(fp/*-1*/);
+
+				case SVMParser.LOADFP:
+					push(fp);
 					break;
-				case SVMParser.STOREFP : //
-					fp=pop();
+
+				case SVMParser.STOREFP:
+					fp = pop();
 					break;
-				case SVMParser.COPYFP : //
-					fp=sp;
+
+				case SVMParser.COPYFP:
+					fp = sp;
 					break;
-				case SVMParser.STOREHP : //
-					hp=pop();
+
+				case SVMParser.STOREHP:
+					hp = pop();
 					break;
-				case SVMParser.LOADHP : //
+
+				case SVMParser.LOADHP:
 					push(hp);
 					break;
+
 				case SVMParser.PRINT :
-					System.out.println((sp<MEMSIZE)?memory[sp]:"Empty stack!");
+					System.out.println((sp < MEMSIZE) ? memory[sp] : "Empty stack!");
 					break;
-					/*case SVMParser.DELETE :
 
-					if (memory[sp] == -10000) {
-						System.out.println("\nError: Null pointer exception");
-						return;
-					}
-
-					memory[pop()] = null;
-
-					break;*/
 				case SVMParser.HALT :
-					//to print the result 
 					System.out.println("\nRunning ended.");
 					return;
 				}
-
-				//System.out.println("TESTA: "+ memory[sp]);
 			} 
 		}
 	} 

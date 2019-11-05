@@ -9,57 +9,57 @@ grammar FOOL;
 
 // PARSER RULES
 
-initblock	: block; // OK
+initblock	: block;
 
-block		: '{' statement* '}'; // OK
+block		: '{' statement* '}';
 
-statement	: assignment ';' #assignmentStatement // OK
-		  	| deletion ';' #deletionStatement // OK
-		  	| print ';' #printStatement // OK
-		  	| functioncall ';' #functioncallStatement // OK
-		  	| ifthenelse #ifthenelseStatement // OK
-		  	| declaration #declarationStatement // OK
-		  	| block #blockStatement // OK
+statement	: assignment ';' #assignmentStatement
+		  	| deletion ';' #deletionStatement
+		  	| print ';' #printStatement
+		  	| functioncall ';' #functioncallStatement
+		  	| ifthenelse #ifthenelseStatement
+		  	| declaration #declarationStatement
+		  	| block #blockStatement
 		  	;
 
-assignment	: ID '=' exp ; // OK
+assignment	: ID '=' exp ;
 
-deletion	: 'delete' ID ; // OK
+deletion	: 'delete' ID ;
 
-print		: 'print' exp ; // OK
+print		: 'print' exp ;
 
-functioncall: ID '(' (exp (',' exp)* )? ')' ; // OK
+functioncall: ID '(' (exp (',' exp)* )? ')' ;
 
-ifthenelse 	: 'if' '(' cond=exp ')' 'then' thenBranch=block 'else' elseBranch=block ; // OK
+ifthenelse 	: 'if' '(' cond=exp ')' 'then' thenBranch=block 'else' elseBranch=block ;
 
-declaration	: type ID '=' exp ';' #varasm // OK
-		  	| ID '(' ( parameter ( ',' parameter)* )? ')' block #fundec // OK
+declaration	: type ID '=' exp ';' #varasm
+		  	| ID '(' ( parameter ( ',' parameter)* )? ')' block #fundec
 			;
 
 type   		: 'int'  
         	| 'bool'
-        	; // OK
+        	;
 
-parameter  	: (modePar='var')? type ID ; // OK
+parameter  	: (modePar='var')? type ID ;
 
-exp    		:  (minus='-')? left=term (op=('+' | '-') right=exp)? // OK
+exp    		:  (minus='-')? left=term (op=('+' | '-') right=exp)?
 			; 
    
-term   		: left=factor (op=('*' | '/') right=term)? ; // OK
+term   		: left=factor (op=('*' | '/') right=term)? ;
    
-factor 		: left=value (op=ROP right=value)? #factorForInteger // OK
-	        | left=value (op=('&&' | '||') right=value)? #factorForBoolean // OK
+factor 		: left=value (op=ROP right=value)? #factorForInteger
+	        | left=value (op=('&&' | '||') right=value)? #factorForBoolean
 	        ; 
    
-value  		: INTEGER				#intVal // OK
-     		| ( 'true' | 'false' )	#boolVal // OK
-		  	| ID					#varExp // OK
-      		| '(' exp ')' 			#baseExp // OK
+value  		: INTEGER				#intVal
+     		| ( 'true' | 'false' )	#boolVal
+		  	| ID					#varExp
+      		| '(' exp ')' 			#baseExp
 		  	; 
     
 // LEXER RULES
 
-ROP     : '==' | '>' | '<' | '<=' | '>=' | '!=' ; // OK
+ROP     : '==' | '>' | '<' | '<=' | '>=' | '!=' ;
 
 //Numbers
 fragment DIGIT 	: '0'..'9';    

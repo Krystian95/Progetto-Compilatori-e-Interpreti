@@ -14,9 +14,9 @@ public class ParNode implements Node {
 	private STentry entry;
 
 	public ParNode (String v, String i, Node t) {
-		mode=v;
-		id=i;
-		type=t;
+		mode = v;
+		id = i;
+		type = t;
 	}
 
 	public String getId(){
@@ -36,8 +36,6 @@ public class ParNode implements Node {
 
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
-		//System.out.println("[ParNode]nestingLevel="+env.nestingLevel);
-
 		//mi salvo la ST dell'ultimo NL
 		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
 
@@ -49,8 +47,6 @@ public class ParNode implements Node {
 			this.entry = new STentry(env.nestingLevel, type, env.parOffset);
 			entry.setMode(this.mode);
 			hm.put(id, this.entry);
-			//if (type instanceof ObjectTypeNode)
-			//    env.incrementParOffset();
 			env.parOffset++;
 		}
 
@@ -65,12 +61,10 @@ public class ParNode implements Node {
 				s + "Entry: " + entry.toPrint("\t");
 	}
 
-	//non utilizzato
 	public Node typeCheck () {
 		return null;
 	}
 
-	//non utilizzato
 	public String codeGeneration() {
 		return "";
 	}

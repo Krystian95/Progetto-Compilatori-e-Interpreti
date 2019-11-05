@@ -1,13 +1,12 @@
 package ast;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import lib.FOOLlib;
 import util.Environment;
 import util.SemanticError;
-import lib.FOOLlib;
 
 public class CallNode implements Node {
 
@@ -18,24 +17,29 @@ public class CallNode implements Node {
 
 
 	public CallNode (String i, STentry e, ArrayList<Node> p, int nl) {
-		id=i;
-		entry=e;
+		id = i;
+		entry = e;
 		parlist = p;
-		nestinglevel=nl;
+		nestinglevel = nl;
 	}
 
 	public CallNode(String text, ArrayList<Node> args) {
-		id=text;
+
+		id = text;
 		parlist = args;
 	}
 
-	public String toPrint(String s) {  //
-		String parlstr="";
+	public String toPrint(String s) {
+
+		String parlstr = "";
+
 		for (Node par:parlist)
-			parlstr+=par.toPrint(s+"  ");		
-		return s+"Call:" + id + " at nestlev " + nestinglevel +"\n" 
-		+entry.toPrint(s+"  ")
-		+parlstr;        
+			parlstr += par.toPrint(s + "  ");
+
+		return
+				s + "Call:" + id + " at nestlev " + nestinglevel + "\n" +
+				entry.toPrint(s + "  ") +
+				parlstr;        
 	}
 
 	@Override
@@ -48,7 +52,7 @@ public class CallNode implements Node {
 		int j = env.nestingLevel;
 		STentry functionCalled = null; 
 
-		while (j>=0 && functionCalled==null) {
+		while (j >= 0 && functionCalled == null) {
 			functionCalled = (env.symTable.get(j--)).get(id);
 		}
 
@@ -58,29 +62,24 @@ public class CallNode implements Node {
 			this.entry = functionCalled;
 			this.nestinglevel = env.nestingLevel;
 
-			int counter=0;
+			int counter = 0;
 
 			for(Node arg : parlist) {
 				res.addAll(arg.checkSemantics(env));
 
 				LinkedHashMap<String, STentry> parlistCalledInner = new LinkedHashMap<String, STentry>();
+
 				try {
 					IdNode a = (IdNode) arg;
-					//System.err.println(a.toPrint(""));
 					parlistCalledInner.put(a.getId(), a.getEntry());
 				}
 				catch(Exception e) {
 					parlistCalledInner.put("*", null);
 				}
+
 				parlistCalled.put(counter, parlistCalledInner);
 				counter++;
 			}
-
-			/*env.functionDecParList = functionCalled.getDecParlist();
-			env.functionCallParList = parlistCalled;*/
-
-			//System.err.println("[CallNode] dec parList: " + functionCalled.getDecParlist().toString());
-			//System.err.println("[CallNode] call parList: " + parlistCalled.toString());
 
 			/*
 			 * CheckSemanticsParVar
@@ -88,7 +87,7 @@ public class CallNode implements Node {
 			if(functionCalled.getDecParlist() != null && functionCalled.getDecParlist().size() > 0) {
 				for(Entry<Integer, LinkedHashMap<String, STentry>> item : functionCalled.getDecParlist().entrySet()) {
 					for(Map.Entry<String, STentry> itemInner : item.getValue().entrySet()) {
-						
+
 						STentry entryParDec = itemInner.getValue();
 
 						LinkedHashMap<String, STentry> parCalled = parlistCalled.get(item.getKey());
@@ -125,14 +124,6 @@ public class CallNode implements Node {
 							String idEntry = itemToDelete.getKey();
 							STentry entry = itemToDelete.getValue();
 
-							System.err.println("\n\npar pos: " + item.getKey());
-
-							System.err.println("\nidParDec (dec): " + idParDec);
-							System.err.println("entryParDec (dec): " + entryParDec);
-
-							System.err.println("\nidEntry (call): " + idEntry);
-							System.err.println("entry (call): " + entry);
-
 							/*
 							 * Deletion
 							 */
@@ -164,14 +155,6 @@ public class CallNode implements Node {
 		return res;
 	}
 
-	private void checkSemanticsParVarType() {
-
-	}
-
-	private void checkSemanticsDeletions() {
-
-	}
-
 	public Node typeCheck () {
 
 		ArrowTypeNode t = null;
@@ -190,9 +173,9 @@ public class CallNode implements Node {
 			System.exit(0);
 		}
 
-		for (int i=0; i<parlist.size(); i++) {
-			if ( !(FOOLlib.isEqualtype((parlist.get(i)).typeCheck(), p.get(i)))) {
-				System.err.println("Wrong type for " + (i+1) + "-th parameter in the invocation of " + id);
+		for (int i = 0; i < parlist.size(); i++) {
+			if (!(FOOLlib.isEqualtype((parlist.get(i)).typeCheck(), p.get(i)))) {
+				System.err.println("Wrong type for " + (i + 1) + "-th parameter in the invocation of " + id);
 				System.exit(0);
 			} 
 		}
@@ -202,28 +185,26 @@ public class CallNode implements Node {
 
 	public String codeGeneration() {
 
-		System.err.println("[CallNode - CodeGen]");
-
 		String parCode="";
-		for (int i=parlist.size()-1; i>=0; i--)
-			parCode+=parlist.get(i).codeGeneration();
 
-		String getAR="";
-		for (int i=0; i<nestinglevel-entry.getNestinglevel(); i++) 
-			getAR+="lw\n";
-		// formato AR: control_link+parameters+access_link+dich_locali
-		return //"[-- START CALL NODE --]\n"+
-				"lfp\n"+ 				// CL
-				parCode+
-				"lfp\n"+getAR+ 		// setto AL risalendo la catena statica
-				// ora recupero l'indirizzo a cui saltare e lo metto sullo stack
-				"push "+entry.getOffset()+"\n"+ // metto offset sullo stack
-				"lfp\n"+getAR+ 		// risalgo la catena statica
-				"add\n"+ 
-				"lw\n"+ 				// carico sullo stack il valore all'indirizzo ottenuto
-				"js\n"
-				//+"[-- END CALL NODE --]\n"
-				;
+		for (int i = parlist.size() - 1; i >= 0; i--)
+			parCode += parlist.get(i).codeGeneration();
+
+		String getAR = "";
+
+		for (int i = 0; i<nestinglevel - entry.getNestinglevel(); i++) 
+			getAR += "lw\n";
+
+		return
+				"lfp\n" +
+				parCode +
+				"lfp\n" + 
+				getAR +
+				"push " + entry.getOffset() + "\n" +
+				"lfp\n" + getAR + 
+				"add\n" + 
+				"lw\n" +
+				"js\n";
 	}
 
 

@@ -12,35 +12,31 @@ public class IdNode implements Node {
 	private int nestinglevel;
 
 	public IdNode (String i) {
-		id=i;
+		id = i;
 	}
-	
+
 	public String getId () {
 		return this.id;
 	}
-	
+
 	public STentry getEntry() {
 		return this.entry;
 	}
 
 	public String toPrint(String s) {
-		return s+"Id:" + id + " at nestlev " + nestinglevel
-				+"\n" + entry.toPrint(s+"  ") 
-				;  
+		return s + "Id:" + id + " at nestlev " + nestinglevel
+				+"\n" + entry.toPrint(s + "  ") ;  
 	}
 
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
 
-		//System.exit(0);
-
-		//create result list
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
-		int j=env.nestingLevel;
-		STentry tmp=null;
+		int j = env.nestingLevel;
+		STentry tmp = null;
 
-		while (j>=0 && tmp==null)
+		while (j >= 0 && tmp == null)
 			tmp = (env.symTable.get(j--)).get(id);
 
 		if (tmp == null || tmp.isDeleted()) {
@@ -55,26 +51,27 @@ public class IdNode implements Node {
 
 	public Node typeCheck () {
 
-		if (entry.getType() instanceof ArrowTypeNode) { //
+		if (entry.getType() instanceof ArrowTypeNode) {
 			System.err.println("Wrong usage of function identifier");
 			System.exit(0);
-		}	 
+		}
+
 		return entry.getType();
 	}
 
 	public String codeGeneration() {
-		String getAR="";
-		//System.out.println("[IdNode] nestinglevel = "+nestinglevel);
-		//System.out.println("[IdNode] entry.getNestinglevel() = "+entry.getNestinglevel());
-		for (int i=0; i<nestinglevel-entry.getNestinglevel(); i++) 
-			getAR+="lw\n";
 
-		return 
-				"push "+entry.getOffset()+"\n"+ //metto offset sullo stack
-				"lfp\n"+
-				getAR+ //risalgo la catena statica
-				"add\n"+ 
-				"lw\n"; //carico sullo stack il valore all'indirizzo ottenuto
+		String getAR = "";
+
+		for (int i = 0; i<nestinglevel - entry.getNestinglevel(); i++) 
+			getAR += "lw\n";
+
+		return
+				"push " + entry.getOffset() + "\n" +
+				"lfp\n" +
+				getAR +
+				"add\n"+
+				"lw\n";
 
 	}
 }  

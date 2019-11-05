@@ -1,10 +1,9 @@
 package util;
 
-import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.BaseErrorListener;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
-import org.antlr.v4.runtime.tree.ParseTree;
-
-import java.io.*;
 
 public class AppLexicalError {
 
@@ -22,27 +21,4 @@ public class AppLexicalError {
 			System.exit(0);
 		}
 	}
-
-	/*public static void main(String[] args) throws Exception, RecognitionException{
-
-		FileWriter Writer = new FileWriter("output.txt", true);
-		String inputFile = "test.spl";
-
-		FileInputStream is = new FileInputStream(inputFile);
-		ANTLRInputStream input = new ANTLRInputStream(is);
-
-		SimpleLexer lexer = new SimpleLexer(input);
-		System.out.println("Input: " + input);
-
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		System.out.println(tokens.getText());
-		SimpleParser parser = new SimpleParser(tokens);    	
-
-		parser.removeErrorListeners();
-		parser.addErrorListener(ThrowingLexicalError.INSTANCE);
-
-		ParseTree tree = parser.block();
-		System.out.print(tree.toStringTree(parser));
-		Writer.close();
-	}*/
 }
