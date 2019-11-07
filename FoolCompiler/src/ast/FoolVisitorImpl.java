@@ -104,7 +104,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 		//visit the exp
 		Node expNode = visit(ctx.exp());
 
-		return new VarNode(ctx.ID().getText(), typeNode, expNode, ctx.exp().getText());
+		return new VarNode(ctx.ID().getText(), typeNode, expNode);
 	}
 
 	@Override

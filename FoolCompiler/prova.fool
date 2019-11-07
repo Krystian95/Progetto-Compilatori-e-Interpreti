@@ -1,16 +1,12 @@
 
 {
-    //////////////////// EXAMPLE 6 ////////////////////
-    int x = 8;
-    {
-        int x = 20;
-        print x;
-        delete x;
-        int x = 10;
-        print x;
-        delete x;
-    }
-    print x;
+	int ba = 5;
+	int b = ba;
+	int x = ba * (ba + b);
+	print x;
+	
+	bool t = true || false;
+	print t;
 }
 
 

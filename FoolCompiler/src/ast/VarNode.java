@@ -12,17 +12,18 @@ public class VarNode implements Node {
 	private String id;
 	private Node type;
 	private Node exp;
-	private String expText;
 
-	public VarNode (String i, Node t, Node v, String vText) {
+	public VarNode (String i, Node t, Node v) {
 		id = i;
 		type = t;
 		exp = v;
-		expText = vText;
 	}
 
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
+		
+		env.isInsideDeclaration = true;
+		env.idDeclaration = id;
 
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
@@ -41,15 +42,13 @@ public class VarNode implements Node {
 		if (hm.containsKey(id) && !enry_to_declare.isDeleted())
 			res.add(new SemanticError("Var id " + id + " already declared"));
 		else {
-			if(expText.contains(id)) {
-				res.add(new SemanticError("Variable " + id + " is not initializated"));
-			}
-
 			env.offset--;
 			hm.put(id, entry);
 		}
 
 		res.addAll(exp.checkSemantics(env));
+		
+		env.isInsideDeclaration = false;
 
 		return res;
 	}

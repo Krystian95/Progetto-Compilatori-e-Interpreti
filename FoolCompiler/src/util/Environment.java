@@ -15,4 +15,6 @@ public class Environment {
 	public int offset = 0;
 	public int parOffset = 0;
 	public boolean isInsideFunction = false;
+	public boolean isInsideDeclaration = false;
+	public String idDeclaration;
 }

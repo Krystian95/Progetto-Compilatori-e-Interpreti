@@ -42,6 +42,10 @@ public class IdNode implements Node {
 		if (tmp == null || tmp.isDeleted()) {
 			res.add(new SemanticError("Id " + id + " not declared"));
 		}else{
+			if(env.isInsideDeclaration && id.equals(env.idDeclaration)) {
+				res.add(new SemanticError("Variable " + id + " is not initializated"));
+			}
+			
 			entry = tmp;
 			nestinglevel = env.nestingLevel;
 		}

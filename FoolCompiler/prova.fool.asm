@@ -3,31 +3,47 @@ cfp
 pop
 lfp
 cfp
-push 8
-lfp
-cfp
-push 20
+push 5
 push -1
 lfp
 add
 lw
-print
-pop
-push 10
+push -1
+lfp
+add
+lw
+push -1
+lfp
+add
+lw
 push -2
 lfp
 add
 lw
-print
-pop
-pop
-pop
-sfp
-push -1
+add
+mult
+push -3
 lfp
 add
 lw
 print
+pop
+push 1
+push 1
+beq label0
+push 0
+b label1
+label0:
+push 1
+label1:
+push -4
+lfp
+add
+lw
+print
+pop
+pop
+pop
 pop
 pop
 sfp
