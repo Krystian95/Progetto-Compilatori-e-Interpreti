@@ -36,9 +36,7 @@ public class FunNode implements Node {
 		int j = env.nestingLevel;
 		STentry tmp = null; 
 
-		while (j>=0 && tmp == null) {
-			tmp = (env.symTable.get(j--)).get(id);
-		}
+		tmp = (env.symTable.get(j--)).get(id);
 
 		if (tmp != null && !tmp.isDeleted()) {
 			res.add(new SemanticError("Fun id " + id + " already declared"));
@@ -57,7 +55,7 @@ public class FunNode implements Node {
 			}
 
 			//crea una nuova hashmap per la symTable
-			env.nestingLevel++;
+			//env.nestingLevel++;
 			HashMap<String,STentry> hmn = new HashMap<String,STentry> ();
 			env.symTable.add(hmn);
 
@@ -99,7 +97,7 @@ public class FunNode implements Node {
 			env.isInsideFunction = false;
 
 			//close scope
-			env.symTable.remove(env.nestingLevel--);
+			//env.symTable.remove(env.nestingLevel--);
 		}
 
 		return res;
@@ -173,5 +171,5 @@ public class FunNode implements Node {
 
 		return "push " + funl + "\n";
 	}
-	
+
 }  

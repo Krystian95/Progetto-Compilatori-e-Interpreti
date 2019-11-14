@@ -21,7 +21,7 @@ public class VarNode implements Node {
 
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
-		
+
 		env.isInsideDeclaration = true;
 		env.idDeclaration = id;
 
@@ -35,11 +35,9 @@ public class VarNode implements Node {
 
 		STentry enry_to_declare = null;
 
-		while (j >= 1 && enry_to_declare == null) {
-			enry_to_declare = (env.symTable.get(j--)).get(id);
-		}
+		enry_to_declare = (env.symTable.get(j--)).get(id);
 
-		if (hm.containsKey(id) && !enry_to_declare.isDeleted())
+		if (enry_to_declare != null && !enry_to_declare.isDeleted())
 			res.add(new SemanticError("Var id " + id + " already declared"));
 		else {
 			env.offset--;
@@ -47,7 +45,7 @@ public class VarNode implements Node {
 		}
 
 		res.addAll(exp.checkSemantics(env));
-		
+
 		env.isInsideDeclaration = false;
 
 		return res;

@@ -1,3 +1,12 @@
 {
-    print -4;
+	int k=8;
+	int a=7;
+	print k;
+	f(var int x){
+		x=1+x;
+	}
+	f(k);
+	f(a);
+	print k;
+	print a;
 }

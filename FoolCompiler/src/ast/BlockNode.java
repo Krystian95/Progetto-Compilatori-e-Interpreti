@@ -8,7 +8,6 @@ import util.SemanticError;
 public class BlockNode implements Node {
 
 	private ArrayList<Node> statements;
-	private int nestLevel;
 	private int countVarDec;
 
 	public BlockNode (ArrayList<Node> c) {
@@ -31,7 +30,8 @@ public class BlockNode implements Node {
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
 		env.nestingLevel++;
-		nestLevel = env.nestingLevel;
+				
+		int nestLevel = env.nestingLevel;
 
 		HashMap<String,STentry> hm = new HashMap<String,STentry> ();
 		env.symTable.add(hm);
@@ -47,7 +47,7 @@ public class BlockNode implements Node {
 
 		env.offset = offsetGlobal ;
 
-		countVarDec=Utils.countVarDec("", env.symTable, nestLevel);
+		countVarDec = Utils.countVarDec("", env.symTable, nestLevel);
 
 		env.symTable.remove(env.nestingLevel--);
 

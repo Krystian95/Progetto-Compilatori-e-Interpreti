@@ -1,16 +1,54 @@
 
 {
-	int ba = 5;
-	int b = ba;
-	int x = ba * (ba + b);
-	print x;
-	
-	bool t = true || false;
-	print t;
+	int k=8;
+	int a=7;
+	print k;
+	f(var int x){
+		x=1+x;
+	}
+	f(k);
+	f(a);
+	print k;
+	print a;
 }
 
-
 /*
+
+{{
+
+  f (var int a) {
+   a=a+1;
+  }
+  int b=888;
+  int x=9;
+  f(x);
+  print x;
+  print b;
+
+}}
+
+{
+	s(){ print 7;}
+	s();
+	{
+		s(){ print 6; }
+		s();
+	}
+	s();
+}
+
+{
+ {
+  f (var int a) {
+   a=a+1;
+  }
+  int b=888;
+  int x=9;
+  f(x);
+  print x;
+  print b;
+ }
+}
 
 { int k=8; int a=7; print k; f(var int x){ x = 55 + x; } print a; print k; }
 
@@ -28,7 +66,7 @@
 
 { bool a = true; f(int x){} f(a); }
 
-{int y = 9; int z = 3 ; y = z + y; print y;}
+{ int y = 9; int z = 3 ; y = z + y; print y; }
 
 { int k=8; f(int k){print k;} g(int k){ int u=9; print u; f(u+k); } g(k); }
 

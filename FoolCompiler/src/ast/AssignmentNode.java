@@ -25,12 +25,11 @@ public class AssignmentNode implements Node {
 
 		varEntry = null; //entry della variabile nella ST
 		nestinglevel = env.nestingLevel;
-
+		
 		// Cerco l'entry dell'id nella ST dal NL corrente fino a quello più esterno (1)
 		int j = env.nestingLevel;
-		while(j >= 0) {
+		while(j >= 0 && varEntry == null) {
 			varEntry = (env.symTable.get(j--)).get(id);
-			if(varEntry != null) break;
 		}
 
 		if(varEntry == null || varEntry.isDeleted()) {
@@ -77,7 +76,7 @@ public class AssignmentNode implements Node {
 		if(varEntry.getMappedEntry() != null && varEntry.getMode().equals("var")) {
 
 			String getARMappedEntry = "";
-
+			
 			for (int i=0; i<nestinglevel-varEntry.getMappedEntry().getNestinglevel(); i++) 
 				getARMappedEntry += "lw\n";
 
