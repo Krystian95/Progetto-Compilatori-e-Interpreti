@@ -40,12 +40,12 @@ public class IdNode implements Node {
 			tmp = (env.symTable.get(j--)).get(id);
 
 		if (tmp == null || tmp.isDeleted()) {
-			res.add(new SemanticError("Id " + id + " not declared"));
-		}else{
+			res.add(new SemanticError("- Id \"" + id + "\" not declared"));
+		} else {
 			if(env.isInsideDeclaration && id.equals(env.idDeclaration)) {
-				res.add(new SemanticError("Variable " + id + " is not initializated"));
+				res.add(new SemanticError("- Variable \"" + id + "\" is not initializated"));
 			}
-			
+
 			entry = tmp;
 			nestinglevel = env.nestingLevel;
 		}
@@ -56,7 +56,8 @@ public class IdNode implements Node {
 	public Node typeCheck () {
 
 		if (entry.getType() instanceof ArrowTypeNode) {
-			System.err.println("Wrong usage of function identifier");
+			System.err.println("You had 1 error:");
+			System.err.println("\t- Wrong usage of function identifier");
 			System.exit(0);
 		}
 

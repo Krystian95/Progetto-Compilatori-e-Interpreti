@@ -38,7 +38,8 @@ public class MultNode implements Node {
 
 		if (!(FOOLlib.isEqualtype(left.typeCheck(), new IntTypeNode()) &&
 				FOOLlib.isEqualtype(right.typeCheck(),new IntTypeNode()))) {
-			System.err.println("Non integers in multiplication");
+			System.err.println("You had 1 error:");
+			System.err.println("\t- Non integers in multiplication");
 			System.exit(0);
 		}
 

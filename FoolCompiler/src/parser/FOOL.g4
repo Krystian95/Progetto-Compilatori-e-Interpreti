@@ -43,19 +43,19 @@ type   		: 'int'
 parameter  	: (modePar='var')? type ID ;
 
 exp    		:  (minus='-')? left=term (op=('+' | '-') right=exp)?
-			; 
+			;
    
 term   		: left=factor (op=('*' | '/') right=term)? ;
    
 factor 		: left=value (op=ROP right=value)? #factorForInteger
 	        | left=value (op=('&&' | '||') right=value)? #factorForBoolean
-	        ; 
+	        ;
    
 value  		: INTEGER				#intVal
      		| ( 'true' | 'false' )	#boolVal
 		  	| ID					#varExp
       		| '(' exp ')' 			#baseExp
-		  	; 
+		  	;
     
 // LEXER RULES
 

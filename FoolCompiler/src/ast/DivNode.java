@@ -37,7 +37,8 @@ public class DivNode implements Node {
 
 		if (!(FOOLlib.isEqualtype(left.typeCheck(), new IntTypeNode()) &&
 				FOOLlib.isEqualtype(right.typeCheck(),new IntTypeNode()) ) ) {
-			System.err.println("Non integers in division");
+			System.err.println("You had 1 error:");
+			System.err.println("\t- Non integers in division");
 			System.exit(0);
 		}
 

@@ -37,9 +37,10 @@ public class VarNode implements Node {
 
 		enry_to_declare = (env.symTable.get(j--)).get(id);
 
-		if (enry_to_declare != null && !enry_to_declare.isDeleted())
-			res.add(new SemanticError("Var id " + id + " already declared"));
-		else {
+		if (enry_to_declare != null && !enry_to_declare.isDeleted()) {
+			res.add(new SemanticError("Var id \"" + id + "\" already declared"));
+			return res;
+		} else {
 			env.offset--;
 			hm.put(id, entry);
 		}
@@ -60,7 +61,7 @@ public class VarNode implements Node {
 	public Node typeCheck () {
 		if (!(FOOLlib.isEqualtype(exp.typeCheck(), type))){      
 			System.err.println("You had 1 error:");
-			System.err.println("\tIncompatible value for variable " + id);
+			System.err.println("\t- Incompatible value for variable \"" + id + "\"");
 			System.exit(0);
 		}
 

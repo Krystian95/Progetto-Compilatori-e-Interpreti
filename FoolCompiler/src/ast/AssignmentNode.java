@@ -33,7 +33,8 @@ public class AssignmentNode implements Node {
 		}
 
 		if(varEntry == null || varEntry.isDeleted()) {
-			res.add(new SemanticError("Variable " + id + " not declared"));
+			res.add(new SemanticError("- Variable \"" + id + "\" not declared"));
+			return res;
 		} else {
 			idType = varEntry.getType(); //memorizzo il tipo dell'entry
 		}
@@ -52,7 +53,7 @@ public class AssignmentNode implements Node {
 
 		if (!(FOOLlib.isEqualtype(exp.typeCheck(), idType))){
 			System.err.println("You had 1 error:");
-			System.err.println("\tIncompatible value for variable " + id);
+			System.err.println("\t- Incompatible value for variable \"" + id + "\"");
 			System.exit(0);
 		}
 

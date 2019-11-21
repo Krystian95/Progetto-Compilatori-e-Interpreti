@@ -27,7 +27,8 @@ public class DeletionNode implements Node {
 		}
 
 		if (enry_to_delete == null || enry_to_delete.isDeleted()) {
-			res.add(new SemanticError("Id " + id + " not declared"));
+			res.add(new SemanticError("- Id \"" + id + "\" not declared"));
+			return res;
 		} else {
 			env.symTable.get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);
 

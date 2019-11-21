@@ -33,7 +33,7 @@ public class Test {
 		System.out.println();
 
 		if(lexer.lexicalErrors > 0){
-			System.err.println("The program was not in the right format. Exiting the compilation process now");
+			System.err.println("The program was not in the right format. Exiting the compilation process now.");
 		}else{
 
 			FOOLParser parser = new FOOLParser(tokens);
@@ -60,7 +60,7 @@ public class Test {
 			}
 
 			if(err.size() > 0){
-				System.err.println("You had " + err.size() + " errors:");
+				System.err.println("You had " + err.size() + " error(s):");
 				for(SemanticError e : err)
 					System.err.println("\t" + e);
 			}else{

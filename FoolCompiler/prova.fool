@@ -1,18 +1,20 @@
 
 {
-	int k=8;
-	int a=7;
-	print k;
-	f(var int x){
-		x=1+x;
-	}
-	f(k);
-	f(a);
-	print k;
-	print a;
+	f(int a, int b){}
 }
 
 /*
+
+{
+	bool a = true;
+	bool b = false == a;
+}
+
+{
+	f(int a, int b){ print a+b; }
+	
+	f(3, 6);
+}
 
 {{
 

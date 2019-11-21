@@ -186,7 +186,8 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 			case "!=":
 				return new NotEqualNode(node_sx, node_dx);
 			default:
-				System.err.println("Operazione integer non riconosciuta");
+				System.err.println("You had 1 error:");
+				System.err.println("\t- Integer operation not recognized");
 				System.exit(0);
 				return null;
 			}
@@ -210,7 +211,8 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 			case "||":
 				return new OrBooleanOperationNode(node_sx, node_dx);
 			default:
-				System.err.println("Operazione boolean non riconosciuta");
+				System.err.println("You had 1 error:");
+				System.err.println("\t- Boolean operation not recognized");
 				System.exit(0);
 				return null;
 			}
@@ -270,7 +272,7 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 
 		Node block = visit(ctx.block());
 
-		res.addDecBody(null, block);
+		res.addDecBody(block);
 
 		return res;		
 	}
@@ -279,7 +281,6 @@ public class FoolVisitorImpl extends FOOLBaseVisitor<Node> {
 	public Node visitFunctioncall(FunctioncallContext ctx) {
 
 		Node res;
-
 		ArrayList<Node> args = new ArrayList<Node>();
 
 		for(ExpContext exp : ctx.exp())

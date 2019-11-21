@@ -40,10 +40,11 @@ public class ParNode implements Node {
 		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
 
 		//se il nome è già stato usato nel NL corrente diamo errore
-		if (hm.containsKey(id))
-			res.add(new SemanticError("Parameter id " + id + " already declared"));
-		//se il nome è free, inserisco l'entry nella ST e incremento l'offset
-		else {
+		if (hm.containsKey(id)) {
+			res.add(new SemanticError("- Parameter id \"" + id + "\" already declared"));
+			return res;
+			//se il nome è free, inserisco l'entry nella ST e incremento l'offset
+		}else {
 			this.entry = new STentry(env.nestingLevel, type, env.parOffset);
 			entry.setMode(this.mode);
 			hm.put(id, this.entry);

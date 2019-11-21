@@ -57,7 +57,8 @@ public class CallNode implements Node {
 		}
 
 		if (functionCalled == null || functionCalled.isDeleted()) {
-			res.add(new SemanticError("Id " + id + " not declared"));
+			res.add(new SemanticError("- Function id \"" + id + "\" not declared"));
+			return res;
 		} else {
 			this.entry = functionCalled;
 			this.nestinglevel = env.nestingLevel;
@@ -66,19 +67,27 @@ public class CallNode implements Node {
 
 			for(Node arg : parlist) {
 				res.addAll(arg.checkSemantics(env));
+				
+				if(res.size() > 0) {
+					return res;
+				}
 
 				LinkedHashMap<String, STentry> parlistCalledInner = new LinkedHashMap<String, STentry>();
 
 				try {
 					IdNode a = (IdNode) arg;
 					parlistCalledInner.put(a.getId(), a.getEntry());
-				}
-				catch(Exception e) {
+				} catch(Exception e) {
 					parlistCalledInner.put("*", null);
 				}
 
 				parlistCalled.put(counter, parlistCalledInner);
 				counter++;
+			}
+			
+			if(parlistCalled.size() != functionCalled.getDecParlist().size()) {
+				res.add(new SemanticError("- Wrong number of parameters in the invocation of \"" + id + "\""));
+				return res;
 			}
 
 			/*
@@ -97,9 +106,8 @@ public class CallNode implements Node {
 							String idEntryToCheck = itemToCheck.getKey();
 
 							if(entryParDec.getMode().equals("var") && idEntryToCheck.toString().equals("*")) {
-								System.err.println("You had 1 error:");
-								System.err.println("\tParameter var " + itemInner.getKey() + " called with non ID");
-								System.exit(0);
+								res.add(new SemanticError("- Parameter var \"" + itemInner.getKey() + "\" called with non id"));
+								return res;
 							}
 						}
 
@@ -128,10 +136,6 @@ public class CallNode implements Node {
 							 * Deletion
 							 */
 							if(entryParDec.isDeletedByFunCall()) {
-								if(entry.isDeleted()) {
-									res.add(new SemanticError("Id " + itemToDelete.getKey() + " not declared"));
-								}
-
 								env.symTable.get(entry.getNestinglevel()).remove(idEntry, entry);
 								entry.setDeleted(true);
 								env.symTable.get(entry.getNestinglevel()).put(idEntry, entry);
@@ -162,20 +166,17 @@ public class CallNode implements Node {
 		if (entry.getType() instanceof ArrowTypeNode) { 
 			t = (ArrowTypeNode) entry.getType();
 		} else {
-			System.err.println("Invocation of a non-function " + id);
+			System.err.println("You had 1 error:");
+			System.err.println("\t- Invocation of a non-function \"" + id + "\"");
 			System.exit(0);
 		}
 
 		ArrayList<Node> p = t.getParList();
 
-		if (!(p.size() == parlist.size())) {
-			System.err.println("Wrong number of parameters in the invocation of " + id);
-			System.exit(0);
-		}
-
 		for (int i = 0; i < parlist.size(); i++) {
 			if (!(FOOLlib.isEqualtype((parlist.get(i)).typeCheck(), p.get(i)))) {
-				System.err.println("Wrong type for " + (i + 1) + "-th parameter in the invocation of " + id);
+				System.err.println("You had 1 error:");
+				System.err.println("\t- Wrong type for " + (i + 1) + "-th parameter in the invocation of function \"" + id + "\"");
 				System.exit(0);
 			} 
 		}

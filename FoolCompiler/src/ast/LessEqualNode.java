@@ -41,11 +41,13 @@ public class LessEqualNode implements Node {
 
 		if (FOOLlib.isEqualtype(l, new IntTypeNode()) && FOOLlib.isEqualtype(r, new IntTypeNode())) {
 			if (!(FOOLlib.isEqualtype(l, r) || FOOLlib.isEqualtype(r, l))) {
-				System.err.println("Incompatible types in less equal");
+				System.err.println("You had 1 error:");
+				System.err.println("\t- Incompatible types in less equal");
 				System.exit(0);
 			}
 		} else {
-			System.err.println("Not integer types in less equal");
+			System.err.println("You had 1 error:");
+			System.err.println("\t- Not integer types in less equal");
 			System.exit(0);
 		}
 

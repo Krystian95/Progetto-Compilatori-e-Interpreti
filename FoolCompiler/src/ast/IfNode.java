@@ -42,7 +42,8 @@ public class IfNode implements Node {
 	public Node typeCheck() {
 
 		if (!(FOOLlib.isEqualtype(cond.typeCheck(), new BoolTypeNode()))) {
-			System.err.println("non boolean condition in if");
+			System.err.println("You had 1 error:");
+			System.err.println("\t- Non boolean condition in if");
 			System.exit(0);
 		}
 
