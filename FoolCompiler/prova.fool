@@ -1,33 +1,9 @@
 
-{
-	f(int a, int b){}
-}
+
 
 /*
 
-{
-	bool a = true;
-	bool b = false == a;
-}
-
-{
-	f(int a, int b){ print a+b; }
-	
-	f(3, 6);
-}
-
-{{
-
-  f (var int a) {
-   a=a+1;
-  }
-  int b=888;
-  int x=9;
-  f(x);
-  print x;
-  print b;
-
-}}
+	*** ESEMPI ***
 
 {
 	s(){ print 7;}
@@ -40,47 +16,99 @@
 }
 
 {
- {
-  f (var int a) {
-   a=a+1;
-  }
-  int b=888;
-  int x=9;
-  f(x);
-  print x;
-  print b;
- }
+	f (var int a) {
+   		a = a+1;
+  	}
+  		
+	int b = 888;
+	int x = 9;
+	f(x);
+	print x;
+	print b;
 }
 
-{ int k=8; int a=7; print k; f(var int x){ x = 55 + x; } print a; print k; }
+{
+	int k = 8;
+	int a = 7;
+	print k;
+	
+	f(var int x){
+		x = 55 + x;
+	}
+	
+	print a;
+	print k;
+}
 
-{ 
- 	 f(var int a, int b){ delete a; } 
+{
+	// ERROR: Id "x" not declared
+	
+ 	 f(var int a, int b){
+ 	 	delete a;
+ 	 } 
  	 
      int x = 3 ; 
      f(x,x);
      print x;
- }
+}
 
-{ int k=8; f(int k){ delete k; print k;} f(k); }
+{
+	// ERROR: Id "k" not declared
+	int k = 8;
+	
+	f(int k){
+		delete k;
+		print k;
+	}
+	
+	f(k);
+}
 
-{ int a = 2; f(bool x){} f(a); }
+{
+	// ERROR: Parameter var "b" called with non id
+	
+	f(int a, var int b){
+		print a+b;
+	}
+	
+	f(3, 6);
+}
 
-{ bool a = true; f(int x){} f(a); }
+{
+	// ERROR: Wrong type for 1-th parameter in the invocation of function "f"
+	
+	bool a = true;
+	f(int x){}
+	f(a);
+}
 
-{ int y = 9; int z = 3 ; y = z + y; print y; }
-
-{ int k=8; f(int k){print k;} g(int k){ int u=9; print u; f(u+k); } g(k); }
+{
+	int k = 8;
+	
+	f(int k){
+		print k;
+	}
+	
+	g(int k){
+		int u = 9;
+		print u;
+		f(u+k);
+	}
+	
+	g(k);
+}
 
 {
     f(int x, int y){
-        int z = x ;
+        int z = x;
         print z;
         print y;
-        delete x ;
-        y = y; 		/* [!] PROBLEMA */
-        y = y + z ; /* [!] PROBLEMA */
+        delete x;
+        y = y;
+        y = y + z;
+        print y;
     }
+    
     {
         int x = 3 ;
         int y = 4 ;
@@ -91,12 +119,12 @@
 {
 	int x = 1;
 
-	f(){ int p=88; print p; }
+	f(){ int p = 88; print p; }
 	g(int y){ print y; }
 	b(){ print 66; }
 	
-	int k=666;
-	int a=26347;
+	int k = 666;
+	int a = 222;
 	g(k);
 	int z = 6;
 	int p = 0;
@@ -108,10 +136,45 @@
 }
 
 {
-	int x=1;
-	int y=4;
+	f(var int x, var int y){
+		delete x;
+		delete y;
+	}
+	int x = 3;
+	f(x,x);
+	print x;
+}
+
+{
+	int x = 1;
+	f(int y){
+		print y;
+		if (y == 0) then {
+			print(x);
+		} else {
+			f(y-1);
+		}
+	}
+	f(54);
+}
+
+{
+	f(int a, int b){
+		int x = 55;
+		print x;
+	}
+	
+	f(0,0);
+	int x = 99;
+	print x;
+	print x;
+}
+
+{
+	int x = 1;
+	int y = 4;
 	{
-		int a=44;
+		int a = 44;
 		{
 			{
 				print a;
@@ -121,30 +184,81 @@
 	print x;
 }
 
- *** PROBLEMA PARAMETRI 'VAR' *** { f(var int x, var int y){ delete x; delete y; } int x = 3 ; f(x,x) ; }
+{
+	int x = 4;
+	delete x;
+	int x = 5;
+	print x;
+}
 
- { int x = 1; f(int y){ print y; if (y == 0) then { print(x);} else { f(y-1); }}  f(54); }
- 
-{ int x = 4 ; delete x ; int x = 5 ; }
+{
+	int z = 888;
+	int u = 44;
+	int x = 55;
+	
+	if(5 == 5) then {
+		int x = 77;
+		int a = 2;
+		int b = 6;
+		print x;
+	} else {
+	
+	}
+	print x;
+}
 
-{int z=888; int u=44; int x=55; if(5==5) then {int x=77; int a=2; int b=6; print x;} else {} print x;}
+{
+	int y = 1;
+	
+	if (y == 0) then {
+		print (y);
+	} else {
+		print 5;
+	}
+}
 
-{if(5==5) then {int x=77; int a=2; print a;} else {}}
+{
+	if(5 == 5) then {
+		int x = 77;
+		print x;
+	} else {
+	
+	}
+}
 
-{if(5==5) then {int x=77; print x;} else {}}
+{
+	if(5 == 5) then {
+		int x = 3;
+		bool y = true;
+		print y;
+	} else {
+		int x = 5;
+	}
+}
 
-{f(int a, int b){int x=55; print x;} f(0,0); int x=59; print x; print x;}
+{
+	bool x = false || true;
+	print x;
+}
 
-{if(5==5) then {int x=3; bool y=false; print (x);} else {int x=5;}}
+{
+	// ERROR: Not integer types in OR boolean operation
+	
+	int y = 0;
+	bool j = y || y;
+	print j;
+}
 
-{int y=0; bool j = y || y;}
+{
+	bool x = (4 + (6/3)) >= (5+1);
+	print x;
+}
 
-{int y=0; if (y == 0) then { print(y); } else { print 5; }}
-
-{bool x = (4+(6/3)) > (5+1);}
-
-{if(5==5) then {int x=3; bool y=false;} else {int x=5;}}
-
-{bool x = false || false;}
+{
+	int y = 9;
+	int z = 3;
+	y = z + y;
+	print y;
+}
 
 */

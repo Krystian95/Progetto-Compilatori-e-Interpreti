@@ -39,6 +39,7 @@ public class STentry {
 		return
 				s + "STentry: nestlev " + Integer.toString(nl) + "\n"+
 				s + "STentry: deleted " + (Boolean.toString(deleted)).toUpperCase() +"\n"+
+				s + "STentry: deletedByFunCall " + (Boolean.toString(deletedByFunCall)).toUpperCase() +"\n"+
 				s + "STentry: type" + type.toPrint("") +
 				s + "STentry: offset " + Integer.toString(offset) + "\n";
 	}

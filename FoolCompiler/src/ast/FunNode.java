@@ -39,7 +39,7 @@ public class FunNode implements Node {
 		if (tmp != null && !tmp.isDeleted()) {
 			res.add(new SemanticError("- Function id \"" + id + "\" already declared"));
 			return res;
-		} else{
+		} else {
 
 			hm.put(id, entry);
 
@@ -52,6 +52,8 @@ public class FunNode implements Node {
 				ParNode arg = (ParNode) a;
 				parTypes.add(arg.getType());
 			}
+			
+			env.nestingLevel++;
 
 			//crea una nuova hashmap per la symTable
 			HashMap<String,STentry> hmn = new HashMap<String,STentry> ();
@@ -77,6 +79,8 @@ public class FunNode implements Node {
 			env.isInsideFunction = true;
 			res.addAll(body.checkSemantics(env));
 			env.isInsideFunction = false;
+			
+			env.symTable.remove(env.nestingLevel--);
 		}
 
 		return res;
@@ -123,7 +127,7 @@ public class FunNode implements Node {
 						+ "lra\n"
 						+ body.codeGeneration()
 						+ "sra\n"
-						+ "pop\n" // [!]
+						+ "pop\n"
 						+ popParl
 						+ "sfp\n"
 						+ "lra\n"
