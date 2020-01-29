@@ -1,6 +1,7 @@
 package ast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import util.Environment;
 import util.SemanticError;
@@ -33,17 +34,26 @@ public class IfNode implements Node {
 		res.addAll(cond.checkSemantics(env));
 
 		//check semantics in the then and in the else exp
+		env.isInsideThenBranch = true;
 		res.addAll(th.checkSemantics(env));
+		env.isInsideThenBranch = false;
+
+		env.isInsideElseBranch = true;
 		res.addAll(el.checkSemantics(env));
+		env.isInsideElseBranch = false;
 
 		return res;
 	}
 
 	public Node typeCheck() {
 
-		if (!(FOOLlib.isEqualtype(cond.typeCheck(), new BoolTypeNode()))) {
+		if (!FOOLlib.isEqualtype(cond.typeCheck(), new BoolTypeNode())) {
 			System.err.println("You had 1 error:");
 			System.err.println("\t- Non boolean condition in if");
+			System.exit(0);
+		} else if(!Node.deletionsThenBranch.containsAll(Node.deletionsElseBranch) || !Node.deletionsElseBranch.containsAll(Node.deletionsThenBranch)) {
+			System.err.println("You had 1 error:");
+			System.err.println("\t- Mismatching behavioural between if-then-else branches");
 			System.exit(0);
 		}
 

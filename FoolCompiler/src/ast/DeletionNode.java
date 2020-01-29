@@ -39,6 +39,13 @@ public class DeletionNode implements Node {
 			enry_to_delete.setDeleted(true);
 			env.symTable.get(enry_to_delete.getNestinglevel()).put(id, enry_to_delete);
 		}
+		
+		if(env.isInsideThenBranch) {
+			DeletionNode.deletionsThenBranch.add(enry_to_delete);
+		} else if (env.isInsideElseBranch) {
+			DeletionNode.deletionsElseBranch.add(enry_to_delete);
+		}
+		
 
 		return res;
 	}

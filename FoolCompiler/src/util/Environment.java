@@ -17,4 +17,6 @@ public class Environment {
 	public boolean isInsideFunction = false;
 	public boolean isInsideDeclaration = false;
 	public String idDeclaration;
+	public boolean isInsideThenBranch = false;
+	public boolean isInsideElseBranch = false;
 }

@@ -1,11 +1,17 @@
 
-
 {
-	// ERROR: Incompatible types in equal
+	// ERROR: Mismatching behavioural between if-then-else branches
 	
-	bool a = true;
-	if(a == 1) then { print 0; } else { print 1; }
+	int a = 1;
+	int b = 2;
+	
+	if(true) then {
+		delete a;
+	} else {
+		delete b;
+	}
 }
+
 
 /*
 
@@ -220,6 +226,19 @@
 		print (y);
 	} else {
 		print 5;
+	}
+}
+
+{
+	// ERROR: Mismatching behavioural between if-then-else branches
+	
+	int a = 1;
+	int b = 2;
+	
+	if(true) then {
+		delete a;
+	} else {
+		delete b;
 	}
 }
 
