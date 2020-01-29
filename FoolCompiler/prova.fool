@@ -1,5 +1,11 @@
 
 
+{
+	// ERROR: Incompatible types in equal
+	
+	bool a = true;
+	if(a == 1) then { print 0; } else { print 1; }
+}
 
 /*
 
@@ -218,6 +224,13 @@
 }
 
 {
+	// ERROR: Incompatible types in equal
+	
+	bool a = true;
+	if(a == 1) then { print 0; } else { print 1; }
+}
+
+{
 	if(5 == 5) then {
 		int x = 77;
 		print x;
@@ -251,6 +264,11 @@
 
 {
 	bool x = (4 + (6/3)) >= (5+1);
+	print x;
+}
+
+{
+	int x = -4-8;
 	print x;
 }
 

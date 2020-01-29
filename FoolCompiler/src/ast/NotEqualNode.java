@@ -39,15 +39,9 @@ public class NotEqualNode implements Node {
 		Node l = left.typeCheck();
 		Node r = right.typeCheck();
 
-		if (FOOLlib.isEqualtype(l, new IntTypeNode()) && FOOLlib.isEqualtype(r, new IntTypeNode())) {
-			if (!(FOOLlib.isEqualtype(l, r) || FOOLlib.isEqualtype(r, l))) {
-				System.err.println("You had 1 error:");
-				System.err.println("\t- Incompatible types in not equal");
-				System.exit(0);
-			}
-		} else {
+		if (!(FOOLlib.isEqualtype(l, r) || FOOLlib.isEqualtype(r, l))) {
 			System.err.println("You had 1 error:");
-			System.err.println("\t- Not integer types in not equal");
+			System.err.println("\t- Incompatible types in not equal");
 			System.exit(0);
 		}
 
