@@ -29,27 +29,27 @@ public class BlockNode implements Node {
 
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
-		env.nestingLevel++;
+		env.increaseNestingLevel();
 				
-		int nestLevel = env.nestingLevel;
+		int nestLevel = env.getNestingLevel();
 
 		HashMap<String,STentry> hm = new HashMap<String,STentry> ();
-		env.symTable.add(hm);
+		env.addHasMapToSymbTable(hm);
 
-		int offsetGlobal = env.offset;
+		int offsetGlobal = env.getOffset();
 
 		if(statements.size() > 0){
-			env.offset = -1;
+			env.setOffset(-1);
 			for(Node statement : statements) {
 				res.addAll(statement.checkSemantics(env));
 			}
 		}
 
-		env.offset = offsetGlobal ;
+		env.setOffset(offsetGlobal);
 
-		countVarDec = Utils.countVarDec("", env.symTable, nestLevel);
+		countVarDec = Utils.countVarDec("", env.getSymbTable(), nestLevel);
 
-		env.symTable.remove(env.nestingLevel--);
+		env.removeHasMapFromSymbTable(env.decreaseNestingLevel());
 
 		return res;
 	}

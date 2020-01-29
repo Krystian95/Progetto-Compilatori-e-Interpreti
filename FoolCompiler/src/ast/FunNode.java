@@ -26,15 +26,15 @@ public class FunNode implements Node {
 
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
-		HashMap<String, STentry> hm = env.symTable.get(env.nestingLevel);
+		HashMap<String, STentry> hm = env.getSymbTable().get(env.getNestingLevel());
 
-		STentry entry = new STentry(env.nestingLevel, env.offset--);
+		STentry entry = new STentry(env.getNestingLevel(), env.decreaseOffset());
 		LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlistTmp = new LinkedHashMap<Integer, LinkedHashMap<String, STentry>>();
 
-		int j = env.nestingLevel;
+		int j = env.getNestingLevel();
 		STentry tmp = null; 
 
-		tmp = (env.symTable.get(j--)).get(id);
+		tmp = (env.getSymbTable().get(j--)).get(id);
 
 		if (tmp != null && !tmp.isDeleted()) {
 			res.add(new SemanticError("- Function id \"" + id + "\" already declared"));
@@ -45,7 +45,7 @@ public class FunNode implements Node {
 
 			ArrayList<Node> parTypes = new ArrayList<Node>();
 
-			env.parOffset=1;
+			env.setParOffset(1);
 
 			//check args
 			for(Node a : parlist){
@@ -53,11 +53,11 @@ public class FunNode implements Node {
 				parTypes.add(arg.getType());
 			}
 			
-			env.nestingLevel++;
+			env.increaseNestingLevel();
 
 			//crea una nuova hashmap per la symTable
 			HashMap<String,STentry> hmn = new HashMap<String,STentry> ();
-			env.symTable.add(hmn);
+			env.addHasMapToSymbTable(hmn);
 
 			int counter = 0;
 
@@ -76,11 +76,11 @@ public class FunNode implements Node {
 
 			entry.addType(new ArrowTypeNode(parTypes));
 
-			env.isInsideFunction = true;
+			env.setIsInsideFunction(true);
 			res.addAll(body.checkSemantics(env));
-			env.isInsideFunction = false;
+			env.setIsInsideFunction(false);
 			
-			env.symTable.remove(env.nestingLevel--);
+			env.removeHasMapFromSymbTable(env.decreaseNestingLevel());
 		}
 
 		return res;

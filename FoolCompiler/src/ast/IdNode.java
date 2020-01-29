@@ -33,21 +33,21 @@ public class IdNode implements Node {
 
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
-		int j = env.nestingLevel;
+		int j = env.getNestingLevel();
 		STentry tmp = null;
 
 		while (j >= 0 && tmp == null)
-			tmp = (env.symTable.get(j--)).get(id);
+			tmp = (env.getSymbTable().get(j--)).get(id);
 
 		if (tmp == null || tmp.isDeleted()) {
 			res.add(new SemanticError("- Id \"" + id + "\" not declared"));
 		} else {
-			if(env.isInsideDeclaration && id.equals(env.idDeclaration)) {
+			if(env.getIsInsideDeclaration() && id.equals(env.getIdDeclaration())) {
 				res.add(new SemanticError("- Variable \"" + id + "\" is not initializated"));
 			}
 
 			entry = tmp;
-			nestinglevel = env.nestingLevel;
+			nestinglevel = env.getNestingLevel();
 		}
 
 		return res;

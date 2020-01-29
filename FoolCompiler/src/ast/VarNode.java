@@ -22,32 +22,32 @@ public class VarNode implements Node {
 	@Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
 
-		env.isInsideDeclaration = true;
-		env.idDeclaration = id;
+		env.setIsInsideDeclaration(true);
+		env.setIdDeclaration(id);
 
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
-		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
+		HashMap<String,STentry> hm = env.getSymbTable().get(env.getNestingLevel());
 
-		STentry entry = new STentry(env.nestingLevel, type, env.offset);
+		STentry entry = new STentry(env.getNestingLevel(), type, env.getOffset());
 
-		int j = env.nestingLevel;
+		int j = env.getNestingLevel();
 
 		STentry enry_to_declare = null;
 
-		enry_to_declare = (env.symTable.get(j--)).get(id);
+		enry_to_declare = (env.getSymbTable().get(j--)).get(id);
 
 		if (enry_to_declare != null && !enry_to_declare.isDeleted()) {
 			res.add(new SemanticError("Var id \"" + id + "\" already declared"));
 			return res;
 		} else {
-			env.offset--;
+			env.decreaseOffset();
 			hm.put(id, entry);
 		}
 
 		res.addAll(exp.checkSemantics(env));
 
-		env.isInsideDeclaration = false;
+		env.setIsInsideDeclaration(false);
 
 		return res;
 	}

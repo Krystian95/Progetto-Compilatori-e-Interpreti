@@ -49,11 +49,11 @@ public class CallNode implements Node {
 
 		LinkedHashMap<Integer, LinkedHashMap<String, STentry>> parlistCalled = new LinkedHashMap<Integer, LinkedHashMap<String, STentry>>();
 
-		int j = env.nestingLevel;
+		int j = env.getNestingLevel();
 		STentry functionCalled = null; 
 
 		while (j >= 0 && functionCalled == null) {
-			functionCalled = (env.symTable.get(j--)).get(id);
+			functionCalled = (env.getSymbTable().get(j--)).get(id);
 		}
 
 		if (functionCalled == null || functionCalled.isDeleted()) {
@@ -61,7 +61,7 @@ public class CallNode implements Node {
 			return res;
 		} else {
 			this.entry = functionCalled;
-			this.nestinglevel = env.nestingLevel;
+			this.nestinglevel = env.getNestingLevel();
 
 			int counter = 0;
 
@@ -136,18 +136,18 @@ public class CallNode implements Node {
 							 * Deletion
 							 */
 							if(entryParDec.isDeletedByFunCall()) {
-								env.symTable.get(entry.getNestinglevel()).remove(idEntry, entry);
+								env.getSymbTable().get(entry.getNestinglevel()).remove(idEntry, entry);
 								entry.setDeleted(true);
-								env.symTable.get(entry.getNestinglevel()).put(idEntry, entry);
+								env.getSymbTable().get(entry.getNestinglevel()).put(idEntry, entry);
 							}
 
 							/*
 							 * Mapping
 							 */
 							if(entryParDec.getMode().equals("var")) {
-								env.symTable.get(entry.getNestinglevel()).remove(idParDec, entryParDec);
+								env.getSymbTable().get(entry.getNestinglevel()).remove(idParDec, entryParDec);
 								entryParDec.setMappedEntry(entry);
-								env.symTable.get(entry.getNestinglevel()).put(idParDec, entryParDec);
+								env.getSymbTable().get(entry.getNestinglevel()).put(idParDec, entryParDec);
 							}
 						}
 					}

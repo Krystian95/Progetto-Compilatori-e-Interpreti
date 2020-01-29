@@ -24,12 +24,12 @@ public class AssignmentNode implements Node {
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
 		varEntry = null; //entry della variabile nella ST
-		nestinglevel = env.nestingLevel;
+		nestinglevel = env.getNestingLevel();
 		
 		// Cerco l'entry dell'id nella ST dal NL corrente fino a quello più esterno (1)
-		int j = env.nestingLevel;
+		int j = env.getNestingLevel();
 		while(j >= 0 && varEntry == null) {
-			varEntry = (env.symTable.get(j--)).get(id);
+			varEntry = (env.getSymbTable().get(j--)).get(id);
 		}
 
 		if(varEntry == null || varEntry.isDeleted()) {

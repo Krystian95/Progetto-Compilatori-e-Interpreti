@@ -37,7 +37,7 @@ public class ParNode implements Node {
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
 		//mi salvo la ST dell'ultimo NL
-		HashMap<String,STentry> hm = env.symTable.get(env.nestingLevel);
+		HashMap<String,STentry> hm = env.getSymbTable().get(env.getNestingLevel());
 
 		//se il nome è già stato usato nel NL corrente diamo errore
 		if (hm.containsKey(id)) {
@@ -45,10 +45,10 @@ public class ParNode implements Node {
 			return res;
 			//se il nome è free, inserisco l'entry nella ST e incremento l'offset
 		}else {
-			this.entry = new STentry(env.nestingLevel, type, env.parOffset);
+			this.entry = new STentry(env.getNestingLevel(), type, env.getParOffset());
 			entry.setMode(this.mode);
 			hm.put(id, this.entry);
-			env.parOffset++;
+			env.increaseParOffset();
 		}
 
 		return res;

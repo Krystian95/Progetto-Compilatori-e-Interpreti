@@ -34,13 +34,13 @@ public class IfNode implements Node {
 		res.addAll(cond.checkSemantics(env));
 
 		//check semantics in the then and in the else exp
-		env.isInsideThenBranch = true;
+		env.setIsInsideThenBranch(true);
 		res.addAll(th.checkSemantics(env));
-		env.isInsideThenBranch = false;
+		env.setIsInsideThenBranch(false);
 
-		env.isInsideElseBranch = true;
+		env.setIsInsideElseBranch(true);
 		res.addAll(el.checkSemantics(env));
-		env.isInsideElseBranch = false;
+		env.setIsInsideElseBranch(false);
 
 		return res;
 	}

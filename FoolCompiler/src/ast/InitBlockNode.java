@@ -27,16 +27,16 @@ public class InitBlockNode implements Node {
 
 		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 
-		env.nestingLevel++;
+		env.increaseNestingLevel();
 		HashMap<String,STentry> hm = new HashMap<String,STentry> ();
-		env.symTable.add(hm);
+		env.addHasMapToSymbTable(hm);
 
-		env.offset = -2;
+		env.setOffset(-2);
 
 		res.addAll(statement.checkSemantics(env));
 
 		//clean the scope, we are leaving a let scope
-		env.symTable.remove(env.nestingLevel--);
+		env.removeHasMapFromSymbTable(env.decreaseNestingLevel());
 
 		return res;
 	}
