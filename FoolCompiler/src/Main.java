@@ -18,7 +18,7 @@ import util.AppLexicalError.ThrowingLexicalError;
 import util.Environment;
 import util.SemanticError;
 
-public class Test {
+public class Main {
 	public static void main(String[] args) throws Exception {
 
 		String fileName = "prova.fool";

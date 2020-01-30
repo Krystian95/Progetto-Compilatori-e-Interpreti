@@ -1,0 +1,405 @@
+//CODEGEN 1
+{
+    int x = 1;
+    f(int y){
+        if (y == 0) then {
+            print(x);
+        } else {
+            f(y-1) ;
+        }
+    }
+    f(54) ;
+}
+
+//CODEGEN 2
+{
+    int u = 1 ;
+    f(var int x, int n){
+        if (n == 0) then { print(x) ; }
+        else { int y = x*n ; f(y,n-1) ; }
+        delete x ;
+
+    }
+    f(u,6) ;
+}
+
+//CODEGEN 3
+{
+    {
+    f(int m, int n){
+        if (m>n) then { print(m+n) ;}
+        else { int x = 1 ; f(m+1,n+1) ; }
+    }
+    f(5,4) ;
+    // cosa succede se la invoco con f(4,5)?
+	}
+}
+
+//EXAMPLE 1
+{
+    int z = 5;
+    f(var int a, var int b){
+        {
+            delete a;
+            delete b;
+            delete z;
+        }
+    }
+    {
+        int x = 3 ;
+        f(x,x) ; // errore perchè la copia del parametro avviene dopo l'eliminazione della prima x
+        z = 1; // errore perchè z viene cancellato all'invocazione
+    }
+
+}
+
+//EXAMPLE 2
+{
+    int z = 5;
+    f(int a, var int b){
+        {
+            delete a;
+            delete b;
+            delete z;
+        }
+    }
+    z = 0;
+    {
+        int x = 3 ;
+        f(x,x) ;
+        z = 1; // errore perchè z viene cancellato all'invocazione
+    }
+
+}
+
+//EXAMPLE 3
+{
+    int z = 5;
+    f( int a ){
+        delete z;
+    }
+    delete f;
+    {
+        int x = 3 ;
+        f(x) ; // errore perchè f è stata rimossa
+    }
+}
+
+//EXAMPLE 4
+{
+   f( int a ){
+        delete f;
+        a = 2;
+    }
+    {
+        int x = 3 ;
+        f(x) ;
+        f(x) ; // errore perchè la chiamata ad f elimina il suo identificatore
+    }
+}
+
+//EXAMPLE 5
+{
+  int x = 2;
+    {
+        int x = 2;
+        delete x;
+        delete x; // errore perchè alla creazione dello scope, la x su cui faccio binding è sempre la stessa
+    }
+}
+
+//EXAMPLE 6
+{
+  int x = 2;
+    {
+        int x = 2;
+        delete x;
+        int x = 1;
+        delete x;
+    }
+}
+
+//EXAMPLE 7
+{
+   f(var int x, int y){
+        if (y == 0) then {
+            x=x+y ;
+        } else {
+            delete x;
+        }
+    } // errore perchè i due rami dell'ifThenElse hanno tipo "comportamentale" diverso
+}
+
+//EXAMPLE 8
+{ 
+ 	 f(var int a, int b){ delete a; } 
+
+     int x = 3 ; 
+     f(x,x);
+     print x; //errore x è stata cancellata
+
+ }
+ 
+ //EXAMPLE 8bis
+{ 
+ 	 f(var int a, int b){ delete a; } 
+
+     int x = 3 ; 
+     f(x,x);
+     print x;
+
+ }
+
+//EXAMPLE 9
+{
+    int x = 1;
+    f( var int a) {
+        delete a;
+    }
+    {
+        int x = 2;
+        f(x);
+    }
+    f(x); // nessun errore
+}
+
+//EXAMPLE 10
+{
+    bool x = true;
+    int y = 2;
+    if (x) then {
+        delete x;
+    } else {
+        delete y;
+    } // errore perchè i due rami eliminano varibili diverse
+}
+
+//EXAMPLE 10 bis
+{
+    bool x = true;
+    int y = 2;
+    if (x) then {
+        int g = 4;
+    } else {
+        delete y;
+    } // errore comportamentale 
+}
+
+//EXAMPLE 11
+{
+    f(var int x, var int y){
+        int z = x ; // z è una copia di x => nessun errore
+        delete x ;
+        y = y + z ;
+    }
+    {
+        int x = 3 ;
+        int y = 4 ;
+        f(x,y) ;
+    }
+}
+
+//EXAMPLE 12
+{
+    g(var int x, var int y){
+        delete x ;
+        delete y ;
+    }
+    f(var int z){
+        g(z,z) ; // errore perchè g cancella due volte z
+    }
+    int a = 1;
+    f(a);
+}
+
+//EXAMPLE 13
+{
+	int x = 1;
+
+	f(){ 
+		int p=88; 
+		print p; 
+		}
+		
+	g(int y){ 
+		print y; 
+			}
+		
+	b(){ 
+		print 66;
+	   }
+	
+	int k=666;
+	int a=26347;
+	g(k);
+	int z = 6;
+	int p = 0;
+	int t = 5;
+	int q = 999;
+	print z;
+	f();
+	b();
+}
+
+//EXAMPLE 14
+{
+    int x = 1;
+    f (var int a, var int b){
+        b = a + 1;
+        delete a;
+        b = b + 1;
+    }
+    f(x,x); // errore perchè a e b sono uguali
+}
+
+//EXAMPLE 15
+{
+    int a = 7;
+    if(a == 7) then {
+        print a;
+    } else {
+        a = 1;
+    }
+}
+
+\\EXAMPLE 16
+{
+    f(int f){ // errore, parametro chiamato come la funzione
+        int x = 5 ;
+        int a = 4 ;
+        f(a);
+     }
+}
+
+\\EXAMPLE 17
+{
+    bool g = true;
+    g = false;
+    g(5); // errore, g non è una funzione
+}
+
+\\EXAMPLE 18
+{
+    int a = 5 >= 3 + 4; // errore, sto assegnando un booleano ad un intero
+}
+
+\\EXAMPLE 19
+{
+    int a = 5;
+    a = false; // errore, sto assegnando bool a un intero
+}
+
+\\EXAMPLE 20
+{
+    f(var int a){
+        a = 7;
+    }
+    bool a = true;
+    f(a); // errore, sto chiamando una funzione che accetta int con bool
+}
+
+\\EXAMPLE 21
+{
+    bool a = true;
+    int q = (a + 4) + (a + 5); // errore, sto facendo la somma di interi e boolenani
+}
+
+\\EXAMPLE 22
+
+{
+    int x = 1;
+    {
+        int x = 2;
+        int a = 3;
+        {
+            f(var int a){
+                delete x;
+                if (a > 0) then {
+                    f(a-1);
+                } else {
+                    print x;
+                }
+            }
+        }
+    }
+}
+
+\\EXAMPLE 23
+
+{	
+	int x = 1;
+    int y = 1;
+    f(int a, int b, int c){
+       print a;
+    }
+
+    f(-x + y, x, y);
+
+}
+
+\\EXAMPLE VARIUS
+
+
+{ int k=8; f(int k){ delete k; print k;} f(k); }
+
+{ int a = 2; f(bool x){} f(a); }
+
+{ bool a = true; f(int x){} f(a); }
+
+{int y = 9; int z = 3 ; y = z + y; print y;}
+
+{ int k=8; f(int k){print k;} g(int k){ int u=9; print u; f(u+k); } g(k); }
+
+{
+    f(int x, int y){
+        int z = x ;
+        print z;
+        print y;
+        delete x ;
+        y = y; 		
+        y = y + z ;
+    }
+    {
+        int x = 3 ;
+        int y = 4 ;
+        f(x,y) ;
+    }
+}
+
+{
+	int x=1;
+	int y=4;
+	{
+		int a=44;
+		{
+			{
+				print a;
+			}	
+		}	
+	}
+	print x;
+}
+
+{ int x = 1; f(int y){ print y; if (y == 0) then { print(x);} else { f(y-1); }}  f(54); }
+ 
+{ int x = 4 ; delete x ; int x = 5 ; }
+
+{int z=888; int u=44; int x=55; if(5==5) then {int x=77; int a=2; int b=6; print x;} else {} print x;}
+
+{if(5==5) then {int x=77; int a=2; print a;} else {}}
+
+{if(5==5) then {int x=77; print x;} else {}}
+
+{f(int a, int b){int x=55; print x;} f(0,0); int x=59; print x; print x;}
+
+{if(5==5) then {int x=3; bool y=false; print (x);} else {int x=5;}}
+
+{int y=0; bool j = y || y;}
+
+{int y=0; if (y == 0) then { print(y); } else { print 5; }}
+
+{bool x = (4+(6/3)) > (5+1);}
+
+{if(5==5) then {int x=3; bool y=false;} else {int x=5;}}
+
+{bool x = false || false;}
