@@ -1,6 +1,10 @@
-
 {
-    bool g = true;
-    g = false;
-    g(5);
+	int a = 1;
+	int b = 2;
+	
+	if(true) then {
+		a = 5;
+	} else {
+		b = 8;
+	}
 }

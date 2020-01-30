@@ -1,19 +1,39 @@
 {
-	// ERROR: Mismatching behavioural between if-then-else branches
-	
 	int a = 1;
 	int b = 2;
-	int c = 3;
 	
 	if(true) then {
-		delete a;
+		a = 6;
 	} else {
-		delete b;
-		delete c;
+		int u = 8;
 	}
 }
 
 /*
+
+{
+	int a = 1;
+	int b = 2;
+	
+	if(true) then {
+		a = 6;
+	} else {
+		int u = 8;
+	}
+}
+
+{
+	int a = 1;
+	int b = 2;
+	
+	if(true) then {
+		int y = 5;
+	} else {
+		int u = 8;
+		int o = 4;
+	}
+}
+
 {
 	// ERROR: Mismatching behavioural between if-then-else branches
 	
@@ -23,7 +43,7 @@
 	if(true) then {
 		int y = 5;
 	} else {
-		int u= 8;
+		int u = 8;
 		int o = 4;
 	}
 }

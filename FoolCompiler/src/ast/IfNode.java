@@ -51,11 +51,20 @@ public class IfNode implements Node {
 			System.err.println("You had 1 error:");
 			System.err.println("\t- Non boolean condition in if");
 			System.exit(0);
-		} else if(Node.deletionsThenBranch.size() > 0 || Node.deletionsElseBranch.size() > 0) {
-			if(!Node.deletionsThenBranch.containsAll(Node.deletionsElseBranch) || !Node.deletionsElseBranch.containsAll(Node.deletionsThenBranch)) {
-				System.err.println("You had 1 error:");
-				System.err.println("\t- Mismatching behavioural between if-then-else branches");
-				System.exit(0);
+		} else {
+
+			if(Node.deletionsThenBranch.size() > 0 || Node.deletionsElseBranch.size() > 0) {
+				if(!Node.deletionsThenBranch.containsAll(Node.deletionsElseBranch) || !Node.deletionsElseBranch.containsAll(Node.deletionsThenBranch)) {
+					System.err.println("You had 1 error:");
+					System.err.println("\t- Mismatching behavioural between if-then-else branches (deletions)");
+					System.exit(0);
+				}
+			} else if(Node.assignmentsThenBranch.size() > 0 || Node.assignmentsElseBranch.size() > 0) {
+				if(!Node.assignmentsThenBranch.containsAll(Node.assignmentsElseBranch) || !Node.assignmentsElseBranch.containsAll(Node.assignmentsThenBranch)) {
+					System.err.println("You had 1 error:");
+					System.err.println("\t- Mismatching behavioural between if-then-else branches (assignments)");
+					System.exit(0);
+				}
 			}
 		}
 

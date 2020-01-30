@@ -46,7 +46,6 @@ public class DeletionNode implements Node {
 			DeletionNode.deletionsElseBranch.add(enry_to_delete);
 		}
 		
-
 		return res;
 	}
 

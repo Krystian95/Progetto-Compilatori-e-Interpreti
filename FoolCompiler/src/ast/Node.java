@@ -12,6 +12,9 @@ public interface Node {
 	Set<STentry> deletionsThenBranch = new HashSet<>();
 	Set<STentry> deletionsElseBranch = new HashSet<>();
 
+	Set<STentry> assignmentsThenBranch = new HashSet<>();
+	Set<STentry> assignmentsElseBranch = new HashSet<>();
+
 	String toPrint(String indent);
 
 	Node typeCheck();

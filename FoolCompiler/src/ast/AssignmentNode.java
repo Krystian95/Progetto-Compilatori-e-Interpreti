@@ -25,7 +25,7 @@ public class AssignmentNode implements Node {
 
 		varEntry = null; //entry della variabile nella ST
 		nestinglevel = env.getNestingLevel();
-		
+
 		// Cerco l'entry dell'id nella ST dal NL corrente fino a quello più esterno (1)
 		int j = env.getNestingLevel();
 		while(j >= 0 && varEntry == null) {
@@ -40,6 +40,12 @@ public class AssignmentNode implements Node {
 		}
 
 		res.addAll(exp.checkSemantics(env));
+
+		if(env.getIsInsideThenBranch()) {
+			AssignmentNode.assignmentsThenBranch.add(varEntry);
+		} else if (env.getIsInsideElseBranch()) {
+			AssignmentNode.assignmentsElseBranch.add(varEntry);
+		}
 
 		return res;
 	}
@@ -77,7 +83,7 @@ public class AssignmentNode implements Node {
 		if(varEntry.getMappedEntry() != null && varEntry.getMode().equals("var")) {
 
 			String getARMappedEntry = "";
-			
+
 			for (int i=0; i<nestinglevel-varEntry.getMappedEntry().getNestinglevel(); i++) 
 				getARMappedEntry += "lw\n";
 

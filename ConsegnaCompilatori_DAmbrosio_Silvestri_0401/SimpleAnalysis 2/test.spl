@@ -1,0 +1,11 @@
+{
+	int a = 1;
+	int b = 2;
+	
+	if(true) then {
+		int y = 5;
+	} else {
+		int u = 8;
+		int o = 4;
+	}
+}
