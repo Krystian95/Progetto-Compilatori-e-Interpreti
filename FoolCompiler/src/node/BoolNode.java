@@ -18,9 +18,9 @@ public class BoolNode implements Node {
 	public String toPrint(String s) {
 
 		if (val)
-			return s + "Bool:true\n";
+			return s + "Bool: true\n";
 		else
-			return s + "Bool:false\n";  
+			return s + "Bool: false\n";  
 	}
 
 	public Node typeCheck() {
