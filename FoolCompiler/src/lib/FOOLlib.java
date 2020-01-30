@@ -1,6 +1,7 @@
 package lib;
 
-import ast.*;
+import models.Node;
+import node.*;
 
 public class FOOLlib {
 

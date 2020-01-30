@@ -1,0 +1,10 @@
+{
+	f(int a, int b){
+		int x = 55;
+		print x;
+	}
+	
+	f(0,0);
+	int x = 99;
+	print x;
+}

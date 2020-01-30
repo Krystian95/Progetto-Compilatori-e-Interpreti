@@ -3,19 +3,23 @@ cfp
 pop
 lfp
 cfp
-push 3
 push function0
+lfp
+push 0
+push 0
 lfp
 push -1
 lfp
 add
 lw
-lfp
+js
+push 99
 push -2
 lfp
 add
 lw
-js
+print
+pop
 pop
 pop
 sfp
@@ -26,16 +30,17 @@ cfp
 lra
 lfp
 cfp
+push 55
 push -1
 lfp
-lw
-lw
 add
 lw
 print
 pop
+pop
 sfp
 sra
+pop
 pop
 pop
 sfp
