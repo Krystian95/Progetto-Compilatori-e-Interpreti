@@ -20,7 +20,7 @@ public class FunctionTypeNode implements Node {
 		for (Node par:parlist)
 			parlstr += par.toPrint(s + "  ");
 
-		return s + "ArrowType\n" + parlstr; 
+		return s + "FunctionType\n" + parlstr; 
 	}
 
 	public ArrayList<Node> getParList () {

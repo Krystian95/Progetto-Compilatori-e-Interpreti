@@ -77,7 +77,7 @@ public class Main {
 					System.out.println(type.toPrint("\nType checking ok! Type of the program is: "));
 				}
 
-				// CODE GENERATION in prova.fool.asm
+				// CODE GENERATION in test.fool.asm
 				String code = ast.codeGeneration(); 
 				BufferedWriter out = new BufferedWriter(new FileWriter(fileName + ".asm")); 
 				out.write(code);
