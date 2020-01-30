@@ -1,9 +1,0 @@
-{
-    //////////////////// EXAMPLE 5 ////////////////////
-    int x = 2;
-    {
-        int x = 2;
-        delete x;
-        delete x; // errore perchè alla creazione dello scope, la x su cui faccio binding è sempre la stessa
-    }
-}

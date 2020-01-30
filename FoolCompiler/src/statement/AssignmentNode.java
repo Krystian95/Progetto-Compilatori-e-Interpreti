@@ -44,12 +44,6 @@ public class AssignmentNode implements Node {
 
 		res.addAll(exp.checkSemantics(env));
 
-		if(env.getIsInsideThenBranch()) {
-			AssignmentNode.assignmentsThenBranch.add(varEntry);
-		} else if (env.getIsInsideElseBranch()) {
-			AssignmentNode.assignmentsElseBranch.add(varEntry);
-		}
-
 		return res;
 	}
 
