@@ -23,6 +23,15 @@
 	print b;
 }
 
+
+{
+	// ERROR: Function id "g" not declared
+	
+    bool g = true;
+    g = false;
+    g(5);
+}
+
 {
 	int k = 8;
 	int a = 7;

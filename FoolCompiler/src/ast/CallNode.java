@@ -24,7 +24,6 @@ public class CallNode implements Node {
 	}
 
 	public CallNode(String text, ArrayList<Node> args) {
-
 		id = text;
 		parlist = args;
 	}
@@ -56,7 +55,7 @@ public class CallNode implements Node {
 			functionCalled = (env.getSymbTable().get(j--)).get(id);
 		}
 
-		if (functionCalled == null || functionCalled.isDeleted()) {
+		if (functionCalled == null || functionCalled.isDeleted() || !(functionCalled.getType() instanceof ArrowTypeNode)) {
 			res.add(new SemanticError("- Function id \"" + id + "\" not declared"));
 			return res;
 		} else {
