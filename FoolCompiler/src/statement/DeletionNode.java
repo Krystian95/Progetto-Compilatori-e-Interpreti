@@ -29,8 +29,10 @@ public class DeletionNode implements Node {
 		}
 
 		if (enry_to_delete == null || enry_to_delete.isDeleted()) {
-			res.add(new SemanticError("- Id \"" + id + "\" not declared"));
-			return res;
+			if(!(env.getIsInsideElseBranch() && DeletionNode.deletionsThenBranch.contains(enry_to_delete))) {
+				res.add(new SemanticError("- Id \"" + id + "\" not declared"));
+				return res;
+			}
 		} else {
 			env.getSymbTable().get(enry_to_delete.getNestinglevel()).remove(id, enry_to_delete);
 
@@ -41,13 +43,13 @@ public class DeletionNode implements Node {
 			enry_to_delete.setDeleted(true);
 			env.getSymbTable().get(enry_to_delete.getNestinglevel()).put(id, enry_to_delete);
 		}
-		
+
 		if(env.getIsInsideThenBranch()) {
 			DeletionNode.deletionsThenBranch.add(enry_to_delete);
 		} else if (env.getIsInsideElseBranch()) {
 			DeletionNode.deletionsElseBranch.add(enry_to_delete);
 		}
-		
+
 		return res;
 	}
 

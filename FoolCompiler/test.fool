@@ -1,3 +1,21 @@
+
+
+{
+	// ERROR: Mismatching behavioural between if-then-else branches
+	
+	int a = 1;
+	int b = 2;
+	
+	if(true) then {
+		delete a;
+	} else {
+		delete a;
+		delete b;
+	}
+}
+
+/*
+
 {
 	f(int a, int b){
 		int x = 55;
@@ -8,3 +26,5 @@
 	int x = 99;
 	print x;
 }
+
+*/
