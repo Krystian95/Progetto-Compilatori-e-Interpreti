@@ -3,20 +3,17 @@ cfp
 pop
 lfp
 cfp
-push 1
-push 2
-push 1
-push 1
-beq label0
+push function0
 lfp
-cfp
-sfp
-b label1
-label0:
+push 0
+push 0
 lfp
-cfp
-sfp
-label1:
+push -1
+lfp
+add
+lw
+js
+push 99
 push -2
 lfp
 add
@@ -27,3 +24,25 @@ pop
 pop
 sfp
 halt
+
+function0:
+cfp
+lra
+lfp
+cfp
+push 55
+push -1
+lfp
+add
+lw
+print
+pop
+pop
+sfp
+sra
+pop
+pop
+pop
+sfp
+lra
+js

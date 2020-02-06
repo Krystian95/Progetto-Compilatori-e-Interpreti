@@ -55,8 +55,14 @@ public class FunNode implements Node {
 			for(Node a : parlist){
 				ParNode arg = (ParNode) a;
 				parTypes.add(arg.getType());
+
+				if(arg.getId().equals(id)) {
+					System.err.println("You had 1 error:");
+					System.err.println("- Parameter \"" + arg.getId() + "\" with the same name of the function (\"" + id + "\")");
+					System.exit(0);
+				}
 			}
-			
+
 			env.increaseNestingLevel();
 
 			//crea una nuova hashmap per la symTable
@@ -83,7 +89,7 @@ public class FunNode implements Node {
 			env.setIsInsideFunction(true);
 			res.addAll(body.checkSemantics(env));
 			env.setIsInsideFunction(false);
-			
+
 			env.removeHasMapFromSymbTable(env.decreaseNestingLevel());
 		}
 
