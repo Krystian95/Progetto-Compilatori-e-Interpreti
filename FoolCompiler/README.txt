@@ -1,3 +1,5 @@
+Seguire le seguenti istruzioni per lanciare il progetto:
+
 - Estrarre il progetto dalla cartella compressa
 - Importarlo con Eclipse (“File” > “Open Project from File System”)
 - Impostare eventualmente ANTLR (provarlo ad importare dopo aver svuotato l’ambiente da tutti i progetti aperti)
