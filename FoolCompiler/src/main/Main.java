@@ -30,7 +30,6 @@ public class Main {
 
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-
 		System.out.println();
 
 		if(lexer.lexicalErrors > 0){
