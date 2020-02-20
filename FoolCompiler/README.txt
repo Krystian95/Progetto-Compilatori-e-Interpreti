@@ -1,7 +1,0 @@
-Seguire le seguenti istruzioni per lanciare il progetto:
-
-- Estrarre il progetto dalla cartella compressa
-- Importarlo con Eclipse (“File” > “Open Project from File System”)
-- Impostare eventualmente ANTLR (provarlo ad importare dopo aver svuotato l’ambiente da tutti i progetti aperti)
-- Eseguire il progetto lanciando la classe Main.java contenuta in “src” > “main”
-- Editare il file “test.fool” per modificare il codice da eseguire
